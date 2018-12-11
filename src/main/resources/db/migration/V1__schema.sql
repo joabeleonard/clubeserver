@@ -11,6 +11,31 @@ CREATE TABLE `users` (
   UNIQUE KEY `uk_users_email` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE `empresa` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(40) NOT NULL,
+  `desconto` decimal NOT NULL,
+  `detalhe` TEXT NOT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_users_username` (`username`),
+  UNIQUE KEY `uk_users_email` (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `cliente` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+   `user_id` bigint(20) NOT NULL,
+  `cpf` varchar(15) NOT NULL,
+  `ativo` boolean NOT NULL,
+  `pontos` int NOT NULL,
+   `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_users_username` (`username`),
+  UNIQUE KEY `uk_users_email` (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `roles` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
