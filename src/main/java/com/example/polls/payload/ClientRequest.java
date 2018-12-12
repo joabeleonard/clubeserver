@@ -9,38 +9,64 @@ import java.util.List;
 public class ClientRequest {
     @NotBlank
     @Size(max = 140)
-    private String question;
+    private String email;
+    
+    @NotBlank
+    @Size(max = 140)
+    private String nome;
+    
+    @NotBlank
+    @Size(max = 140)
+    private String senha;
+    
+    @NotBlank
+    @Size(max = 140)
+    private String endereco;
+    
+    @NotBlank
+    @Size(max = 14)
+    private String cpf;
 
-    @NotNull
-    @Size(min = 2, max = 6)
-    @Valid
-    private List<ChoiceRequest> choices;
+	public String getEmail() {
+		return email;
+	}
 
-    @NotNull
-    @Valid
-    private PollLength pollLength;
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    public String getQuestion() {
-        return question;
-    }
+	public String getNome() {
+		return nome;
+	}
 
-    public void setQuestion(String question) {
-        this.question = question;
-    }
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
 
-    public List<ChoiceRequest> getChoices() {
-        return choices;
-    }
+	public String getSenha() {
+		return senha;
+	}
 
-    public void setChoices(List<ChoiceRequest> choices) {
-        this.choices = choices;
-    }
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
 
-    public PollLength getPollLength() {
-        return pollLength;
-    }
+	public String getEndereco() {
+		return endereco;
+	}
 
-    public void setPollLength(PollLength pollLength) {
-        this.pollLength = pollLength;
-    }
+	public void setEndereco(String endereco) {
+		this.endereco = endereco;
+	}
+
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+	
+	
+
 }

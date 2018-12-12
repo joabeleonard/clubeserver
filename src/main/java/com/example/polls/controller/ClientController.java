@@ -8,6 +8,7 @@ import com.example.polls.repository.UserRepository;
 import com.example.polls.repository.VoteRepository;
 import com.example.polls.security.CurrentUser;
 import com.example.polls.security.UserPrincipal;
+import com.example.polls.service.ClientService;
 import com.example.polls.service.PollService;
 import com.example.polls.util.AppConstants;
 import org.slf4j.Logger;
@@ -41,7 +42,7 @@ public class ClientController {
     private PollService pollService;
     
     @Autowired
-    private ClientRepository clientRepository;
+    private ClientService clientService;
 
     private static final Logger logger = LoggerFactory.getLogger(ClientController.class);
 
@@ -54,9 +55,9 @@ public class ClientController {
 
     @PostMapping
     @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<?> createClient(@Valid @RequestBody Cliente pollRequest) {
-	    System.out.println("teste"+pollRequest.getCpf());
-    	Cliente cliente = clientRepository.save(pollRequest);
+    public ResponseEntity<?> createClient(@Valid @RequestBody ClientRequest clientRequest) {
+	    System.out.println("teste"+clientRequest.getEmail());
+    	Cliente cliente = clientService.createClient(clientRequest);
         
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest().path("/{clientId}")
