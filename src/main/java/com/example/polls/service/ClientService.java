@@ -5,6 +5,7 @@ import com.example.polls.exception.BadRequestException;
 import com.example.polls.exception.ResourceNotFoundException;
 import com.example.polls.model.*;
 import com.example.polls.payload.ClientRequest;
+import com.example.polls.payload.ClientResponse;
 import com.example.polls.payload.PagedResponse;
 import com.example.polls.payload.PollRequest;
 import com.example.polls.payload.PollResponse;
@@ -61,33 +62,25 @@ public class ClientService {
 
     private static final Logger logger = LoggerFactory.getLogger(ClientService.class);
 
-    public PagedResponse<PollResponse> getAllPolls(UserPrincipal currentUser, int page, int size) {
+    
+    public PagedResponse<ClientResponse> getAllClients(UserPrincipal currentUser, int page, int size) {
         validatePageNumberAndSize(page, size);
 
         // Retrieve Polls
         Pageable pageable = PageRequest.of(page, size, Sort.Direction.DESC, "createdAt");
-        Page<Poll> polls = pollRepository.findAll(pageable);
+        Page<Cliente> clients = clientRepository.findAll(pageable);
 
-        if(polls.getNumberOfElements() == 0) {
-            return new PagedResponse<>(Collections.emptyList(), polls.getNumber(),
-                    polls.getSize(), polls.getTotalElements(), polls.getTotalPages(), polls.isLast());
+        if(clients.getNumberOfElements() == 0) {
+            return new PagedResponse<>(Collections.emptyList(), clients.getNumber(),
+            		clients.getSize(), clients.getTotalElements(), clients.getTotalPages(), clients.isLast());
         }
 
-        // Map Polls to PollResponses containing vote counts and poll creator details
-        List<Long> pollIds = polls.map(Poll::getId).getContent();
-        Map<Long, Long> choiceVoteCountMap = getChoiceVoteCountMap(pollIds);
-        Map<Long, Long> pollUserVoteMap = getPollUserVoteMap(currentUser, pollIds);
-        Map<Long, User> creatorMap = getPollCreatorMap(polls.getContent());
-
-        List<PollResponse> pollResponses = polls.map(poll -> {
-            return ModelMapper.mapPollToPollResponse(poll,
-                    choiceVoteCountMap,
-                    creatorMap.get(poll.getCreatedBy()),
-                    pollUserVoteMap == null ? null : pollUserVoteMap.getOrDefault(poll.getId(), null));
+        List<ClientResponse> clientsResponses = clients.map(client -> {
+            return ModelMapper.mapClientToPollResponse(client);
         }).getContent();
-
-        return new PagedResponse<>(pollResponses, polls.getNumber(),
-                polls.getSize(), polls.getTotalElements(), polls.getTotalPages(), polls.isLast());
+        
+        return new PagedResponse<>(clientsResponses, clients.getNumber(),
+        		clients.getSize(), clients.getTotalElements(), clients.getTotalPages(), clients.isLast());
     }
 
     public PagedResponse<PollResponse> getPollsCreatedBy(String username, UserPrincipal currentUser, int page, int size) {

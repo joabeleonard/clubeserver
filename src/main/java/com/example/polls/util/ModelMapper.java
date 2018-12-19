@@ -1,8 +1,10 @@
 package com.example.polls.util;
 
+import com.example.polls.model.Cliente;
 import com.example.polls.model.Poll;
 import com.example.polls.model.User;
 import com.example.polls.payload.ChoiceResponse;
+import com.example.polls.payload.ClientResponse;
 import com.example.polls.payload.PollResponse;
 import com.example.polls.payload.UserSummary;
 
@@ -49,4 +51,15 @@ public class ModelMapper {
         return pollResponse;
     }
 
+    
+    public static ClientResponse mapClientToPollResponse(Cliente cliente) {
+        ClientResponse clientResponse = new ClientResponse();
+        clientResponse.setId(cliente.getId());
+        clientResponse.setCpf(cliente.getCpf());
+        clientResponse.setPontos(cliente.getPontos());
+        clientResponse.setAtivo(cliente.isAtivo());
+
+        return clientResponse;
+    }
+    
 }
