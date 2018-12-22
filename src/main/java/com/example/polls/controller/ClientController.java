@@ -11,10 +11,14 @@ import com.example.polls.security.UserPrincipal;
 import com.example.polls.service.ClientService;
 import com.example.polls.service.PollService;
 import com.example.polls.util.AppConstants;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -37,7 +41,7 @@ public class ClientController {
     private VoteRepository voteRepository;
 
     @Autowired
-    private UserRepository userRepository;
+    private ClientRepository clientRepository;
 
     @Autowired
     private PollService pollService;
@@ -83,4 +87,21 @@ public class ClientController {
         return pollService.castVoteAndGetUpdatedPoll(pollId, voteRequest, currentUser);
     }
 
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<?> delete(@PathVariable long id) {
+    	Cliente cliente = clientRepository.getOne(id);
+    	clientRepository.delete(cliente);
+    	
+    	JSONObject obj = new JSONObject();
+    	try {
+			obj.put("ok", "ok");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+    	return new ResponseEntity<>(obj, HttpStatus.OK);
+}
+    
 }
