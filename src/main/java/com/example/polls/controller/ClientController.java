@@ -71,6 +71,20 @@ public class ClientController {
         return ResponseEntity.created(location)
                 .body(new ApiResponse(true, "Cliente cadastrado com Sucesso."));
     }
+    
+    @PutMapping
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<?> editClient(@Valid @RequestBody ClientRequest clientRequest) {
+	    System.out.println("teste"+clientRequest.getEmail());
+    	Cliente cliente = clientService.editClient(clientRequest);
+        
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest().path("/{clientId}")
+                .buildAndExpand(cliente.getId()).toUri();
+
+        return ResponseEntity.created(location)
+                .body(new ApiResponse(true, "Cliente cadastrado com Sucesso."));
+    }
 
 
     @GetMapping("/{pollId}")

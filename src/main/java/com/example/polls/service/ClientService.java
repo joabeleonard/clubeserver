@@ -171,6 +171,15 @@ public class ClientService {
 
         return clientRepository.save(cliente);
     }
+    
+    public Cliente editClient(ClientRequest clientRequest) {
+        Cliente cliente = clientRepository.getOne(clientRequest.getId());
+        
+     
+        cliente.setCpf(clientRequest.getCpf());
+
+        return clientRepository.save(cliente);
+    }
 
     public PollResponse getPollById(Long pollId, UserPrincipal currentUser) {
         Poll poll = pollRepository.findById(pollId).orElseThrow(

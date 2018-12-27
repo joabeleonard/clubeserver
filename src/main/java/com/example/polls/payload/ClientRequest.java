@@ -7,6 +7,9 @@ import javax.validation.constraints.Size;
 import java.util.List;
 
 public class ClientRequest {
+	
+	private Long id;
+	
     @NotBlank
     @Size(max = 140)
     private String email;
@@ -26,6 +29,14 @@ public class ClientRequest {
     @NotBlank
     @Size(max = 14)
     private String cpf;
+    
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getEmail() {
 		return email;
