@@ -1,10 +1,12 @@
 package com.example.polls.util;
 
 import com.example.polls.model.Cliente;
+import com.example.polls.model.Empresa;
 import com.example.polls.model.Poll;
 import com.example.polls.model.User;
 import com.example.polls.payload.ChoiceResponse;
 import com.example.polls.payload.ClientResponse;
+import com.example.polls.payload.EmpresaResponse;
 import com.example.polls.payload.PollResponse;
 import com.example.polls.payload.UserSummary;
 
@@ -60,6 +62,16 @@ public class ModelMapper {
         clientResponse.setAtivo(cliente.isAtivo());
 
         return clientResponse;
+    }
+    
+    public static EmpresaResponse mapEmpresaToPollResponse(Empresa empresa) {
+        EmpresaResponse empresaResponse = new EmpresaResponse();
+        empresaResponse.setId(empresa.getId());
+        empresaResponse.setDesconto(empresa.getDesconto());
+        empresaResponse.setLogo(empresa.getLogo());
+        empresaResponse.setDetalhes(empresa.getDetalhes());
+
+        return empresaResponse;
     }
     
 }

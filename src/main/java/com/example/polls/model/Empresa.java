@@ -2,10 +2,14 @@ package com.example.polls.model;
 
 import java.math.BigDecimal;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.example.polls.model.audit.UserDateAudit;
@@ -18,7 +22,11 @@ public class Empresa extends UserDateAudit {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	private String nome;
+	@ManyToOne(fetch = FetchType.LAZY, optional = false, cascade=CascadeType.PERSIST)
+    @JoinColumn(name = "user_id", nullable = false)
+	private User user;
+	
+	private String logo;
 	
 	private BigDecimal desconto;
 	
@@ -32,12 +40,12 @@ public class Empresa extends UserDateAudit {
 		this.id = id;
 	}
 
-	public String getNome() {
-		return nome;
+	public User getUser() {
+		return user;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public BigDecimal getDesconto() {
@@ -54,6 +62,14 @@ public class Empresa extends UserDateAudit {
 
 	public void setDetalhes(String detalhes) {
 		this.detalhes = detalhes;
+	}
+
+	public String getLogo() {
+		return logo;
+	}
+
+	public void setLogo(String logo) {
+		this.logo = logo;
 	}
 	
 }

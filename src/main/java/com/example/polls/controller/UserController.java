@@ -38,6 +38,7 @@ public class UserController {
     @PreAuthorize("hasRole('USER')")
     public UserSummary getCurrentUser(@CurrentUser UserPrincipal currentUser) {
         UserSummary userSummary = new UserSummary(currentUser.getId(), currentUser.getUsername(), currentUser.getName());
+        userSummary.setPerfil(currentUser.getAuthorities().toArray()[0].toString());
         return userSummary;
     }
 

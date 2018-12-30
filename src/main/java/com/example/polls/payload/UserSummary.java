@@ -4,6 +4,7 @@ public class UserSummary {
     private Long id;
     private String username;
     private String name;
+    private String perfil;
 
     public UserSummary(Long id, String username, String name) {
         this.id = id;
@@ -34,4 +35,13 @@ public class UserSummary {
     public void setName(String name) {
         this.name = name;
     }
+
+	public String getPerfil() {
+		return perfil;
+	}
+
+	public void setPerfil(String perfil) {
+		this.perfil = perfil;
+	}
+    
 }
