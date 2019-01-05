@@ -13,8 +13,10 @@ CREATE TABLE `users` (
 
 CREATE TABLE `empresa` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
+   `user_id` bigint(20) NOT NULL,
   `nome` varchar(40) NOT NULL,
   `desconto` decimal NOT NULL,
+  `logo` TEXT NOT NULL,
   `detalhe` TEXT NOT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,

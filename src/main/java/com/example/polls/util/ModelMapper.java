@@ -70,6 +70,7 @@ public class ModelMapper {
         empresaResponse.setDesconto(empresa.getDesconto());
         empresaResponse.setLogo(empresa.getLogo());
         empresaResponse.setDetalhes(empresa.getDetalhes());
+        empresaResponse.setUser(empresa.getUser());
 
         return empresaResponse;
     }

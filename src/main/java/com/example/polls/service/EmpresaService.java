@@ -159,18 +159,18 @@ public class EmpresaService {
         Empresa empresa = new Empresa();
         
         User user = new User(empresaRequest.getNome(), empresaRequest.getEmail(),
-        		empresaRequest.getEmail(), empresaRequest.getSenha());
+        		empresaRequest.getEmail(), "senha00.");
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
-        Role userRole = roleRepository.findByName(RoleName.ROLE_USER)
+        Role userRole = roleRepository.findByName(RoleName.ROLE_ENTERPRISE)
                 .orElseThrow(() -> new AppException("User Role not set."));
 
         user.setRoles(Collections.singleton(userRole));
      
         empresa.setUser(user);
-        //empresa.setAtivo(true);
-        //empresa.setCpf(clientRequest.getCpf());
+        empresa.setDesconto(empresaRequest.getDesconto());
+        empresa.setDetalhes(empresaRequest.getDetalhes());
 
         return empresaRepository.save(empresa);
     }
@@ -178,7 +178,11 @@ public class EmpresaService {
     public Empresa editEmpresa(EmpresaRequest empresaRequest) {
         Empresa empresa = empresaRepository.getOne(empresaRequest.getId());
         
-     
+        empresa.getUser().setName(empresaRequest.getNome());
+
+        empresa.getUser().setEmail(empresaRequest.getEmail());
+        empresa.setDesconto(empresaRequest.getDesconto());
+        empresa.setDetalhes(empresaRequest.getDetalhes());
        // empresa.setCpf(clientRequest.getCpf());
 
         return empresaRepository.save(empresa);

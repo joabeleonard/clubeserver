@@ -49,7 +49,7 @@ public class EmpresaController {
     private static final Logger logger = LoggerFactory.getLogger(EmpresaController.class);
 
     @GetMapping
-    public PagedResponse<EmpresaResponse>  getClients(@CurrentUser UserPrincipal currentUser,
+    public PagedResponse<EmpresaResponse>  getEmpresas(@CurrentUser UserPrincipal currentUser,
                                                 @RequestParam(value = "page", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) int page,
                                                 @RequestParam(value = "size", defaultValue = AppConstants.DEFAULT_PAGE_SIZE) int size) {
         return empresaService.getAllEmpresas(currentUser, page, size);
@@ -61,16 +61,16 @@ public class EmpresaController {
     	Empresa empresa = empresaService.createEmpresa(empresaRequest);
         
         URI location = ServletUriComponentsBuilder
-                .fromCurrentRequest().path("/{clientId}")
-                .buildAndExpand(empresaRequest.getId()).toUri();
+                .fromCurrentRequest().path("/{empresaId}")
+                .buildAndExpand(empresa.getId()).toUri();
 
         return ResponseEntity.created(location)
-                .body(new ApiResponse(true, "Cliente cadastrado com Sucesso."));
+                .body(new ApiResponse(true, "Empresa cadastrada com Sucesso."));
     }
     
     @PutMapping
     @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<?> editClient(@Valid @RequestBody EmpresaRequest empresaRequest) {
+    public ResponseEntity<?> editEmpresa(@Valid @RequestBody EmpresaRequest empresaRequest) {
     	Empresa empresa = empresaService.editEmpresa(empresaRequest);
         
         URI location = ServletUriComponentsBuilder
