@@ -1,7 +1,10 @@
 package com.example.polls.repository;
 
 import com.example.polls.model.Cliente;
+import com.example.polls.model.Cupom;
 import com.example.polls.model.Poll;
+import com.example.polls.model.Vote;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -17,15 +20,9 @@ import java.util.Optional;
  * Created by rajeevkumarsingh on 20/11/17.
  */
 @Repository
-public interface ClientRepository extends JpaRepository<Cliente, Long> {
+public interface CupomRepository extends JpaRepository<Cupom, Long> {
 
-    Optional<Cliente> findById(Long pollId);
-
-	@Query("SELECT c FROM Cliente c where c.user.id = :userId")
-	Cliente findByUser(@Param("userId") Long userId);
-
-	@Query("SELECT c FROM Cliente c where c.user.username = :username")
-	Cliente findByUsername(@Param("username") String username);
-
+	 @Query("SELECT c FROM Cupom c where c.cliente.id = :clientId")
+	 Page<Cupom> findCuponsIdsByUserId(@Param("clientId") Long clientId,Pageable pageable);
     
 }
