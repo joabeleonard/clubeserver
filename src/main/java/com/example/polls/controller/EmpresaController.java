@@ -56,7 +56,7 @@ public class EmpresaController {
     }
 
     @PostMapping
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> createEmpresa(@Valid @RequestBody EmpresaRequest empresaRequest) {
     	Empresa empresa = empresaService.createEmpresa(empresaRequest);
         
@@ -69,7 +69,7 @@ public class EmpresaController {
     }
     
     @PutMapping
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> editEmpresa(@Valid @RequestBody EmpresaRequest empresaRequest) {
     	Empresa empresa = empresaService.editEmpresa(empresaRequest);
         
@@ -97,7 +97,7 @@ public class EmpresaController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> delete(@PathVariable long id) {
     	Empresa empresa = empresaRepository.getOne(id);
     	empresaRepository.delete(empresa);

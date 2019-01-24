@@ -59,7 +59,7 @@ public class ClientController {
     }
 
     @PostMapping
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<?> createClient(@Valid @RequestBody ClientRequest clientRequest) {
 	    System.out.println("teste"+clientRequest.getEmail());
     	Cliente cliente = clientService.createClient(clientRequest);
@@ -73,7 +73,7 @@ public class ClientController {
     }
     
     @PutMapping
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<?> editClient(@Valid @RequestBody ClientRequest clientRequest) {
 	    System.out.println("teste"+clientRequest.getEmail());
     	Cliente cliente = clientService.editClient(clientRequest);
@@ -102,7 +102,7 @@ public class ClientController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> delete(@PathVariable long id) {
     	Cliente cliente = clientRepository.getOne(id);
     	clientRepository.delete(cliente);

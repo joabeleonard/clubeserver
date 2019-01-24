@@ -25,4 +25,6 @@ public interface CupomRepository extends JpaRepository<Cupom, Long> {
 	 @Query("SELECT c FROM Cupom c where c.cliente.id = :clientId")
 	 Page<Cupom> findCuponsIdsByUserId(@Param("clientId") Long clientId,Pageable pageable);
     
+	 @Query("SELECT c FROM Cupom c where c.codigo = :codigo")
+	 Cupom findCupomByCodigo(@Param("codigo") String codigo);
 }
