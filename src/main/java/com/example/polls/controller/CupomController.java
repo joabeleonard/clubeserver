@@ -55,11 +55,15 @@ public class CupomController {
     private static final Logger logger = LoggerFactory.getLogger(CupomController.class);
 
     @GetMapping
-    public PagedResponse<ClientResponse>  getClients(@CurrentUser UserPrincipal currentUser,
-                                                @RequestParam(value = "page", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) int page,
-                                                @RequestParam(value = "size", defaultValue = AppConstants.DEFAULT_PAGE_SIZE) int size) {
-//        return clientService.getAllClients(currentUser, page, size);
-    	return null;
+    @PreAuthorize("hasRole('ENTERPRISE')")
+    public ResponseEntity<?>  validarCupon(@CurrentUser UserPrincipal currentUser,
+                                                @RequestParam(value = "cupom") String codigo) {
+       CupomResponse cupom = cupomService.findCupomByCodigo(codigo);
+       
+       if (cupom != null) {
+    	   return ResponseEntity.ok(cupom);
+       }
+    	return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/generate")

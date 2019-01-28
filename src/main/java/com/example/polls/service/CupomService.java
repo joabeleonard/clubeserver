@@ -324,4 +324,8 @@ public class CupomService {
 
   }
 
+	public CupomResponse findCupomByCodigo(String codigo) {
+		return ModelMapper.mapCupomToPollResponse(cupomRepository.findCupomByCodigo(codigo));
+	}
+
 }
