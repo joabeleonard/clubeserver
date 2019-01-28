@@ -19,6 +19,8 @@ public class CupomResponse {
 	
 	private Date dataGeracao;
 	
+	private String codigo;
+	
     public Long getId() {
         return id;
     }
@@ -59,5 +61,15 @@ public class CupomResponse {
 	public void setDataGeracao(Date dataGeracao) {
 		this.dataGeracao = dataGeracao;
 	}
+
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
+	}
+	
+	
 
 }

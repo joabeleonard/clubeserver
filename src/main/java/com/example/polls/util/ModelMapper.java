@@ -85,6 +85,7 @@ public class ModelMapper {
 		cupomResponse.setStatus(cupom.getStatusCupom().toString());
 		cupomResponse.setUserName(cupom.getCliente().getUser().getUsername());
 		cupomResponse.setEmpresa(cupom.getEmpresa().getUser().getName());
+		cupomResponse.setCodigo(cupom.getCodigo());
 		return cupomResponse;
 	}
     
