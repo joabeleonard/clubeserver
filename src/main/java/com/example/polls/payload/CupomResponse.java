@@ -9,13 +9,13 @@ import com.example.polls.model.User;
 
 public class CupomResponse {
 	
-private Long id;
+	private Long id;
 	
 	private String userName;
 	
 	private String empresa;
 		
-	private StatusCupom status;
+	private String status;
 	
 	private Date dataGeracao;
 	
@@ -44,11 +44,11 @@ private Long id;
 		this.empresa = empresa;
 	}
 
-	public StatusCupom isStatus() {
+	public String getStatus() {
 		return status;
 	}
 
-	public void setStatus(StatusCupom status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 
