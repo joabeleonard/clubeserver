@@ -1,23 +1,17 @@
 package com.example.polls.service;
 
-import com.example.polls.exception.AppException;
-import com.example.polls.exception.BadRequestException;
-import com.example.polls.exception.ResourceNotFoundException;
-import com.example.polls.model.*;
-import com.example.polls.payload.ClientRequest;
-import com.example.polls.payload.ClientResponse;
-import com.example.polls.payload.PagedResponse;
-import com.example.polls.payload.PollRequest;
-import com.example.polls.payload.PollResponse;
-import com.example.polls.payload.VoteRequest;
-import com.example.polls.repository.ClientRepository;
-import com.example.polls.repository.PollRepository;
-import com.example.polls.repository.RoleRepository;
-import com.example.polls.repository.UserRepository;
-import com.example.polls.repository.VoteRepository;
-import com.example.polls.security.UserPrincipal;
-import com.example.polls.util.AppConstants;
-import com.example.polls.util.ModelMapper;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,15 +23,31 @@ import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.time.Duration;
-import java.time.Instant;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-
-import javax.validation.Valid;
+import com.example.polls.exception.AppException;
+import com.example.polls.exception.BadRequestException;
+import com.example.polls.exception.ResourceNotFoundException;
+import com.example.polls.model.Choice;
+import com.example.polls.model.ChoiceVoteCount;
+import com.example.polls.model.Cliente;
+import com.example.polls.model.Endereco;
+import com.example.polls.model.Poll;
+import com.example.polls.model.Role;
+import com.example.polls.model.RoleName;
+import com.example.polls.model.User;
+import com.example.polls.model.Vote;
+import com.example.polls.payload.ClientRequest;
+import com.example.polls.payload.ClientResponse;
+import com.example.polls.payload.PagedResponse;
+import com.example.polls.payload.PollResponse;
+import com.example.polls.payload.VoteRequest;
+import com.example.polls.repository.ClientRepository;
+import com.example.polls.repository.PollRepository;
+import com.example.polls.repository.RoleRepository;
+import com.example.polls.repository.UserRepository;
+import com.example.polls.repository.VoteRepository;
+import com.example.polls.security.UserPrincipal;
+import com.example.polls.util.AppConstants;
+import com.example.polls.util.ModelMapper;
 
 @Service
 public class ClientService {
@@ -168,7 +178,28 @@ public class ClientService {
         cliente.setUser(user);
         cliente.setAtivo(true);
         cliente.setCpf(clientRequest.getCpf());
+        cliente.setSexo(clientRequest.getSexo());
+        cliente.setRg(clientRequest.getRg());
+        
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        Date data = null;
+		try {
+			data = formato.parse(clientRequest.getDataNascimento());
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
+        cliente.setDataNascimento(data);
+        
+        Endereco endereco = new Endereco();
+        endereco.setBairro(clientRequest.getBairro());
+        endereco.setCep(clientRequest.getCep());
+        endereco.setCidade(clientRequest.getCidade());
+        endereco.setEstado(clientRequest.getEstado());
+        endereco.setNumero(clientRequest.getNumero());
+        cliente.setEndereco(endereco);
+        
         return clientRepository.save(cliente);
     }
     

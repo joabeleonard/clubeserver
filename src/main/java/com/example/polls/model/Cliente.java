@@ -1,5 +1,7 @@
 package com.example.polls.model;
 
+import java.util.Date;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -19,16 +21,28 @@ public class Cliente extends UserDateAudit {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	@ManyToOne(fetch = FetchType.LAZY, optional = false, cascade=CascadeType.PERSIST)
-    @JoinColumn(name = "user_id", nullable = false)
+
+	@ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "user_id", nullable = false)
 	private User user;
-	
+
 	private String cpf;
-	
+
 	private boolean ativo;
-	
+
 	private int pontos;
+
+	private String sexo;
+
+	private Date dataNascimento;
+
+	private String rg;
+
+	private String telefone;
+
+	@ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "endereco_id", nullable = false)
+	private Endereco endereco;
 
 	public Long getId() {
 		return id;
@@ -37,7 +51,6 @@ public class Cliente extends UserDateAudit {
 	public void setId(Long id) {
 		this.id = id;
 	}
-
 
 	public User getUser() {
 		return user;
@@ -70,5 +83,45 @@ public class Cliente extends UserDateAudit {
 	public void setPontos(int pontos) {
 		this.pontos = pontos;
 	}
-	
+
+	public String getSexo() {
+		return sexo;
+	}
+
+	public void setSexo(String sexo) {
+		this.sexo = sexo;
+	}
+
+	public Date getDataNascimento() {
+		return dataNascimento;
+	}
+
+	public void setDataNascimento(Date dataNascimento) {
+		this.dataNascimento = dataNascimento;
+	}
+
+	public String getRg() {
+		return rg;
+	}
+
+	public void setRg(String rg) {
+		this.rg = rg;
+	}
+
+	public Endereco getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
+	}
+
+	public String getTelefone() {
+		return telefone;
+	}
+
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
+
 }

@@ -82,18 +82,18 @@ public class CupomController {
     }
     
     @PutMapping
-    @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<?> editClient(@Valid @RequestBody ClientRequest clientRequest) {
-	    System.out.println("teste"+clientRequest.getEmail());
-//    	Cliente cliente = clientService.editClient(clientRequest);
-//        
-//        URI location = ServletUriComponentsBuilder
-//                .fromCurrentRequest().path("/{clientId}")
-//                .buildAndExpand(cliente.getId()).toUri();
-//
-//        return ResponseEntity.created(location)
-//                .body(new ApiResponse(true, "Cliente cadastrado com Sucesso."));
-	    return null;
+    @PreAuthorize("hasRole('ENTERPRISE')")
+    public ResponseEntity<?> validarCupom(@Valid @RequestBody CupomResponse cupomRequest) {
+    	
+    	Cupom cupom = cupomRepository.getOne(cupomRequest.getId());
+    	cupom.setStatusCupom(StatusCupom.ULTILIZADO);
+    	cupom = cupomRepository.save(cupom);
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest().path("/{clientId}")
+                .buildAndExpand(cupom.getId()).toUri();
+
+        return ResponseEntity.created(location)
+                .body(new ApiResponse(true, "Cliente cadastrado com Sucesso."));
     }
 
 
