@@ -3,6 +3,7 @@ package com.example.polls.model;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -31,9 +32,13 @@ public class Cliente extends UserDateAudit {
 	private boolean ativo;
 
 	private int pontos;
+	
+	@Column(name="pontos_experiencia")
+	private int pontosExperiencia;
 
 	private String sexo;
 
+	@Column(name = "data_nascimento")
 	private Date dataNascimento;
 
 	private String rg;
@@ -124,4 +129,13 @@ public class Cliente extends UserDateAudit {
 		this.telefone = telefone;
 	}
 
+	public int getPontosExperiencia() {
+		return pontosExperiencia;
+	}
+
+	public void setPontosExperiencia(int pontosExperiencia) {
+		this.pontosExperiencia = pontosExperiencia;
+	}
+
+	
 }

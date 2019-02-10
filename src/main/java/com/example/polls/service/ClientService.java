@@ -180,17 +180,8 @@ public class ClientService {
         cliente.setCpf(clientRequest.getCpf());
         cliente.setSexo(clientRequest.getSexo());
         cliente.setRg(clientRequest.getRg());
-        
-        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-        Date data = null;
-		try {
-			data = formato.parse(clientRequest.getDataNascimento());
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-        cliente.setDataNascimento(data);
+        cliente.setTelefone(clientRequest.getTelefone());
+       cliente.setDataNascimento(clientRequest.getDataNascimento());
         
         Endereco endereco = new Endereco();
         endereco.setBairro(clientRequest.getBairro());
@@ -198,6 +189,8 @@ public class ClientService {
         endereco.setCidade(clientRequest.getCidade());
         endereco.setEstado(clientRequest.getEstado());
         endereco.setNumero(clientRequest.getNumero());
+        endereco.setComplemento(clientRequest.getComplemento());
+        endereco.setLogradouro(clientRequest.getLogradouro());
         cliente.setEndereco(endereco);
         
         return clientRepository.save(cliente);
@@ -208,6 +201,20 @@ public class ClientService {
         
      
         cliente.setCpf(clientRequest.getCpf());
+        cliente.setSexo(clientRequest.getSexo());
+        cliente.setRg(clientRequest.getRg());
+        cliente.setTelefone(clientRequest.getTelefone());
+       
+        cliente.setDataNascimento(clientRequest.getDataNascimento());
+        
+        cliente.getEndereco().setBairro(clientRequest.getBairro());
+        cliente.getEndereco().setCep(clientRequest.getCep());
+        cliente.getEndereco().setCidade(clientRequest.getCidade());
+        cliente.getEndereco().setEstado(clientRequest.getEstado());
+        cliente.getEndereco().setNumero(clientRequest.getNumero());
+        cliente.getEndereco().setLogradouro(clientRequest.getLogradouro());
+
+        cliente.getEndereco().setComplemento(clientRequest.getComplemento());
 
         return clientRepository.save(cliente);
     }

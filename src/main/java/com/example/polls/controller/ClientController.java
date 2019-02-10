@@ -9,6 +9,7 @@ import com.example.polls.repository.VoteRepository;
 import com.example.polls.security.CurrentUser;
 import com.example.polls.security.UserPrincipal;
 import com.example.polls.service.ClientService;
+import com.example.polls.service.PagamentoService;
 import com.example.polls.service.PollService;
 import com.example.polls.util.AppConstants;
 
@@ -48,6 +49,9 @@ public class ClientController {
     
     @Autowired
     private ClientService clientService;
+    
+    @Autowired
+    private PagamentoService pagamentoService;
 
     private static final Logger logger = LoggerFactory.getLogger(ClientController.class);
 
@@ -61,7 +65,8 @@ public class ClientController {
     @PostMapping
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<?> createClient(@Valid @RequestBody ClientRequest clientRequest) {
-	    System.out.println("teste"+clientRequest.getEmail());
+
+    	pagamentoService.pagamento();
     	Cliente cliente = clientService.createClient(clientRequest);
         
         URI location = ServletUriComponentsBuilder

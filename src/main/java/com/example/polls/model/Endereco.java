@@ -16,18 +16,21 @@ import javax.persistence.UniqueConstraint;
 import com.example.polls.model.audit.UserDateAudit;
 
 @Entity
-@Table(name = "endereco", uniqueConstraints = { @UniqueConstraint(columnNames = { "codigo" }) })
+@Table(name = "endereco")
 public class Endereco extends UserDateAudit {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	private String logradouro;
 	private String cep;
 	private String bairro;
 	private String numero;
 	private String cidade;
 	private String estado;
+	
+	private String complemento;
 
 	public Long getId() {
 		return id;
@@ -78,5 +81,22 @@ public class Endereco extends UserDateAudit {
 		this.estado = estado;
 	}
 
+	public String getLogradouro() {
+		return logradouro;
+	}
 
+	public void setLogradouro(String logradouro) {
+		this.logradouro = logradouro;
+	}
+
+	public String getComplemento() {
+		return complemento;
+	}
+
+	public void setComplemento(String complemento) {
+		this.complemento = complemento;
+	}
+
+	
+	
 }

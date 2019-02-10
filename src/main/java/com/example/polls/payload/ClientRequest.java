@@ -1,10 +1,9 @@
 package com.example.polls.payload;
 
-import javax.validation.Valid;
+import java.util.Date;
+
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.List;
 
 public class ClientRequest {
 	
@@ -24,7 +23,7 @@ public class ClientRequest {
     
     @NotBlank
     @Size(max = 140)
-    private String endereco;
+    private String logradouro;
     
     @NotBlank
     @Size(max = 14)
@@ -38,7 +37,10 @@ public class ClientRequest {
     private String numero;
     private String cidade;
     private String estado;
-    private String dataNascimento;
+    private Date dataNascimento;
+    
+  	private String complemento;
+
     
 	public Long getId() {
 		return id;
@@ -72,12 +74,13 @@ public class ClientRequest {
 		this.senha = senha;
 	}
 
-	public String getEndereco() {
-		return endereco;
+
+	public String getLogradouro() {
+		return logradouro;
 	}
 
-	public void setEndereco(String endereco) {
-		this.endereco = endereco;
+	public void setLogradouro(String logradouro) {
+		this.logradouro = logradouro;
 	}
 
 	public String getCpf() {
@@ -152,14 +155,20 @@ public class ClientRequest {
 		this.estado = estado;
 	}
 
-	public String getDataNascimento() {
+	public Date getDataNascimento() {
 		return dataNascimento;
 	}
 
-	public void setDataNascimento(String dataNascimento) {
+	public void setDataNascimento(Date dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
-	
-	
 
+	public String getComplemento() {
+		return complemento;
+	}
+
+	public void setComplemento(String complemento) {
+		this.complemento = complemento;
+	}
+	
 }

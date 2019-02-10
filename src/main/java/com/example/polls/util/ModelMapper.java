@@ -62,6 +62,18 @@ public class ModelMapper {
         clientResponse.setCpf(cliente.getCpf());
         clientResponse.setPontos(cliente.getPontos());
         clientResponse.setAtivo(cliente.isAtivo());
+        clientResponse.setSexo(cliente.getSexo());
+        clientResponse.setRg(cliente.getRg());
+        clientResponse.setTelefone(cliente.getTelefone());     
+        clientResponse.setBairro(cliente.getEndereco().getBairro());
+        clientResponse.setLogradouro(cliente.getEndereco().getLogradouro());   
+        clientResponse.setComplemento(cliente.getEndereco().getComplemento());
+        clientResponse.setCep(cliente.getEndereco().getCep());          
+        clientResponse.setNumero(cliente.getEndereco().getNumero());       
+        clientResponse.setCidade(cliente.getEndereco().getCidade());       
+        clientResponse.setEstado(cliente.getEndereco().getEstado());       
+        clientResponse.setDataNascimento(DateUtil.converteData(cliente.getDataNascimento()) );
+        //clientResponse.setUser(cliente.getUser());
 
         return clientResponse;
     }

@@ -28,15 +28,36 @@ CREATE TABLE `empresa` (
 CREATE TABLE `cliente` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
    `user_id` bigint(20) NOT NULL,
+    `endereco_id` bigint(20) NOT NULL,
   `cpf` varchar(15) NOT NULL,
   `ativo` boolean NOT NULL,
   `pontos` int NOT NULL,
+  `pontos_experiencia` int NOT NULL,
+  `data_nascimentos` datetime,
+  `sexo` varchar(8) NOT NULL,
+  `rg` varchar(20) NOT NULL,
+  `telefone` varchar(20) NOT NULL,
    `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
 
   PRIMARY KEY (`id`),
   UNIQUE KEY `uk_users_username` (`username`),
   UNIQUE KEY `uk_users_email` (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `endereco` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `logradouro` varchar(100) NOT NULL,
+  `cep` varchar(15) NOT NULL,
+ `bairro` varchar(50) NOT NULL,
+ `cidade` varchar(50) NOT NULL,
+ `estado` varchar(20) NOT NULL,
+ `complemento` varchar(20) NOT NULL,
+ `numero` varchar(15) NOT NULL,
+   `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `roles` (
