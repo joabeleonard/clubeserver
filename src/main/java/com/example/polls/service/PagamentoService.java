@@ -1,6 +1,8 @@
 package com.example.polls.service;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -9,6 +11,9 @@ import cieloecommerce.sdk.ecommerce.CieloEcommerce;
 import cieloecommerce.sdk.ecommerce.Customer;
 import cieloecommerce.sdk.ecommerce.Environment;
 import cieloecommerce.sdk.ecommerce.Payment;
+import cieloecommerce.sdk.ecommerce.RecurrentPayment;
+import cieloecommerce.sdk.ecommerce.RecurrentPayment.Interval;
+import cieloecommerce.sdk.ecommerce.RecurrentSale;
 import cieloecommerce.sdk.ecommerce.Sale;
 import cieloecommerce.sdk.ecommerce.SaleResponse;
 import cieloecommerce.sdk.ecommerce.request.CieloError;
@@ -18,21 +23,28 @@ import cieloecommerce.sdk.ecommerce.request.CieloRequestException;
 public class PagamentoService {
 
 	
-	public void pagamento(){
-		Merchant merchant = new Merchant("MERCHANT ID", "MERCHANT KEY");
+	public Map<String, String> pagamento(){
+		Merchant merchant = new Merchant("971ab897-0989-4770-91a8-3c9fbc2833ae", "PDUADUKEWPQEQCBETQUCOYKUUTDJCJHAXPJLUOOW");
 
 		// Crie uma instância de Sale informando o ID do pagamento
 		Sale sale = new Sale("ID do pagamento");
-
+		RecurrentSale recurrentSale = new RecurrentSale();
+		Customer customer = recurrentSale.customer("Comprador Teste");
+		RecurrentPayment recurrentPayment = new RecurrentPayment(true);
+		recurrentPayment.setAmount(20);
+		recurrentPayment.setAuthorizeNow(true);
+		recurrentPayment.setInterval(Interval.Monthly);
+		
 		// Crie uma instância de Customer informando o nome do cliente
-		Customer customer = sale.customer("Comprador Teste");
+		Customer customer2 = sale.customer("Comprador Teste");
 
 		// Crie uma instância de Payment informando o valor do pagamento
 		Payment payment = sale.payment(15700);
+		payment.setRecurrentPayment(recurrentPayment);
 
 		// Crie  uma instância de Credit Card utilizando os dados de teste
 		// esses dados estão disponíveis no manual de integração
-		payment.creditCard("123", "Visa").setExpirationDate("12/2018")
+		payment.creditCard("123", "Visa").setExpirationDate("12/2019")
 		                                 .setCardNumber("0000000000000001")
 		                                 .setHolder("Fulano de Tal");
 
@@ -44,12 +56,17 @@ public class PagamentoService {
 		    // Com a venda criada na Cielo, já temos o ID do pagamento, TID e demais
 		    // dados retornados pela Cielo
 		    String paymentId = sale.getPayment().getPaymentId();
-
+		    String recurrentPaymentId = sale.getPayment().getRecurrentPayment().getRecurrentPaymentId();
 		    // Com o ID do pagamento, podemos fazer sua captura, se ela não tiver sido capturada ainda
 		    SaleResponse saleResponse = new CieloEcommerce(merchant, Environment.SANDBOX).captureSale(paymentId, 15700, 0);
 
+		    Map<String, String> pagamento = new HashMap<String, String>();
+		    pagamento.put("paymentId", paymentId);
+		    pagamento.put("recurrentPaymentId", recurrentPaymentId);
+		    
 		    // E também podemos fazer seu cancelamento, se for o caso
 		   // sale = new CieloEcommerce(merchant, Environment.SANDBOX).cancelSale(paymentId, 15700);
+		    return pagamento;
 		} catch (CieloRequestException e) {
 		    // Em caso de erros de integração, podemos tratar o erro aqui.
 		    // os códigos de erro estão todos disponíveis no manual de integração.
@@ -57,5 +74,6 @@ public class PagamentoService {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		return null;
 	}
 }

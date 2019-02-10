@@ -36,6 +36,15 @@ public class Cliente extends UserDateAudit {
 	@Column(name="pontos_experiencia")
 	private int pontosExperiencia;
 
+	@Column(name="codigo_indicacao")
+	private String codigoIndicacao;
+	
+	@Column(name="payment_id")
+	private String paymentId;
+	
+	@Column(name="recurrent_payment_id")
+	private String recurrentPaymentId;
+	
 	private String sexo;
 
 	@Column(name = "data_nascimento")
@@ -137,5 +146,28 @@ public class Cliente extends UserDateAudit {
 		this.pontosExperiencia = pontosExperiencia;
 	}
 
-	
+	public String getCodigoIndicacao() {
+		return codigoIndicacao;
+	}
+
+	public void setCodigoIndicacao(String codigoIndicacao) {
+		this.codigoIndicacao = codigoIndicacao;
+	}
+
+	public String getRecurrentPaymentId() {
+		return recurrentPaymentId;
+	}
+
+	public void setRecurrentPaymentId(String recurrentPaymentId) {
+		this.recurrentPaymentId = recurrentPaymentId;
+	}
+
+	public String getPaymentId() {
+		return paymentId;
+	}
+
+	public void setPaymentId(String paymentId) {
+		this.paymentId = paymentId;
+	}
+
 }

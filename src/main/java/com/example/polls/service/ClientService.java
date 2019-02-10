@@ -5,8 +5,10 @@ import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -69,6 +71,9 @@ public class ClientService {
     
     @Autowired
     RoleRepository roleRepository;
+    
+    @Autowired
+    PagamentoService pagamentoService;
 
     private static final Logger logger = LoggerFactory.getLogger(ClientService.class);
 
@@ -163,6 +168,8 @@ public class ClientService {
 
 
     public Cliente createClient(ClientRequest clientRequest) {
+    	
+
         Cliente cliente = new Cliente();
         
         User user = new User(clientRequest.getNome(), clientRequest.getEmail(),
@@ -182,6 +189,14 @@ public class ClientService {
         cliente.setRg(clientRequest.getRg());
         cliente.setTelefone(clientRequest.getTelefone());
        cliente.setDataNascimento(clientRequest.getDataNascimento());
+       
+       Map<String, String> pagamento = pagamentoService.pagamento();
+       cliente.setRecurrentPaymentId(pagamento.get("recurrentPaymentId"));
+       cliente.setPaymentId(pagamento.get("paymentId"));
+
+       UUID uuid = UUID.randomUUID();
+       String myRandom = uuid.toString();
+       cliente.setCodigoIndicacao(myRandom.substring(0,8));
         
         Endereco endereco = new Endereco();
         endereco.setBairro(clientRequest.getBairro());

@@ -167,7 +167,6 @@ public class CupomService {
         cupom.setStatusCupom(StatusCupom.VALIDO);
         UUID uuid = UUID.randomUUID();
         String myRandom = uuid.toString();
-        System.out.println();
         cupom.setCodigo(myRandom.substring(0,8));
         return cupomRepository.save(cupom);
     }

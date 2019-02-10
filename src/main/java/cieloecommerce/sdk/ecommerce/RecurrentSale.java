@@ -17,6 +17,12 @@ public class RecurrentSale {
         this.customer = customer;
         return this;
     }
+    
+	public Customer customer(String name) {
+		setCustomer(new Customer(name));
+
+		return getCustomer();
+	}
 
     public RecurrentPayment getRecurrentPayment() {
         return recurrentPayment;

@@ -66,7 +66,6 @@ public class ClientController {
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<?> createClient(@Valid @RequestBody ClientRequest clientRequest) {
 
-    	pagamentoService.pagamento();
     	Cliente cliente = clientService.createClient(clientRequest);
         
         URI location = ServletUriComponentsBuilder
