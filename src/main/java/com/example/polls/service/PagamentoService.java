@@ -6,6 +6,8 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
+import com.example.polls.model.Cliente;
+
 import cieloecommerce.sdk.Merchant;
 import cieloecommerce.sdk.ecommerce.CieloEcommerce;
 import cieloecommerce.sdk.ecommerce.Customer;
@@ -23,20 +25,20 @@ import cieloecommerce.sdk.ecommerce.request.CieloRequestException;
 public class PagamentoService {
 
 	
-	public Map<String, String> pagamento(){
+	public Map<String, String> pagamento(Cliente cliente){
 		Merchant merchant = new Merchant("971ab897-0989-4770-91a8-3c9fbc2833ae", "PDUADUKEWPQEQCBETQUCOYKUUTDJCJHAXPJLUOOW");
 
 		// Crie uma instância de Sale informando o ID do pagamento
 		Sale sale = new Sale("ID do pagamento");
 		RecurrentSale recurrentSale = new RecurrentSale();
-		Customer customer = recurrentSale.customer("Comprador Teste");
+		Customer customer = recurrentSale.customer(cliente.getUser().getName());
 		RecurrentPayment recurrentPayment = new RecurrentPayment(true);
 		recurrentPayment.setAmount(20);
 		recurrentPayment.setAuthorizeNow(true);
 		recurrentPayment.setInterval(Interval.Monthly);
 		
 		// Crie uma instância de Customer informando o nome do cliente
-		Customer customer2 = sale.customer("Comprador Teste");
+		Customer customer2 = sale.customer(cliente.getUser().getName());
 
 		// Crie uma instância de Payment informando o valor do pagamento
 		Payment payment = sale.payment(15700);
@@ -44,9 +46,14 @@ public class PagamentoService {
 
 		// Crie  uma instância de Credit Card utilizando os dados de teste
 		// esses dados estão disponíveis no manual de integração
-		payment.creditCard("123", "Visa").setExpirationDate("12/2019")
-		                                 .setCardNumber("0000000000000001")
-		                                 .setHolder("Fulano de Tal");
+//		payment.creditCard("123", "Visa").setExpirationDate("12/2019")
+//		                                 .setCardNumber("0000000000000001")
+//		                                 .setHolder("Fulano de Tal");
+		
+		payment.creditCard(cliente.getCodigoSeguranca(), cliente.getBandeira()).setExpirationDate(cliente.getDataValidade())
+        .setCardNumber(cliente.getNumeroCartao())
+        .setHolder(cliente.getNomeTitular());
+
 
 		// Crie o pagamento na Cielo
 		try {

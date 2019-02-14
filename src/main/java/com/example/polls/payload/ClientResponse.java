@@ -10,7 +10,7 @@ public class ClientResponse {
 
 private Long id;
 	
-	//private User user;
+	private User user;
 	
 	private String cpf;
 	
@@ -167,6 +167,14 @@ private Long id;
 
 	public void setComplemento(String complemento) {
 		this.complemento = complemento;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 	
 
