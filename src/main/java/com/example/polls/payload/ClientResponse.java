@@ -3,6 +3,8 @@ package com.example.polls.payload;
 
 import java.util.Date;
 
+import javax.persistence.Column;
+
 import com.example.polls.model.User;
 
 
@@ -32,6 +34,15 @@ private Long id;
 	    private String cidade;
 	    private String estado;
 	    private String dataNascimento;
+	    
+	    private String nomeTitular;
+	  	private String numeroCartao;
+	  	private String codigoSeguranca;
+		
+	  	private String bandeira;
+	  	private String dataValidade;
+
+		private int pontosExperiencia;
 
     public Long getId() {
         return id;
@@ -176,6 +187,55 @@ private Long id;
 	public void setUser(User user) {
 		this.user = user;
 	}
+
+	public String getNomeTitular() {
+		return nomeTitular;
+	}
+
+	public void setNomeTitular(String nomeTitular) {
+		this.nomeTitular = nomeTitular;
+	}
+
+	public String getNumeroCartao() {
+		return numeroCartao;
+	}
+
+	public void setNumeroCartao(String numeroCartao) {
+		this.numeroCartao = numeroCartao;
+	}
+
+	public String getCodigoSeguranca() {
+		return codigoSeguranca;
+	}
+
+	public void setCodigoSeguranca(String codigoSeguranca) {
+		this.codigoSeguranca = codigoSeguranca;
+	}
+
+	public String getBandeira() {
+		return bandeira;
+	}
+
+	public void setBandeira(String bandeira) {
+		this.bandeira = bandeira;
+	}
+
+	public String getDataValidade() {
+		return dataValidade;
+	}
+
+	public void setDataValidade(String dataValidade) {
+		this.dataValidade = dataValidade;
+	}
+
+	public int getPontosExperiencia() {
+		return pontosExperiencia;
+	}
+
+	public void setPontosExperiencia(int pontosExperiencia) {
+		this.pontosExperiencia = pontosExperiencia;
+	}
 	
 
+	
 }

@@ -26,11 +26,21 @@ public class Empresa extends UserDateAudit {
     @JoinColumn(name = "user_id", nullable = false)
 	private User user;
 	
+	private String razaoSocial;
+	
+	private String cnpj;
+
 	private String logo;
 	
 	private BigDecimal desconto;
-	
+
+	private String endereco;
+
 	private String detalhes;
+
+	private String telefone;
+
+	private CategoriaEmpresa categoriaEmpresa;
 
 	public Long getId() {
 		return id;
@@ -71,5 +81,46 @@ public class Empresa extends UserDateAudit {
 	public void setLogo(String logo) {
 		this.logo = logo;
 	}
+
+	public String getRazaoSocial() {
+		return razaoSocial;
+	}
+
+	public void setRazaoSocial(String razaoSocial) {
+		this.razaoSocial = razaoSocial;
+	}
+
+	public String getCnpj() {
+		return cnpj;
+	}
+
+	public void setCnpj(String cnpj) {
+		this.cnpj = cnpj;
+	}
+
+	public String getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(String endereco) {
+		this.endereco = endereco;
+	}
+
+	public String getTelefone() {
+		return telefone;
+	}
+
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
+
+	public CategoriaEmpresa getCategoriaEmpresa() {
+		return categoriaEmpresa;
+	}
+
+	public void setCategoriaEmpresa(CategoriaEmpresa categoriaEmpresa) {
+		this.categoriaEmpresa = categoriaEmpresa;
+	}
+
 	
 }

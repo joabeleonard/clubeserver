@@ -74,6 +74,7 @@ public class ModelMapper {
         clientResponse.setEstado(cliente.getEndereco().getEstado());       
         clientResponse.setDataNascimento(DateUtil.converteData(cliente.getDataNascimento()) );
         clientResponse.setUser(cliente.getUser());
+        clientResponse.setPontosExperiencia(cliente.getPontosExperiencia());
 
         return clientResponse;
     }
