@@ -31,6 +31,7 @@ CREATE TABLE `cliente` (
     `endereco_id` bigint(20) NOT NULL,
   `cpf` varchar(15) NOT NULL,
   `codigo_indicacao` varchar(15) ,
+    `codigo_indicacao` varchar(20),
    `recurrent_payment_id` varchar(80),
    `payment_id` varchar(80),
   `ativo` boolean NOT NULL,
@@ -118,3 +119,5 @@ CREATE TABLE `votes` (
   CONSTRAINT `fk_votes_poll_id` FOREIGN KEY (`poll_id`) REFERENCES `polls` (`id`),
   CONSTRAINT `fk_votes_choice_id` FOREIGN KEY (`choice_id`) REFERENCES `choices` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+

@@ -47,6 +47,8 @@ public class ClientRequest {
   	private String bandeira;
   	private String dataValidade;
 
+	private String codigoIndicacao;
+
     
 	public Long getId() {
 		return id;
@@ -216,5 +218,14 @@ public class ClientRequest {
 	public void setDataValidade(String dataValidade) {
 		this.dataValidade = dataValidade;
 	}
+
+	public String getCodigoIndicacao() {
+		return codigoIndicacao;
+	}
+
+	public void setCodigoIndicacao(String codigoIndicacao) {
+		this.codigoIndicacao = codigoIndicacao;
+	}
+	
 	
 }

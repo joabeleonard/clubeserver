@@ -121,4 +121,12 @@ public class ClientController {
     	return new ResponseEntity<>(obj, HttpStatus.OK);
 }
     
+    @GetMapping("/username")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<Cliente> getClientByUsername(@RequestParam(value = "username") String username){
+    	Cliente cliente = clientRepository.findByUsername(username);
+    	cliente.setEndereco(null);
+    	return new ResponseEntity<Cliente>(cliente, HttpStatus.OK);
+    	
+    }
 }

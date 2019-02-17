@@ -1,6 +1,9 @@
 package com.example.polls.model;
 
 import org.hibernate.annotations.NaturalId;
+
+import java.io.Serializable;
+
 import javax.persistence.*;
 
 /**
@@ -8,7 +11,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "roles")
-public class Role {
+public class Role implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

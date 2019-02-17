@@ -32,6 +32,7 @@ import com.example.polls.model.Choice;
 import com.example.polls.model.ChoiceVoteCount;
 import com.example.polls.model.Cliente;
 import com.example.polls.model.Endereco;
+import com.example.polls.model.Indicacao;
 import com.example.polls.model.Poll;
 import com.example.polls.model.Role;
 import com.example.polls.model.RoleName;
@@ -43,6 +44,7 @@ import com.example.polls.payload.PagedResponse;
 import com.example.polls.payload.PollResponse;
 import com.example.polls.payload.VoteRequest;
 import com.example.polls.repository.ClientRepository;
+import com.example.polls.repository.IndicacaoRepository;
 import com.example.polls.repository.PollRepository;
 import com.example.polls.repository.RoleRepository;
 import com.example.polls.repository.UserRepository;
@@ -65,6 +67,9 @@ public class ClientService {
     
     @Autowired
     private ClientRepository clientRepository;
+    
+    @Autowired
+    private IndicacaoRepository indicacaoRepository;
     
     @Autowired
     PasswordEncoder passwordEncoder;
@@ -200,6 +205,12 @@ public class ClientService {
        cliente.setRecurrentPaymentId(pagamento.get("recurrentPaymentId"));
        cliente.setPaymentId(pagamento.get("paymentId"));
 
+       Indicacao indicacao = new Indicacao();
+       if (clientRequest.getCodigoIndicacao() != null) {
+		indicacao.setIndicou(clientRepository.findByCodigoIndicacao(clientRequest.getCodigoIndicacao()));
+		indicacao.setIndicado(cliente);
+		indicacao.setPagou(false);
+       }
        UUID uuid = UUID.randomUUID();
        String myRandom = uuid.toString();
        cliente.setCodigoIndicacao(myRandom.substring(0,8));
@@ -213,8 +224,9 @@ public class ClientService {
         endereco.setComplemento(clientRequest.getComplemento());
         endereco.setLogradouro(clientRequest.getLogradouro());
         cliente.setEndereco(endereco);
-        
-        return clientRepository.save(cliente);
+        Cliente clienteSalvo = clientRepository.save(cliente);
+        indicacaoRepository.save(indicacao);
+        return clienteSalvo;
     }
     
     public Cliente editClient(ClientRequest clientRequest) {
