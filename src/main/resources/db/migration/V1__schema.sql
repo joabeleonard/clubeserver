@@ -85,6 +85,7 @@ CREATE TABLE `user_roles` (
 CREATE TABLE `polls` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `question` varchar(140) NOT NULL,
+  `empresa_id` bigint(20) NOT NULL,
   `expiration_date_time` datetime NOT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,

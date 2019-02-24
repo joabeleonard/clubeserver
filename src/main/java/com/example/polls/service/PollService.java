@@ -7,6 +7,7 @@ import com.example.polls.payload.PagedResponse;
 import com.example.polls.payload.PollRequest;
 import com.example.polls.payload.PollResponse;
 import com.example.polls.payload.VoteRequest;
+import com.example.polls.repository.EmpresaRepository;
 import com.example.polls.repository.PollRepository;
 import com.example.polls.repository.UserRepository;
 import com.example.polls.repository.VoteRepository;
@@ -42,6 +43,9 @@ public class PollService {
 
     @Autowired
     private UserRepository userRepository;
+    
+    @Autowired
+    private EmpresaRepository empresaRepository;
 
     private static final Logger logger = LoggerFactory.getLogger(PollService.class);
 
@@ -146,7 +150,7 @@ public class PollService {
     public Poll createPoll(PollRequest pollRequest) {
         Poll poll = new Poll();
         poll.setQuestion(pollRequest.getQuestion());
-
+        poll.setEmpresa(empresaRepository.getOne(pollRequest.getEmpresaId()));
         pollRequest.getChoices().forEach(choiceRequest -> {
             poll.addChoice(new Choice(choiceRequest.getText()));
         });

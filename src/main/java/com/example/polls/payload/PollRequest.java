@@ -4,6 +4,9 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import com.example.polls.model.Empresa;
+
 import java.util.List;
 
 public class PollRequest {
@@ -19,6 +22,8 @@ public class PollRequest {
     @NotNull
     @Valid
     private PollLength pollLength;
+    
+    private Long empresaId;
 
     public String getQuestion() {
         return question;
@@ -43,4 +48,13 @@ public class PollRequest {
     public void setPollLength(PollLength pollLength) {
         this.pollLength = pollLength;
     }
+
+	public Long getEmpresaId() {
+		return empresaId;
+	}
+
+	public void setEmpresaId(Long empresaId) {
+		this.empresaId = empresaId;
+	}
+
 }

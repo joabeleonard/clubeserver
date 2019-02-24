@@ -1,5 +1,6 @@
 package com.example.polls.payload;
 
+import com.example.polls.model.Empresa;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.time.Instant;
@@ -17,6 +18,8 @@ public class PollResponse {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private Long selectedChoice;
     private Long totalVotes;
+    
+    private Empresa empresa;
 
     public Long getId() {
         return id;
@@ -90,4 +93,13 @@ public class PollResponse {
     public void setTotalVotes(Long totalVotes) {
         this.totalVotes = totalVotes;
     }
+
+	public Empresa getEmpresa() {
+		return empresa;
+	}
+
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
+	}
+    
 }

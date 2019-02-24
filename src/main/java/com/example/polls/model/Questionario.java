@@ -16,18 +16,17 @@ import java.util.List;
  * Created by rajeevkumarsingh on 20/11/17.
  */
 @Entity
-@Table(name = "polls")
-public class Poll extends UserDateAudit {
+@Table(name = "questionario")
+public class Questionario extends UserDateAudit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank
-    @Size(max = 140)
-    private String question;
+    private String descricao;
 
     @OneToMany(
-            mappedBy = "poll",
+            mappedBy = "questionario",
             cascade = CascadeType.ALL,
             fetch = FetchType.EAGER,
             orphanRemoval = true
@@ -35,14 +34,10 @@ public class Poll extends UserDateAudit {
     @Size(min = 2, max = 6)
     @Fetch(FetchMode.SELECT)
     @BatchSize(size = 30)
-    private List<Choice> choices = new ArrayList<>();
+    private List<Questao> questoes = new ArrayList<>();
 
     @NotNull
     private Instant expirationDateTime;
-    
-    @ManyToOne(fetch = FetchType.EAGER, optional = false, cascade = CascadeType.PERSIST)
-	@JoinColumn(name = "empresa_id", nullable = false)
-    private Empresa empresa;
 
     public Long getId() {
         return id;
@@ -52,23 +47,23 @@ public class Poll extends UserDateAudit {
         this.id = id;
     }
 
-    public String getQuestion() {
-        return question;
-    }
+    public String getDescricao() {
+		return descricao;
+	}
 
-    public void setQuestion(String question) {
-        this.question = question;
-    }
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
 
-    public List<Choice> getChoices() {
-        return choices;
-    }
+	public List<Questao> getQuestoes() {
+		return questoes;
+	}
 
-    public void setChoices(List<Choice> choices) {
-        this.choices = choices;
-    }
+	public void setQuestoes(List<Questao> questoes) {
+		this.questoes = questoes;
+	}
 
-    public Instant getExpirationDateTime() {
+	public Instant getExpirationDateTime() {
         return expirationDateTime;
     }
 
@@ -76,22 +71,13 @@ public class Poll extends UserDateAudit {
         this.expirationDateTime = expirationDateTime;
     }
 
-    public void addChoice(Choice choice) {
-        choices.add(choice);
-        choice.setPoll(this);
+    public void addQuestao(Questao questao) {
+        questoes.add(questao);
+        questao.setQuestionario(this);
     }
 
-    public void removeChoice(Choice choice) {
-        choices.remove(choice);
-        choice.setPoll(null);
+    public void removeChoice(Questao questao) {
+    	questoes.remove(questao);
+    	questao.setQuestionario(null);
     }
-
-	public Empresa getEmpresa() {
-		return empresa;
-	}
-
-	public void setEmpresa(Empresa empresa) {
-		this.empresa = empresa;
-	}
-    
 }
