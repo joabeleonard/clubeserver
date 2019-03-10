@@ -27,6 +27,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.validation.Valid;
+
+import java.math.BigDecimal;
 import java.net.URI;
 
 /**
@@ -87,6 +89,7 @@ public class CupomController {
     	
     	Cupom cupom = cupomRepository.getOne(cupomRequest.getId());
     	cupom.setStatusCupom(StatusCupom.ULTILIZADO);
+    	cupom.setValorCupom(new BigDecimal(cupomRequest.getValorCupom().replace(",", ".")));
     	cupom = cupomRepository.save(cupom);
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest().path("/{clientId}")
@@ -135,5 +138,16 @@ public class CupomController {
                                                        @RequestParam(value = "page", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) int page,
                                                        @RequestParam(value = "size", defaultValue = AppConstants.DEFAULT_PAGE_SIZE) int size) {
         return cupomService.getCupomByCliente(username, currentUser, page, size);
+    }
+    
+    @GetMapping("/cuponsParaAvaliar")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<?> cuponsParaAvaliar(@CurrentUser UserPrincipal currentUser) {
+    	 CupomResponse cupom = cupomService.findCupomByUser(currentUser);
+         
+         if (cupom != null) {
+      	   return ResponseEntity.ok(cupom);
+         }
+      	return ResponseEntity.noContent().build();
     }
 }

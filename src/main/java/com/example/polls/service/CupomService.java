@@ -16,6 +16,7 @@ import com.example.polls.repository.PollRepository;
 import com.example.polls.repository.RoleRepository;
 import com.example.polls.repository.UserRepository;
 import com.example.polls.repository.VoteRepository;
+import com.example.polls.repository.impl.CupomRepositoryImpl;
 import com.example.polls.security.UserPrincipal;
 import com.example.polls.util.AppConstants;
 import com.example.polls.util.ModelMapper;
@@ -50,6 +51,9 @@ public class CupomService {
     
     @Autowired
     private CupomRepository cupomRepository;
+    
+    @Autowired
+    private CupomRepositoryImpl cupomRepositoryImpl;
 
     @Autowired
     private VoteRepository voteRepository;
@@ -325,6 +329,9 @@ public class CupomService {
 
 	public CupomResponse findCupomByCodigo(String codigo) {
 		return ModelMapper.mapCupomToPollResponse(cupomRepository.findCupomByCodigo(codigo));
+	}
+	public CupomResponse findCupomByUser(UserPrincipal currentUser) {
+		return ModelMapper.mapCupomToPollResponse(cupomRepositoryImpl.findCupomByUser(currentUser.getId()));
 	}
 
 }

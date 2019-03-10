@@ -21,6 +21,8 @@ public class CupomResponse {
 	
 	private String codigo;
 	
+	private String valorCupom;
+	
     public Long getId() {
         return id;
     }
@@ -69,7 +71,13 @@ public class CupomResponse {
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
 	}
-	
-	
 
+	public String getValorCupom() {
+		return valorCupom;
+	}
+
+	public void setValorCupom(String valorCupom) {
+		this.valorCupom = valorCupom;
+	}
+	
 }

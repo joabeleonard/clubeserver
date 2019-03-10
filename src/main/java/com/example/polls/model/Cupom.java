@@ -1,5 +1,6 @@
 package com.example.polls.model;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -42,6 +43,10 @@ public class Cupom extends UserDateAudit {
 	private Date dataGeracao;
 
 	private Date dataConsumo;
+	
+	private BigDecimal valorCupom;
+	
+	private boolean avaliado;
 
 	public Long getId() {
 		return id;
@@ -99,4 +104,21 @@ public class Cupom extends UserDateAudit {
 		this.cliente = cliente;
 	}
 
+	public BigDecimal getValorCupom() {
+		return valorCupom;
+	}
+
+	public void setValorCupom(BigDecimal valorCupom) {
+		this.valorCupom = valorCupom;
+	}
+
+	public boolean isAvaliado() {
+		return avaliado;
+	}
+
+	public void setAvaliado(boolean avaliado) {
+		this.avaliado = avaliado;
+	}
+
+	
 }
