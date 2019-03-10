@@ -23,6 +23,10 @@ public class CupomResponse {
 	
 	private String valorCupom;
 	
+	private int notaAvaliacao;
+	
+	private String descricaoAvaliacao;
+	
     public Long getId() {
         return id;
     }
@@ -79,5 +83,22 @@ public class CupomResponse {
 	public void setValorCupom(String valorCupom) {
 		this.valorCupom = valorCupom;
 	}
+
+	public int getNotaAvaliacao() {
+		return notaAvaliacao;
+	}
+
+	public void setNotaAvaliacao(int notaAvaliacao) {
+		this.notaAvaliacao = notaAvaliacao;
+	}
+
+	public String getDescricaoAvaliacao() {
+		return descricaoAvaliacao;
+	}
+
+	public void setDescricaoAvaliacao(String descricaoAvaliacao) {
+		this.descricaoAvaliacao = descricaoAvaliacao;
+	}
+
 	
 }

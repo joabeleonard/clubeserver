@@ -46,7 +46,9 @@ public class Cupom extends UserDateAudit {
 	
 	private BigDecimal valorCupom;
 	
-	private boolean avaliado;
+	private int notaAvaliacao;
+	
+	private String descricaoAvaliacao;
 
 	public Long getId() {
 		return id;
@@ -112,13 +114,21 @@ public class Cupom extends UserDateAudit {
 		this.valorCupom = valorCupom;
 	}
 
-	public boolean isAvaliado() {
-		return avaliado;
+	public int getNotaAvaliacao() {
+		return notaAvaliacao;
 	}
 
-	public void setAvaliado(boolean avaliado) {
-		this.avaliado = avaliado;
+	public void setNotaAvaliacao(int notaAvaliacao) {
+		this.notaAvaliacao = notaAvaliacao;
 	}
 
+	public String getDescricaoAvaliacao() {
+		return descricaoAvaliacao;
+	}
+
+	public void setDescricaoAvaliacao(String descricaoAvaliacao) {
+		this.descricaoAvaliacao = descricaoAvaliacao;
+	}
+	
 	
 }

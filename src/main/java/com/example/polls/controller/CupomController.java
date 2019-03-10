@@ -98,6 +98,23 @@ public class CupomController {
         return ResponseEntity.created(location)
                 .body(new ApiResponse(true, "Cliente cadastrado com Sucesso."));
     }
+    
+    @PutMapping("/avaliar")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<?> avaliarCupom(@Valid @RequestBody CupomResponse cupomRequest) {
+    	
+    	Cupom cupom = cupomRepository.getOne(cupomRequest.getId());
+    	cupom.setStatusCupom(StatusCupom.AVALIADO);
+    	cupom.setNotaAvaliacao(cupomRequest.getNotaAvaliacao());
+    	cupom.setDescricaoAvaliacao(cupomRequest.getDescricaoAvaliacao());
+		cupom = cupomRepository.save(cupom);
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest().path("/{clientId}")
+                .buildAndExpand(cupom.getId()).toUri();
+
+        return ResponseEntity.created(location)
+                .body(new ApiResponse(true, "Cliente cadastrado com Sucesso."));
+    }
 
 
     @GetMapping("/{pollId}")
