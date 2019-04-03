@@ -305,4 +305,22 @@ public class EmpresaService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	public PagedResponse<EmpresaResponse> getEmpresasByFilters(UserPrincipal currentUser, String nome, String categoria,
+			int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.Direction.DESC, "createdAt");
+
+        Page<Empresa> empresas = empresaRepository.getEmpresasByFilters(nome, CategoriaEmpresa.valueOf(categoria), pageable);
+        if(empresas.getNumberOfElements() == 0) {
+            return new PagedResponse<>(Collections.emptyList(), empresas.getNumber(),
+            		empresas.getSize(), empresas.getTotalElements(), empresas.getTotalPages(), empresas.isLast());
+        }
+
+        List<EmpresaResponse> empresasResponses = empresas.map(empresa -> {
+            return ModelMapper.mapEmpresaToPollResponse(empresa);
+        }).getContent();
+        
+        return new PagedResponse<>(empresasResponses, empresas.getNumber(),
+        		empresas.getSize(), empresas.getTotalElements(), empresas.getTotalPages(), empresas.isLast());
+	}
 }

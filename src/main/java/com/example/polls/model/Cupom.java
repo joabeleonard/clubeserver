@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -46,6 +47,7 @@ public class Cupom extends UserDateAudit {
 	
 	private BigDecimal valorCupom;
 	
+	@Column(name="nota_avaliacao")
 	private int notaAvaliacao;
 	
 	private String descricaoAvaliacao;

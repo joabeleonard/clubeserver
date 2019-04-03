@@ -1,4 +1,4 @@
-package com.example.polls.controller;
+	package com.example.polls.controller;
 
 import com.example.polls.model.*;
 import com.example.polls.payload.*;
@@ -53,6 +53,15 @@ public class EmpresaController {
                                                 @RequestParam(value = "page", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) int page,
                                                 @RequestParam(value = "size", defaultValue = AppConstants.DEFAULT_PAGE_SIZE) int size) {
         return empresaService.getAllEmpresas(currentUser, page, size);
+    }
+    
+    @GetMapping("empresaSearch")
+    public PagedResponse<EmpresaResponse>  getEmpresasByFilters(@CurrentUser UserPrincipal currentUser,
+									    		@RequestParam(value = "nome") String nome,
+									            @RequestParam(value = "categoria") String categoria,
+                                                @RequestParam(value = "page", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) int page,
+                                                @RequestParam(value = "size", defaultValue = AppConstants.DEFAULT_PAGE_SIZE) int size) {
+        return empresaService.getEmpresasByFilters(currentUser,nome, categoria, page, size);
     }
 
     @PostMapping

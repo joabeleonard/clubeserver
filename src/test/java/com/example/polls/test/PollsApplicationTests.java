@@ -1,4 +1,4 @@
-package com.example.polls;
+package com.example.polls.test;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

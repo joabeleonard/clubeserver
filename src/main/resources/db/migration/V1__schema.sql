@@ -25,6 +25,23 @@ CREATE TABLE `empresa` (
   UNIQUE KEY `uk_users_email` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE `cupom` (
+  `id` bigint(20) NOT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `created_by` bigint(20) DEFAULT NULL,
+  `updated_by` bigint(20) DEFAULT NULL,
+  `codigo` varchar(255) DEFAULT NULL,
+  `data_consumo` datetime ,
+  `data_geracao` datetime DEFAULT NULL,
+  `status_cupom` int(11) DEFAULT NULL,
+  `empresa_id` bigint(20) NOT NULL,
+  `cliente_id` bigint(20) NOT NULL,
+  `valor_cupom` decimal(19,2) ,
+  `descricao_avaliacao` varchar(255),
+  `nota_avaliacao` int(11) 
+)  ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 CREATE TABLE `cliente` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
    `user_id` bigint(20) NOT NULL,
