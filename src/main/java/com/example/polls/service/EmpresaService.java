@@ -172,6 +172,7 @@ public class EmpresaService {
         empresa.setDesconto(empresaRequest.getDesconto());
         empresa.setDetalhes(empresaRequest.getDetalhes());
 
+        empresa.setCategoriaEmpresa(CategoriaEmpresa.valueOf(empresaRequest.getCategoriaEmpresa()));
         return empresaRepository.save(empresa);
     }
     
@@ -183,6 +184,8 @@ public class EmpresaService {
         empresa.getUser().setEmail(empresaRequest.getEmail());
         empresa.setDesconto(empresaRequest.getDesconto());
         empresa.setDetalhes(empresaRequest.getDetalhes());
+        empresa.setCategoriaEmpresa(CategoriaEmpresa.valueOf(empresaRequest.getCategoriaEmpresa()));
+
        // empresa.setCpf(clientRequest.getCpf());
 
         return empresaRepository.save(empresa);
@@ -310,7 +313,16 @@ public class EmpresaService {
 			int page, int size) {
         Pageable pageable = PageRequest.of(page, size, Sort.Direction.DESC, "createdAt");
 
-        Page<Empresa> empresas = empresaRepository.getEmpresasByFilters(nome, CategoriaEmpresa.valueOf(categoria), pageable);
+        CategoriaEmpresa categoriaEmpresa = null;
+        String nomeFilter = null;
+        if (categoria != null && !categoria.equals("")) {
+        	categoriaEmpresa = CategoriaEmpresa.valueOf(categoria);
+		}
+        
+        if (nome != null && !nome.equals("")) {
+        	nomeFilter = nome;
+		}
+        Page<Empresa> empresas = empresaRepository.getEmpresasByFilters(nomeFilter, categoriaEmpresa, pageable);
         if(empresas.getNumberOfElements() == 0) {
             return new PagedResponse<>(Collections.emptyList(), empresas.getNumber(),
             		empresas.getSize(), empresas.getTotalElements(), empresas.getTotalPages(), empresas.isLast());

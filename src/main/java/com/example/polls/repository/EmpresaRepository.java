@@ -24,9 +24,9 @@ public interface EmpresaRepository extends JpaRepository<Empresa, Long> {
 
     Optional<Empresa> findById(Long pollId);
 
-    @Query("SELECT e FROM Empresa e where e.razaoSocial like :nome and e.categoriaEmpresa = :categoriaEmpresa")
-    Page<Empresa> getEmpresasByFilters(@Param("nome") String nome,@Param("categoriaEmpresa") CategoriaEmpresa categoria,Pageable pageable);
-    
     Page<Poll> findByCreatedBy(Long userId, Pageable pageable);
+
+    @Query("select e from Empresa e where ( :nome is null or lower(e.user.name) like lower(concat('%', :nome,'%')) ) and ( :categoriaEmpresa is null or e.categoriaEmpresa = :categoriaEmpresa)  ")
+	Page<Empresa> getEmpresasByFilters(@Param("nome")String nome, @Param("categoriaEmpresa")CategoriaEmpresa categoriaEmpresa, Pageable pageable);
 
 }

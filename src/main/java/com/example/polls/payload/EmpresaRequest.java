@@ -20,6 +20,8 @@ public class EmpresaRequest {
     
     private BigDecimal desconto;
     
+    private String categoriaEmpresa;
+    
     @NotBlank
     @Size(max = 140)
     private String email;
@@ -64,6 +66,14 @@ public class EmpresaRequest {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getCategoriaEmpresa() {
+		return categoriaEmpresa;
+	}
+
+	public void setCategoriaEmpresa(String categoriaEmpresa) {
+		this.categoriaEmpresa = categoriaEmpresa;
 	}
 
 }

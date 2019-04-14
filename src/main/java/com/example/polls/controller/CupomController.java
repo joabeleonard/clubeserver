@@ -14,6 +14,7 @@ import com.example.polls.service.ClientService;
 import com.example.polls.service.CupomService;
 import com.example.polls.service.PollService;
 import com.example.polls.util.AppConstants;
+import com.example.polls.util.ModelMapper;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -79,8 +80,9 @@ public class CupomController {
                 .fromCurrentRequest().path("/{cupomId}")
                 .buildAndExpand(cupom.getId()).toUri();
 
-        return ResponseEntity.created(location)
-                .body(new ApiResponse(true, "Cupom cadastrado com Sucesso."));
+        
+        CupomResponse cupomResponse = ModelMapper.mapCupomToPollResponse(cupom);
+        return ResponseEntity.ok(cupomResponse);
     }
     
     @PutMapping
@@ -107,6 +109,7 @@ public class CupomController {
     	cupom.setStatusCupom(StatusCupom.AVALIADO);
     	cupom.setNotaAvaliacao(cupomRequest.getNotaAvaliacao());
     	cupom.setDescricaoAvaliacao(cupomRequest.getDescricaoAvaliacao());
+    	cupom.setNomeArquivoComprovante(cupomRequest.getNomeArquivoComprovante());
 		cupom = cupomRepository.save(cupom);
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest().path("/{clientId}")

@@ -3,6 +3,7 @@ package com.example.polls.payload;
 
 import java.math.BigDecimal;
 
+import com.example.polls.model.CategoriaEmpresa;
 import com.example.polls.model.User;
 
 
@@ -16,6 +17,8 @@ private Long id;
 	private BigDecimal desconto;
 	
 	private String logo;
+	
+	private CategoriaEmpresa categoriaEmpresa;
 	
 
     public Long getId() {
@@ -56,6 +59,14 @@ private Long id;
 
 	public void setLogo(String logo) {
 		this.logo = logo;
+	}
+
+	public CategoriaEmpresa getCategoriaEmpresa() {
+		return categoriaEmpresa;
+	}
+
+	public void setCategoriaEmpresa(CategoriaEmpresa categoriaEmpresa) {
+		this.categoriaEmpresa = categoriaEmpresa;
 	}
 
 	

@@ -51,6 +51,8 @@ public class Cupom extends UserDateAudit {
 	private int notaAvaliacao;
 	
 	private String descricaoAvaliacao;
+	
+	private String nomeArquivoComprovante;
 
 	public Long getId() {
 		return id;
@@ -131,6 +133,13 @@ public class Cupom extends UserDateAudit {
 	public void setDescricaoAvaliacao(String descricaoAvaliacao) {
 		this.descricaoAvaliacao = descricaoAvaliacao;
 	}
-	
+
+	public String getNomeArquivoComprovante() {
+		return nomeArquivoComprovante;
+	}
+
+	public void setNomeArquivoComprovante(String nomeArquivoComprovante) {
+		this.nomeArquivoComprovante = nomeArquivoComprovante;
+	}
 	
 }

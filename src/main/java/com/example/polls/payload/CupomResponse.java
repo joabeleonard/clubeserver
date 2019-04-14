@@ -27,6 +27,8 @@ public class CupomResponse {
 	
 	private String descricaoAvaliacao;
 	
+	private String nomeArquivoComprovante;
+	
     public Long getId() {
         return id;
     }
@@ -98,6 +100,14 @@ public class CupomResponse {
 
 	public void setDescricaoAvaliacao(String descricaoAvaliacao) {
 		this.descricaoAvaliacao = descricaoAvaliacao;
+	}
+
+	public String getNomeArquivoComprovante() {
+		return nomeArquivoComprovante;
+	}
+
+	public void setNomeArquivoComprovante(String nomeArquivoComprovante) {
+		this.nomeArquivoComprovante = nomeArquivoComprovante;
 	}
 
 	
