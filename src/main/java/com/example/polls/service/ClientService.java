@@ -3,6 +3,8 @@ package com.example.polls.service;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -49,6 +51,7 @@ import com.example.polls.repository.PollRepository;
 import com.example.polls.repository.RoleRepository;
 import com.example.polls.repository.UserRepository;
 import com.example.polls.repository.VoteRepository;
+import com.example.polls.repository.impl.ClientRepositoryImpl;
 import com.example.polls.security.UserPrincipal;
 import com.example.polls.util.AppConstants;
 import com.example.polls.util.ModelMapper;
@@ -79,6 +82,9 @@ public class ClientService {
     
     @Autowired
     PagamentoService pagamentoService;
+    
+    @Autowired
+    private ClientRepositoryImpl clientRepositoryImpl;
 
     private static final Logger logger = LoggerFactory.getLogger(ClientService.class);
 
@@ -368,5 +374,26 @@ public class ClientService {
 	public Cliente save(@Valid ClientRequest clientRequest) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public ArrayList<ClientResponse> findCincoMelhoresRankingDot(int pontos) {
+		ArrayList<Cliente> clients = clientRepositoryImpl.findCincoMelhoresRankingDot(pontos);
+		
+		ArrayList<ClientResponse> clientsResponse = new ArrayList<ClientResponse>();
+		for (Cliente cliente : clients) {
+			clientsResponse.add(ModelMapper.mapClientToPollResponse(cliente));
+		}
+		
+		return clientsResponse;
+	}
+
+	public ArrayList<ClientResponse> findCincoPioresRankingDot(int pontos) {
+		ArrayList<Cliente> clients =  clientRepositoryImpl.findCincoPioresRankingDot(pontos);
+		ArrayList<ClientResponse> clientsResponse = new ArrayList<ClientResponse>();
+		for (Cliente cliente : clients) {
+			clientsResponse.add(ModelMapper.mapClientToPollResponse(cliente));
+		}
+		
+		return clientsResponse;
 	}
 }

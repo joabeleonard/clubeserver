@@ -12,6 +12,7 @@ import com.example.polls.payload.PollResponse;
 import com.example.polls.payload.VoteRequest;
 import com.example.polls.repository.ClientRepository;
 import com.example.polls.repository.CupomRepository;
+import com.example.polls.repository.ExtratoRepository;
 import com.example.polls.repository.PollRepository;
 import com.example.polls.repository.RoleRepository;
 import com.example.polls.repository.UserRepository;
@@ -51,6 +52,9 @@ public class CupomService {
     
     @Autowired
     private CupomRepository cupomRepository;
+    
+    @Autowired
+    private ExtratoRepository extratoRepository;
     
     @Autowired
     private CupomRepositoryImpl cupomRepositoryImpl;
@@ -163,7 +167,15 @@ public class CupomService {
 
 
     public Cupom createCupom(Empresa empresa, Cliente cliente) {
-        Cupom cupom = new Cupom();
+    	
+    	Extrato extrato = new Extrato();
+    	extrato.setUser(cliente.getUser());
+    	extrato.setData(new Date());
+    	extrato.setPontosExperiencia(cliente.getPontosExperiencia()+10);
+    	extrato.setDescricao("Gerou Cupom.");
+    	extratoRepository.save(extrato);
+    	
+    	Cupom cupom = new Cupom();
      
         cupom.setEmpresa(empresa);
         cupom.setCliente(cliente);

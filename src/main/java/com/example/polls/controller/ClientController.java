@@ -6,6 +6,7 @@ import com.example.polls.repository.ClientRepository;
 import com.example.polls.repository.PollRepository;
 import com.example.polls.repository.UserRepository;
 import com.example.polls.repository.VoteRepository;
+import com.example.polls.repository.impl.ClientRepositoryImpl;
 import com.example.polls.security.CurrentUser;
 import com.example.polls.security.UserPrincipal;
 import com.example.polls.service.ClientService;
@@ -26,6 +27,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.ArrayList;
 
 /**
  * Created by rajeevkumarsingh on 20/11/17.
@@ -44,6 +46,9 @@ public class ClientController {
     @Autowired
     private ClientRepository clientRepository;
 
+    @Autowired
+    private ClientRepositoryImpl clientRepositoryImpl;
+    
     @Autowired
     private PollService pollService;
     
@@ -128,5 +133,36 @@ public class ClientController {
     	cliente.setEndereco(null);
     	return new ResponseEntity<Cliente>(cliente, HttpStatus.OK);
     	
+    }
+    
+    @GetMapping("/rankingDot")
+    @PreAuthorize("hasRole('USER')")
+    public ArrayList<ClientResponse> rankingDot(@CurrentUser UserPrincipal currentUser) {
+    	 
+    	Cliente cliente = clientRepository.findByUser(currentUser.getId());
+    	
+    	ArrayList<ClientResponse> clients = clientService.findCincoMelhoresRankingDot(cliente.getPontos());
+         
+    	clients.addAll(clientService.findCincoPioresRankingDot(cliente.getPontos()));
+
+         if (clients != null) {
+      	   return clients;
+         }
+      	return null;
+    }
+    
+    @GetMapping("/rankingExperiencia")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<?> rankingExperiencia(@CurrentUser UserPrincipal currentUser) {
+    	 
+    	Cliente cliente = clientRepository.findByUser(currentUser.getId());
+    	
+    	ArrayList<Cliente> clients = clientRepositoryImpl.findCincoMelhoresExperiencia(cliente.getPontosExperiencia());
+         
+    	clients.addAll(clientRepositoryImpl.findCincoPioresExperiencia(cliente.getPontosExperiencia()));
+         if (clients != null) {
+      	   return ResponseEntity.ok(clients);
+         }
+      	return ResponseEntity.noContent().build();
     }
 }
