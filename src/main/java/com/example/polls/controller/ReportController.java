@@ -10,6 +10,7 @@ import com.example.polls.security.CurrentUser;
 import com.example.polls.security.UserPrincipal;
 import com.example.polls.service.ExtratoService;
 import com.example.polls.service.PollService;
+import com.example.polls.service.ReportService;
 import com.example.polls.util.AppConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,29 +21,29 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.ArrayList;
 
 /**
  * Created by rajeevkumarsingh on 20/11/17.
  */
 
 @RestController
-@RequestMapping("/api/extrato")
-public class ExtratoController {
+@RequestMapping("/api/reports")
+public class ReportController {
 
     @Autowired
-    private ExtratoService extratoService;
+    private ReportService reportService;
 
-    @Autowired
-    private UserRepository userRepository;
-
-
-    private static final Logger logger = LoggerFactory.getLogger(ExtratoController.class);
+    private static final Logger logger = LoggerFactory.getLogger(ReportController.class);
 
 
-    @GetMapping
-    public PagedResponse<Extrato> getPolls(@CurrentUser UserPrincipal currentUser,
-                                                @RequestParam(value = "page", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) int page,
-                                                @RequestParam(value = "size", defaultValue = AppConstants.DEFAULT_PAGE_SIZE) int size) {
-        return extratoService.getAllExtrato(currentUser, page, size);
+    @GetMapping("/dataReportAvaliacoes")
+    public ArrayList<ReportAvaliacoes> findDataReportAvaliacoes(@CurrentUser UserPrincipal currentUser) {
+        return reportService.findDataReportAvaliacoes(currentUser);
+    }
+    
+    @GetMapping("/dataReportVendas")
+    public ArrayList<ReportAvaliacoes> findDataReportVendas(@CurrentUser UserPrincipal currentUser) {
+        return reportService.findDataReportVendas(currentUser);
     }
 }
