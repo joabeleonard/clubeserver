@@ -2,6 +2,7 @@ package com.example.polls.repository;
 
 import com.example.polls.model.Cupom;
 import com.example.polls.model.ReportAvaliacoes;
+import com.example.polls.model.ReportVendas;
 
 import java.util.ArrayList;
 
@@ -30,8 +31,8 @@ public interface CupomRepository extends JpaRepository<Cupom, Long> {
      @Query("SELECT  c.notaAvaliacao as name, count(*) as value FROM Cupom c where c.empresa.id = :empresaId GROUP BY c.notaAvaliacao")
      ArrayList<ReportAvaliacoes> findReportAvaliacao(@Param("empresaId") Long id);
      
-     @Query("SELECT  DATE_FORMAT(c.dataGeracao,'%Y-%m') as name, sum(c.valorCupom) as value FROM Cupom c where c.empresa.user.id = :empresaId GROUP BY DATE_FORMAT(c.dataGeracao,'%Y-%m')")
-	 ArrayList<ReportAvaliacoes> findDataReportVendas(@Param("empresaId") Long id);
+     @Query("SELECT  DATE_FORMAT(c.dataGeracao,'%Y-%m') as name, sum(c.valorCupom) as valor, count(*) as quant FROM Cupom c where c.empresa.user.id = :empresaId GROUP BY DATE_FORMAT(c.dataGeracao,'%Y-%m')")
+	 ArrayList<ReportVendas> findDataReportVendas(@Param("empresaId") Long id);
      
      
 	 
