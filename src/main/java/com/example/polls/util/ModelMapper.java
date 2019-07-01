@@ -3,12 +3,14 @@ package com.example.polls.util;
 import com.example.polls.model.Cliente;
 import com.example.polls.model.Cupom;
 import com.example.polls.model.Empresa;
+import com.example.polls.model.Personagem;
 import com.example.polls.model.Poll;
 import com.example.polls.model.User;
 import com.example.polls.payload.ChoiceResponse;
 import com.example.polls.payload.ClientResponse;
 import com.example.polls.payload.CupomResponse;
 import com.example.polls.payload.EmpresaResponse;
+import com.example.polls.payload.PersonagemResponse;
 import com.example.polls.payload.PollResponse;
 import com.example.polls.payload.UserSummary;
 
@@ -90,7 +92,15 @@ public class ModelMapper {
         empresaResponse.setCategoriaEmpresa(empresa.getCategoriaEmpresa());
         return empresaResponse;
     }
-
+    public static PersonagemResponse mapPersonagemToPollResponse(Personagem personagem) {
+    	PersonagemResponse personagemResponse = new PersonagemResponse();
+        personagem.setId(personagem.getId());
+        personagem.setNome(personagem.getNome());
+        personagem.setDescricao(personagem.getDescricao());
+        personagem.setHobbie(personagem.getHobbie());
+        return personagemResponse;
+    }
+    
 
 	public static CupomResponse mapCupomToPollResponse(Cupom cupom) {
 		CupomResponse cupomResponse = new CupomResponse();
