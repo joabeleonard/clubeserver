@@ -36,7 +36,6 @@ public class Personagem {
             fetch = FetchType.EAGER,
             orphanRemoval = true
     )
-    @Size(min = 2, max = 6)
     @Fetch(FetchMode.SELECT)
     @BatchSize(size = 30)
     private List<NivelGame> niveisGame = new ArrayList<>();

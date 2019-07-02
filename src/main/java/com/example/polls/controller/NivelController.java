@@ -3,6 +3,7 @@
 import com.example.polls.model.*;
 import com.example.polls.payload.*;
 import com.example.polls.repository.EmpresaRepository;
+import com.example.polls.repository.NivelRepository;
 import com.example.polls.security.CurrentUser;
 import com.example.polls.security.UserPrincipal;
 import com.example.polls.service.EmpresaService;
@@ -33,12 +34,12 @@ import java.util.stream.Stream;
  */
 
 @RestController
-@RequestMapping("/api/empresa")
-public class EtapaController {
+@RequestMapping("/api/nivel")
+public class NivelController {
 
 
     @Autowired
-    private EmpresaRepository empresaRepository;
+    private NivelRepository nivel;
 
     @Autowired
     private PollService pollService;
@@ -46,27 +47,27 @@ public class EtapaController {
     @Autowired
     private EmpresaService empresaService;
 
-    private static final Logger logger = LoggerFactory.getLogger(EtapaController.class);
+    private static final Logger logger = LoggerFactory.getLogger(NivelController.class);
 
     @GetMapping
-    public PagedResponse<EmpresaResponse>  getEmpresas(@CurrentUser UserPrincipal currentUser,
+    public PagedResponse<EmpresaResponse>  getNiveis(@CurrentUser UserPrincipal currentUser,
                                                 @RequestParam(value = "page", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) int page,
                                                 @RequestParam(value = "size", defaultValue = AppConstants.DEFAULT_PAGE_SIZE) int size) {
         return empresaService.getAllEmpresas(currentUser, page, size);
     }
     
-    @GetMapping("empresaSearch")
-    public PagedResponse<EmpresaResponse>  getEmpresasByFilters(@CurrentUser UserPrincipal currentUser,
-									    		@RequestParam(value = "nome") String nome,
-									            @RequestParam(value = "categoria") String categoria,
-                                                @RequestParam(value = "page", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) int page,
-                                                @RequestParam(value = "size", defaultValue = AppConstants.DEFAULT_PAGE_SIZE) int size) {
-        return empresaService.getEmpresasByFilters(currentUser,nome, categoria, page, size);
-    }
+//    @GetMapping("empresaSearch")
+//    public PagedResponse<EmpresaResponse>  getEmpresasByFilters(@CurrentUser UserPrincipal currentUser,
+//									    		@RequestParam(value = "nome") String nome,
+//									            @RequestParam(value = "categoria") String categoria,
+//                                                @RequestParam(value = "page", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) int page,
+//                                                @RequestParam(value = "size", defaultValue = AppConstants.DEFAULT_PAGE_SIZE) int size) {
+//        return empresaService.getEmpresasByFilters(currentUser,nome, categoria, page, size);
+//    }
 
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<?> createEmpresa(@Valid @RequestBody EmpresaRequest empresaRequest) {
+    public ResponseEntity<?> createNivel(@Valid @RequestBody EmpresaRequest empresaRequest) {
     	Empresa empresa = empresaService.createEmpresa(empresaRequest);
         
         URI location = ServletUriComponentsBuilder
@@ -124,21 +125,6 @@ public class EtapaController {
         return pollService.castVoteAndGetUpdatedPoll(pollId, voteRequest, currentUser);
     }
 
-    @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<?> delete(@PathVariable long id) {
-    	Empresa empresa = empresaRepository.getOne(id);
-    	empresaRepository.delete(empresa);
-    	
-    	JSONObject obj = new JSONObject();
-    	try {
-			obj.put("ok", "ok");
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-    	return new ResponseEntity<>(obj, HttpStatus.OK);
-}
+   
     
 }

@@ -35,7 +35,7 @@ import java.util.stream.Stream;
  */
 
 @RestController
-@RequestMapping("/api/dica")
+@RequestMapping("/api/dicas")
 public class DicaController {
 
 
@@ -54,48 +54,48 @@ public class DicaController {
         return dicaService.getAllDicas(currentUser, page, size);
     }
     
-    @GetMapping("empresaSearch")
-    public PagedResponse<EmpresaResponse>  getEmpresasByFilters(@CurrentUser UserPrincipal currentUser,
-									    		@RequestParam(value = "nome") String nome,
-									            @RequestParam(value = "categoria") String categoria,
-                                                @RequestParam(value = "page", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) int page,
-                                                @RequestParam(value = "size", defaultValue = AppConstants.DEFAULT_PAGE_SIZE) int size) {
-        return empresaService.getEmpresasByFilters(currentUser,nome, categoria, page, size);
-    }
+//    @GetMapping("empresaSearch")
+//    public PagedResponse<EmpresaResponse>  getEmpresasByFilters(@CurrentUser UserPrincipal currentUser,
+//									    		@RequestParam(value = "nome") String nome,
+//									            @RequestParam(value = "categoria") String categoria,
+//                                                @RequestParam(value = "page", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) int page,
+//                                                @RequestParam(value = "size", defaultValue = AppConstants.DEFAULT_PAGE_SIZE) int size) {
+//        return empresaService.getEmpresasByFilters(currentUser,nome, categoria, page, size);
+//    }
 
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<?> createEmpresa(@Valid @RequestBody EmpresaRequest empresaRequest) {
-    	Empresa empresa = empresaService.createEmpresa(empresaRequest);
+    public ResponseEntity<?> createDica(@Valid @RequestBody DicaRequest dicaRequest) {
+    	DicasGames dica = dicaService.createDica(dicaRequest);
         
         URI location = ServletUriComponentsBuilder
-                .fromCurrentRequest().path("/{empresaId}")
-                .buildAndExpand(empresa.getId()).toUri();
+                .fromCurrentRequest().path("/{dicaId}")
+                .buildAndExpand(dica.getId()).toUri();
 
         return ResponseEntity.created(location)
-                .body(new ApiResponse(true, "Empresa cadastrada com Sucesso."));
+                .body(new ApiResponse(true, "Dica cadastrada com Sucesso."));
     }
     
     @PutMapping
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<?> editEmpresa(@Valid @RequestBody EmpresaRequest empresaRequest) {
-    	Empresa empresa = empresaService.editEmpresa(empresaRequest);
+    public ResponseEntity<?> editDica(@Valid @RequestBody DicaRequest dicaRequest) {
+    	DicasGames dica = dicaService.editDica(dicaRequest);
         
         URI location = ServletUriComponentsBuilder
-                .fromCurrentRequest().path("/{empresaId}")
-                .buildAndExpand(empresa.getId()).toUri();
+                .fromCurrentRequest().path("/{dicaId}")
+                .buildAndExpand(dica.getId()).toUri();
 
         return ResponseEntity.created(location)
-                .body(new ApiResponse(true, "Empresa cadastrado com Sucesso."));
+                .body(new ApiResponse(true, "Dica cadastrado com Sucesso."));
     }
 
 
-    @GetMapping("/{pollId}")
-    public PollResponse getPollById(@CurrentUser UserPrincipal currentUser,
-                                    @PathVariable Long pollId) {
-        return pollService.getPollById(pollId, currentUser);
-    }
-    
+//    @GetMapping("/{pollId}")
+//    public PollResponse getPollById(@CurrentUser UserPrincipal currentUser,
+//                                    @PathVariable Long pollId) {
+//        return dicaService.getPollById(pollId, currentUser);
+//    }
+//    
     @GetMapping("/categorias")
     public List<CategoriaEmpresa> getCategorias(@CurrentUser UserPrincipal currentUser) {
 //    	ArrayList<String> enumNames =  (ArrayList<String>) Stream.of(CategoriaEmpresa.values())
@@ -115,29 +115,23 @@ public class DicaController {
         return mMap;
     }
     
-    @PostMapping("/{pollId}/votes")
-    @PreAuthorize("hasRole('USER')")
-    public PollResponse castVote(@CurrentUser UserPrincipal currentUser,
-                         @PathVariable Long pollId,
-                         @Valid @RequestBody VoteRequest voteRequest) {
-        return pollService.castVoteAndGetUpdatedPoll(pollId, voteRequest, currentUser);
-    }
+  
 
-    @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<?> delete(@PathVariable long id) {
-    	Empresa empresa = empresaRepository.getOne(id);
-    	empresaRepository.delete(empresa);
-    	
-    	JSONObject obj = new JSONObject();
-    	try {
-			obj.put("ok", "ok");
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-    	return new ResponseEntity<>(obj, HttpStatus.OK);
-}
+//    @DeleteMapping("/{id}")
+//    @PreAuthorize("hasRole('ADMIN')")
+//    public ResponseEntity<?> delete(@PathVariable long id) {
+//    	Empresa empresa = empresaRepository.getOne(id);
+//    	empresaRepository.delete(empresa);
+//    	
+//    	JSONObject obj = new JSONObject();
+//    	try {
+//			obj.put("ok", "ok");
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//
+//    	return new ResponseEntity<>(obj, HttpStatus.OK);
+//}
     
 }

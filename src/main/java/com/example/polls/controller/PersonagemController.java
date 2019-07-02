@@ -35,7 +35,7 @@ import java.util.stream.Stream;
  */
 
 @RestController
-@RequestMapping("/api/personagem")
+@RequestMapping("/api/personagens")
 public class PersonagemController {
 
 
