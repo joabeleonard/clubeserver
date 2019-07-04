@@ -8,6 +8,8 @@ import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
+import com.example.polls.model.audit.UserDateAudit;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -18,7 +20,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "personagem")
-public class Personagem {
+public class Personagem extends UserDateAudit{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

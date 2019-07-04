@@ -51,7 +51,7 @@ public class PersonagemController {
     private static final Logger logger = LoggerFactory.getLogger(PersonagemController.class);
 
     @GetMapping
-    public PagedResponse<PersonagemResponse>  getEmpresas(@CurrentUser UserPrincipal currentUser,
+    public PagedResponse<PersonagemResponse>  getPersonagens(@CurrentUser UserPrincipal currentUser,
                                                 @RequestParam(value = "page", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) int page,
                                                 @RequestParam(value = "size", defaultValue = AppConstants.DEFAULT_PAGE_SIZE) int size) {
         return personagemService.getAllPersonagens(currentUser, page, size);

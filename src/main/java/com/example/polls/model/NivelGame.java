@@ -8,6 +8,8 @@ import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
+import com.example.polls.model.audit.UserDateAudit;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +19,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "nivel_game")
-public class NivelGame {
+public class NivelGame extends UserDateAudit{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

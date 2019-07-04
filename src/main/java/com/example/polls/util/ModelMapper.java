@@ -98,10 +98,10 @@ public class ModelMapper {
     }
     public static PersonagemResponse mapPersonagemToPollResponse(Personagem personagem) {
     	PersonagemResponse personagemResponse = new PersonagemResponse();
-        personagem.setId(personagem.getId());
-        personagem.setNome(personagem.getNome());
-        personagem.setDescricao(personagem.getDescricao());
-        personagem.setHobbie(personagem.getHobbie());
+    	personagemResponse.setId(personagem.getId());
+    	personagemResponse.setNome(personagem.getNome());
+    	personagemResponse.setDescricao(personagem.getDescricao());
+    	personagemResponse.setHobbie(personagem.getHobbie());
         return personagemResponse;
     }
     

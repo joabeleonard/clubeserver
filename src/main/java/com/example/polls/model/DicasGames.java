@@ -3,6 +3,9 @@ package com.example.polls.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+
+import com.example.polls.model.audit.UserDateAudit;
+
 import java.util.Objects;
 
 /**
@@ -11,7 +14,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "dicas_games")
-public class DicasGames {
+public class DicasGames extends UserDateAudit{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
