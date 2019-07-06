@@ -25,9 +25,6 @@ public class DicaRequest {
     
     private int ordemDica;
     
-    @NotBlank
-    @Size(max = 140)
-    private String email;
     
 	public Long getId() {
 		return id;
@@ -83,14 +80,6 @@ public class DicaRequest {
 
 	public void setOrdemDica(int ordemDica) {
 		this.ordemDica = ordemDica;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
 	}
 
 }

@@ -42,7 +42,7 @@ public class NivelGame extends UserDateAudit{
     
     private int ordemNivel;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "personagem_id", nullable = false)
     private Personagem personagem;
     

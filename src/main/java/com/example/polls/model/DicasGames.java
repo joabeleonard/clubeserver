@@ -31,12 +31,11 @@ public class DicasGames extends UserDateAudit{
     @NotBlank
     private String dica;
     
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "nivel_game_id", nullable = false)
     private NivelGame nivelGame;
     
-    @NotBlank
-    private Integer ordemDica;
+    private int ordemDica;
 
     public DicasGames() {
 
@@ -90,11 +89,11 @@ public class DicasGames extends UserDateAudit{
 		this.nivelGame = nivelGame;
 	}
 	
-	public Integer getOrdemDica() {
+	public int getOrdemDica() {
 		return ordemDica;
 	}
 
-	public void setOrdemDica(Integer ordemDica) {
+	public void setOrdemDica(int ordemDica) {
 		this.ordemDica = ordemDica;
 	}
 

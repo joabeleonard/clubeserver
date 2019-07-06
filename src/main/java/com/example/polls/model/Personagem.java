@@ -35,7 +35,7 @@ public class Personagem extends UserDateAudit{
     @OneToMany(
             mappedBy = "personagem",
             cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER,
+            fetch = FetchType.LAZY,
             orphanRemoval = true
     )
     @Fetch(FetchMode.SELECT)

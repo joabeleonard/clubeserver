@@ -22,6 +22,8 @@ public class DicaResponse {
 	
 	private int ordemDica;
 
+    private NivelGame nivelGame;
+
 	public Long getId() {
 		return id;
 	}
@@ -69,5 +71,14 @@ public class DicaResponse {
 	public void setOrdemDica(int ordemDica) {
 		this.ordemDica = ordemDica;
 	}
+
+	public NivelGame getNivelGame() {
+		return nivelGame;
+	}
+
+	public void setNivelGame(NivelGame nivelGame) {
+		this.nivelGame = nivelGame;
+	}
 		
+	
 }

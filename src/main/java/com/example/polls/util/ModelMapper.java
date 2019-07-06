@@ -106,6 +106,7 @@ public class ModelMapper {
     }
     
     public static NivelResponse mapNivelToNivelResponse(NivelGame nivelGame) {
+    	nivelGame.getPersonagem().setNiveisGame(null);
     	NivelResponse nivelResponse = new NivelResponse();
         nivelResponse.setId(nivelGame.getId());
         nivelResponse.setNome(nivelGame.getNome());
@@ -126,6 +127,10 @@ public class ModelMapper {
         dicaResponse.setDica(dicasGames.getDica());
         dicaResponse.setQuemEstaComADica(dicasGames.getQuemEstaComADica());
         dicaResponse.setOrdemDica(dicasGames.getOrdemDica());
+        dicasGames.getNivelGame().getPersonagem().setNiveisGame(null);
+
+        dicasGames.getNivelGame().setDicasGames(null);
+        dicaResponse.setNivelGame(dicasGames.getNivelGame());
         return dicaResponse;
     }
 
