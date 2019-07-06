@@ -7,6 +7,7 @@ import com.example.polls.repository.NivelRepository;
 import com.example.polls.security.CurrentUser;
 import com.example.polls.security.UserPrincipal;
 import com.example.polls.service.EmpresaService;
+import com.example.polls.service.NivelService;
 import com.example.polls.service.PollService;
 import com.example.polls.util.AppConstants;
 
@@ -45,15 +46,15 @@ public class NivelController {
     private PollService pollService;
     
     @Autowired
-    private EmpresaService empresaService;
+    private NivelService nivelService;
 
     private static final Logger logger = LoggerFactory.getLogger(NivelController.class);
 
     @GetMapping
-    public PagedResponse<EmpresaResponse>  getNiveis(@CurrentUser UserPrincipal currentUser,
+    public PagedResponse<NivelResponse>  getNiveis(@CurrentUser UserPrincipal currentUser,
                                                 @RequestParam(value = "page", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) int page,
                                                 @RequestParam(value = "size", defaultValue = AppConstants.DEFAULT_PAGE_SIZE) int size) {
-        return empresaService.getAllEmpresas(currentUser, page, size);
+        return nivelService.getAllNiveis(currentUser, page, size);
     }
     
 //    @GetMapping("empresaSearch")
@@ -67,28 +68,28 @@ public class NivelController {
 
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<?> createNivel(@Valid @RequestBody EmpresaRequest empresaRequest) {
-    	Empresa empresa = empresaService.createEmpresa(empresaRequest);
+    public ResponseEntity<?> createNivel(@Valid @RequestBody NivelRequest nivelRequest) {
+    	NivelGame nivel = nivelService.createNivel(nivelRequest);
         
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest().path("/{empresaId}")
-                .buildAndExpand(empresa.getId()).toUri();
+                .buildAndExpand(nivel.getId()).toUri();
 
         return ResponseEntity.created(location)
-                .body(new ApiResponse(true, "Empresa cadastrada com Sucesso."));
+                .body(new ApiResponse(true, "Nivel do game cadastrado com Sucesso."));
     }
     
     @PutMapping
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<?> editEmpresa(@Valid @RequestBody EmpresaRequest empresaRequest) {
-    	Empresa empresa = empresaService.editEmpresa(empresaRequest);
+    public ResponseEntity<?> editNivel(@Valid @RequestBody NivelRequest nivelRequest) {
+    	NivelGame nivelGame = nivelService.editNivel(nivelRequest);
         
         URI location = ServletUriComponentsBuilder
-                .fromCurrentRequest().path("/{empresaId}")
-                .buildAndExpand(empresa.getId()).toUri();
+                .fromCurrentRequest().path("/{nivelId}")
+                .buildAndExpand(nivelGame.getId()).toUri();
 
         return ResponseEntity.created(location)
-                .body(new ApiResponse(true, "Empresa cadastrado com Sucesso."));
+                .body(new ApiResponse(true, "Nivel cadastrado com Sucesso."));
     }
 
 

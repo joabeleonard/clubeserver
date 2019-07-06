@@ -8,12 +8,16 @@ import com.example.polls.payload.ClientRequest;
 import com.example.polls.payload.ClientResponse;
 import com.example.polls.payload.EmpresaRequest;
 import com.example.polls.payload.EmpresaResponse;
+import com.example.polls.payload.NivelRequest;
+import com.example.polls.payload.NivelResponse;
 import com.example.polls.payload.PagedResponse;
 import com.example.polls.payload.PollRequest;
 import com.example.polls.payload.PollResponse;
 import com.example.polls.payload.VoteRequest;
 import com.example.polls.repository.ClientRepository;
 import com.example.polls.repository.EmpresaRepository;
+import com.example.polls.repository.NivelRepository;
+import com.example.polls.repository.PersonagemRepository;
 import com.example.polls.repository.PollRepository;
 import com.example.polls.repository.RoleRepository;
 import com.example.polls.repository.UserRepository;
@@ -46,7 +50,7 @@ import javax.validation.Valid;
 public class NivelService {
 
     @Autowired
-    private PollRepository pollRepository;
+    private PersonagemRepository personagemRepository;
 
     @Autowired
     private VoteRepository voteRepository;
@@ -55,7 +59,7 @@ public class NivelService {
     private UserRepository userRepository;
     
     @Autowired
-    private EmpresaRepository empresaRepository;
+    private NivelRepository nivelRepository;
     
     @Autowired
     PasswordEncoder passwordEncoder;
@@ -66,197 +70,55 @@ public class NivelService {
     private static final Logger logger = LoggerFactory.getLogger(NivelService.class);
 
     
-    public PagedResponse<EmpresaResponse> getAllEmpresas(UserPrincipal currentUser, int page, int size) {
+    public PagedResponse<NivelResponse> getAllNiveis(UserPrincipal currentUser, int page, int size) {
         validatePageNumberAndSize(page, size);
 
         // Retrieve Polls
         Pageable pageable = PageRequest.of(page, size, Sort.Direction.DESC, "createdAt");
-        Page<Empresa> empresas = empresaRepository.findAll(pageable);
+        Page<NivelGame> niveis = nivelRepository.findAll(pageable);
 
-        if(empresas.getNumberOfElements() == 0) {
-            return new PagedResponse<>(Collections.emptyList(), empresas.getNumber(),
-            		empresas.getSize(), empresas.getTotalElements(), empresas.getTotalPages(), empresas.isLast());
+        if(niveis.getNumberOfElements() == 0) {
+            return new PagedResponse<>(Collections.emptyList(), niveis.getNumber(),
+            		niveis.getSize(), niveis.getTotalElements(), niveis.getTotalPages(), niveis.isLast());
         }
 
-        List<EmpresaResponse> empresasResponses = empresas.map(empresa -> {
-            return ModelMapper.mapEmpresaToPollResponse(empresa);
+        List<NivelResponse> niveisResponses = niveis.map(nivel -> {
+            return ModelMapper.mapNivelToNivelResponse(nivel);
         }).getContent();
         
-        return new PagedResponse<>(empresasResponses, empresas.getNumber(),
-        		empresas.getSize(), empresas.getTotalElements(), empresas.getTotalPages(), empresas.isLast());
+        return new PagedResponse<>(niveisResponses, niveis.getNumber(),
+        		niveis.getSize(), niveis.getTotalElements(), niveis.getTotalPages(), niveis.isLast());
     }
 
-    public PagedResponse<PollResponse> getPollsCreatedBy(String username, UserPrincipal currentUser, int page, int size) {
-        validatePageNumberAndSize(page, size);
-
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new ResourceNotFoundException("User", "username", username));
-
-        // Retrieve all polls created by the given username
-        Pageable pageable = PageRequest.of(page, size, Sort.Direction.DESC, "createdAt");
-        Page<Poll> polls = pollRepository.findByCreatedBy(user.getId(), pageable);
-
-        if (polls.getNumberOfElements() == 0) {
-            return new PagedResponse<>(Collections.emptyList(), polls.getNumber(),
-                    polls.getSize(), polls.getTotalElements(), polls.getTotalPages(), polls.isLast());
-        }
-
-        // Map Polls to PollResponses containing vote counts and poll creator details
-        List<Long> pollIds = polls.map(Poll::getId).getContent();
-        Map<Long, Long> choiceVoteCountMap = getChoiceVoteCountMap(pollIds);
-        Map<Long, Long> pollUserVoteMap = getPollUserVoteMap(currentUser, pollIds);
-
-        List<PollResponse> pollResponses = polls.map(poll -> {
-            return ModelMapper.mapPollToPollResponse(poll,
-                    choiceVoteCountMap,
-                    user,
-                    pollUserVoteMap == null ? null : pollUserVoteMap.getOrDefault(poll.getId(), null));
-        }).getContent();
-
-        return new PagedResponse<>(pollResponses, polls.getNumber(),
-                polls.getSize(), polls.getTotalElements(), polls.getTotalPages(), polls.isLast());
-    }
-
-    public PagedResponse<PollResponse> getPollsVotedBy(String username, UserPrincipal currentUser, int page, int size) {
-        validatePageNumberAndSize(page, size);
-
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new ResourceNotFoundException("User", "username", username));
-
-        // Retrieve all pollIds in which the given username has voted
-        Pageable pageable = PageRequest.of(page, size, Sort.Direction.DESC, "createdAt");
-        Page<Long> userVotedPollIds = voteRepository.findVotedPollIdsByUserId(user.getId(), pageable);
-
-        if (userVotedPollIds.getNumberOfElements() == 0) {
-            return new PagedResponse<>(Collections.emptyList(), userVotedPollIds.getNumber(),
-                    userVotedPollIds.getSize(), userVotedPollIds.getTotalElements(),
-                    userVotedPollIds.getTotalPages(), userVotedPollIds.isLast());
-        }
-
-        // Retrieve all poll details from the voted pollIds.
-        List<Long> pollIds = userVotedPollIds.getContent();
-
-        Sort sort = new Sort(Sort.Direction.DESC, "createdAt");
-        List<Poll> polls = pollRepository.findByIdIn(pollIds, sort);
-
-        // Map Polls to PollResponses containing vote counts and poll creator details
-        Map<Long, Long> choiceVoteCountMap = getChoiceVoteCountMap(pollIds);
-        Map<Long, Long> pollUserVoteMap = getPollUserVoteMap(currentUser, pollIds);
-        Map<Long, User> creatorMap = getPollCreatorMap(polls);
-
-        List<PollResponse> pollResponses = polls.stream().map(poll -> {
-            return ModelMapper.mapPollToPollResponse(poll,
-                    choiceVoteCountMap,
-                    creatorMap.get(poll.getCreatedBy()),
-                    pollUserVoteMap == null ? null : pollUserVoteMap.getOrDefault(poll.getId(), null));
-        }).collect(Collectors.toList());
-
-        return new PagedResponse<>(pollResponses, userVotedPollIds.getNumber(), userVotedPollIds.getSize(), userVotedPollIds.getTotalElements(), userVotedPollIds.getTotalPages(), userVotedPollIds.isLast());
-    }
-
-
-    public Empresa createEmpresa(EmpresaRequest empresaRequest) {
-        Empresa empresa = new Empresa();
+  
+    public NivelGame createNivel(NivelRequest nivelRequest) {
+        NivelGame nivel = new NivelGame();
         
-        User user = new User(empresaRequest.getNome(), empresaRequest.getEmail(),
-        		empresaRequest.getEmail(), "senha00.");
-
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-
-        Role userRole = roleRepository.findByName(RoleName.ROLE_ENTERPRISE)
-                .orElseThrow(() -> new AppException("User Role not set."));
-
-        user.setRoles(Collections.singleton(userRole));
-     
-        empresa.setUser(user);
-        empresa.setDesconto(empresaRequest.getDesconto());
-        empresa.setDetalhes(empresaRequest.getDetalhes());
-
-        empresa.setCategoriaEmpresa(CategoriaEmpresa.valueOf(empresaRequest.getCategoriaEmpresa()));
-        return empresaRepository.save(empresa);
+            
+        nivel.setDescricao(nivelRequest.getDescricao());
+        nivel.setMissao(nivelRequest.getMissao());
+        nivel.setNome(nivelRequest.getNome());
+        nivel.setOrdemNivel(nivelRequest.getOrdemNivel());
+        nivel.setPersonagem(personagemRepository.findById(nivelRequest.getPersonagemId()).get());
+        nivel.setPremio(nivelRequest.getPremio());
+        nivel.setResposta(nivelRequest.getResposta());
+        return nivelRepository.save(nivel);
     }
     
-    public Empresa editEmpresa(EmpresaRequest empresaRequest) {
-        Empresa empresa = empresaRepository.getOne(empresaRequest.getId());
+    public NivelGame editNivel(NivelRequest nivelRequest) {
+        NivelGame nivel = nivelRepository.getOne(nivelRequest.getId());
         
-        empresa.getUser().setName(empresaRequest.getNome());
-
-        empresa.getUser().setEmail(empresaRequest.getEmail());
-        empresa.setDesconto(empresaRequest.getDesconto());
-        empresa.setDetalhes(empresaRequest.getDetalhes());
-        empresa.setCategoriaEmpresa(CategoriaEmpresa.valueOf(empresaRequest.getCategoriaEmpresa()));
-
+        nivel.setDescricao(nivelRequest.getDescricao());
+        nivel.setMissao(nivelRequest.getMissao());
+        nivel.setNome(nivelRequest.getNome());
+        nivel.setOrdemNivel(nivelRequest.getOrdemNivel());
+        nivel.setPersonagem(personagemRepository.findById(nivelRequest.getPersonagemId()).get());
+        nivel.setPremio(nivelRequest.getPremio());
+        nivel.setResposta(nivelRequest.getResposta());
        // empresa.setCpf(clientRequest.getCpf());
 
-        return empresaRepository.save(empresa);
+        return nivelRepository.save(nivel);
     }
-
-    public PollResponse getPollById(Long pollId, UserPrincipal currentUser) {
-        Poll poll = pollRepository.findById(pollId).orElseThrow(
-                () -> new ResourceNotFoundException("Poll", "id", pollId));
-
-        // Retrieve Vote Counts of every choice belonging to the current poll
-        List<ChoiceVoteCount> votes = voteRepository.countByPollIdGroupByChoiceId(pollId);
-
-        Map<Long, Long> choiceVotesMap = votes.stream()
-                .collect(Collectors.toMap(ChoiceVoteCount::getChoiceId, ChoiceVoteCount::getVoteCount));
-
-        // Retrieve poll creator details
-        User creator = userRepository.findById(poll.getCreatedBy())
-                .orElseThrow(() -> new ResourceNotFoundException("User", "id", poll.getCreatedBy()));
-
-        // Retrieve vote done by logged in user
-        Vote userVote = null;
-        if(currentUser != null) {
-            userVote = voteRepository.findByUserIdAndPollId(currentUser.getId(), pollId);
-        }
-
-        return ModelMapper.mapPollToPollResponse(poll, choiceVotesMap,
-                creator, userVote != null ? userVote.getChoice().getId(): null);
-    }
-
-    public PollResponse castVoteAndGetUpdatedPoll(Long pollId, VoteRequest voteRequest, UserPrincipal currentUser) {
-        Poll poll = pollRepository.findById(pollId)
-                .orElseThrow(() -> new ResourceNotFoundException("Poll", "id", pollId));
-
-        if(poll.getExpirationDateTime().isBefore(Instant.now())) {
-            throw new BadRequestException("Sorry! This Poll has already expired");
-        }
-
-        User user = userRepository.getOne(currentUser.getId());
-
-        Choice selectedChoice = poll.getChoices().stream()
-                .filter(choice -> choice.getId().equals(voteRequest.getChoiceId()))
-                .findFirst()
-                .orElseThrow(() -> new ResourceNotFoundException("Choice", "id", voteRequest.getChoiceId()));
-
-        Vote vote = new Vote();
-        vote.setPoll(poll);
-        vote.setUser(user);
-        vote.setChoice(selectedChoice);
-
-        try {
-            vote = voteRepository.save(vote);
-        } catch (DataIntegrityViolationException ex) {
-            logger.info("User {} has already voted in Poll {}", currentUser.getId(), pollId);
-            throw new BadRequestException("Sorry! You have already cast your vote in this poll");
-        }
-
-        //-- Vote Saved, Return the updated Poll Response now --
-
-        // Retrieve Vote Counts of every choice belonging to the current poll
-        List<ChoiceVoteCount> votes = voteRepository.countByPollIdGroupByChoiceId(pollId);
-
-        Map<Long, Long> choiceVotesMap = votes.stream()
-                .collect(Collectors.toMap(ChoiceVoteCount::getChoiceId, ChoiceVoteCount::getVoteCount));
-
-        // Retrieve poll creator details
-        User creator = userRepository.findById(poll.getCreatedBy())
-                .orElseThrow(() -> new ResourceNotFoundException("User", "id", poll.getCreatedBy()));
-
-        return ModelMapper.mapPollToPollResponse(poll, choiceVotesMap, creator, vote.getChoice().getId());
-    }
-
 
     private void validatePageNumberAndSize(int page, int size) {
         if(page < 0) {
@@ -268,71 +130,4 @@ public class NivelService {
         }
     }
 
-    private Map<Long, Long> getChoiceVoteCountMap(List<Long> pollIds) {
-        // Retrieve Vote Counts of every Choice belonging to the given pollIds
-        List<ChoiceVoteCount> votes = voteRepository.countByPollIdInGroupByChoiceId(pollIds);
-
-        Map<Long, Long> choiceVotesMap = votes.stream()
-                .collect(Collectors.toMap(ChoiceVoteCount::getChoiceId, ChoiceVoteCount::getVoteCount));
-
-        return choiceVotesMap;
-    }
-
-    private Map<Long, Long> getPollUserVoteMap(UserPrincipal currentUser, List<Long> pollIds) {
-        // Retrieve Votes done by the logged in user to the given pollIds
-        Map<Long, Long> pollUserVoteMap = null;
-        if(currentUser != null) {
-            List<Vote> userVotes = voteRepository.findByUserIdAndPollIdIn(currentUser.getId(), pollIds);
-
-            pollUserVoteMap = userVotes.stream()
-                    .collect(Collectors.toMap(vote -> vote.getPoll().getId(), vote -> vote.getChoice().getId()));
-        }
-        return pollUserVoteMap;
-    }
-
-    Map<Long, User> getPollCreatorMap(List<Poll> polls) {
-        // Get Poll Creator details of the given list of polls
-        List<Long> creatorIds = polls.stream()
-                .map(Poll::getCreatedBy)
-                .distinct()
-                .collect(Collectors.toList());
-
-        List<User> creators = userRepository.findByIdIn(creatorIds);
-        Map<Long, User> creatorMap = creators.stream()
-                .collect(Collectors.toMap(User::getId, Function.identity()));
-
-        return creatorMap;
-    }
-
-	public Cliente save(@Valid ClientRequest clientRequest) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public PagedResponse<EmpresaResponse> getEmpresasByFilters(UserPrincipal currentUser, String nome, String categoria,
-			int page, int size) {
-        Pageable pageable = PageRequest.of(page, size, Sort.Direction.DESC, "createdAt");
-
-        CategoriaEmpresa categoriaEmpresa = null;
-        String nomeFilter = null;
-        if (categoria != null && !categoria.equals("")) {
-        	categoriaEmpresa = CategoriaEmpresa.valueOf(categoria);
-		}
-        
-        if (nome != null && !nome.equals("")) {
-        	nomeFilter = nome;
-		}
-        Page<Empresa> empresas = empresaRepository.getEmpresasByFilters(nomeFilter, categoriaEmpresa, pageable);
-        if(empresas.getNumberOfElements() == 0) {
-            return new PagedResponse<>(Collections.emptyList(), empresas.getNumber(),
-            		empresas.getSize(), empresas.getTotalElements(), empresas.getTotalPages(), empresas.isLast());
-        }
-
-        List<EmpresaResponse> empresasResponses = empresas.map(empresa -> {
-            return ModelMapper.mapEmpresaToPollResponse(empresa);
-        }).getContent();
-        
-        return new PagedResponse<>(empresasResponses, empresas.getNumber(),
-        		empresas.getSize(), empresas.getTotalElements(), empresas.getTotalPages(), empresas.isLast());
-	}
 }

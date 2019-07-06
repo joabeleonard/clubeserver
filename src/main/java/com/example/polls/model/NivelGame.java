@@ -40,8 +40,7 @@ public class NivelGame extends UserDateAudit{
     @NotBlank
     private String premio;
     
-    @NotBlank
-    private Integer ordemNivel;
+    private int ordemNivel;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "personagem_id", nullable = false)
@@ -53,7 +52,6 @@ public class NivelGame extends UserDateAudit{
             fetch = FetchType.EAGER,
             orphanRemoval = true
     )
-    @Size(min = 2, max = 6)
     @Fetch(FetchMode.SELECT)
     @BatchSize(size = 30)
     private List<DicasGames> dicasGames = new ArrayList<>();
@@ -126,11 +124,11 @@ public class NivelGame extends UserDateAudit{
 		this.dicasGames = dicasGames;
 	}
 
-	public Integer getOrdemNivel() {
+	public int getOrdemNivel() {
 		return ordemNivel;
 	}
 
-	public void setOrdemNivel(Integer ordemNivel) {
+	public void setOrdemNivel(int ordemNivel) {
 		this.ordemNivel = ordemNivel;
 	}
 

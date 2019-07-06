@@ -4,21 +4,28 @@ package com.example.polls.payload;
 import java.math.BigDecimal;
 
 import com.example.polls.model.CategoriaEmpresa;
+import com.example.polls.model.Personagem;
 import com.example.polls.model.User;
 
 
 public class NivelResponse {
-private Long id;
 	
-	private User user;
+	private Long id;
 	
-	private String detalhes;
-	
-	private BigDecimal desconto;
-	
-	private String logo;
-	
-	private CategoriaEmpresa categoriaEmpresa;
+    private String nome;
+    
+    private String descricao;
+    
+    private String missao;
+    
+    private String resposta;
+    
+    private String premio;
+    
+    private int ordemNivel;
+    
+    private Personagem personagem;
+
 	
 
     public Long getId() {
@@ -29,45 +36,60 @@ private Long id;
         this.id = id;
     }
 
-	public User getUser() {
-		return user;
+	public String getNome() {
+		return nome;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
-	public String getDetalhes() {
-		return detalhes;
+	public String getDescricao() {
+		return descricao;
 	}
 
-	public void setDetalhes(String detalhes) {
-		this.detalhes = detalhes;
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
-	public BigDecimal getDesconto() {
-		return desconto;
+	public String getMissao() {
+		return missao;
 	}
 
-	public void setDesconto(BigDecimal desconto) {
-		this.desconto = desconto;
+	public void setMissao(String missao) {
+		this.missao = missao;
 	}
 
-	public String getLogo() {
-		return logo;
+	public String getResposta() {
+		return resposta;
 	}
 
-	public void setLogo(String logo) {
-		this.logo = logo;
+	public void setResposta(String resposta) {
+		this.resposta = resposta;
 	}
 
-	public CategoriaEmpresa getCategoriaEmpresa() {
-		return categoriaEmpresa;
+	public String getPremio() {
+		return premio;
 	}
 
-	public void setCategoriaEmpresa(CategoriaEmpresa categoriaEmpresa) {
-		this.categoriaEmpresa = categoriaEmpresa;
+	public void setPremio(String premio) {
+		this.premio = premio;
 	}
 
-	
+	public int getOrdemNivel() {
+		return ordemNivel;
+	}
+
+	public void setOrdemNivel(int ordemNivel) {
+		this.ordemNivel = ordemNivel;
+	}
+
+	public Personagem getPersonagem() {
+		return personagem;
+	}
+
+	public void setPersonagem(Personagem personagem) {
+		this.personagem = personagem;
+	}
+
 }

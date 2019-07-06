@@ -107,10 +107,14 @@ public class ModelMapper {
     
     public static NivelResponse mapNivelToNivelResponse(NivelGame nivelGame) {
     	NivelResponse nivelResponse = new NivelResponse();
-//        nivelResponse.setId(nivelGame.getId());
-//        nivelResponse.setNome(nivelGame.getNome());
-//        personagem.setDescricao(personagem.getDescricao());
-//        personagem.setHobbie(personagem.getHobbie());
+        nivelResponse.setId(nivelGame.getId());
+        nivelResponse.setNome(nivelGame.getNome());
+        nivelResponse.setDescricao(nivelGame.getDescricao());
+        nivelResponse.setMissao(nivelGame.getMissao());
+        nivelResponse.setOrdemNivel(nivelGame.getOrdemNivel());
+        nivelResponse.setPersonagem(nivelGame.getPersonagem());
+        nivelResponse.setPremio(nivelGame.getPremio());
+        nivelResponse.setResposta(nivelGame.getResposta());
         return nivelResponse;
     }
     

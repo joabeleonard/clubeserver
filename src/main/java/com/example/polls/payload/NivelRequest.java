@@ -12,19 +12,20 @@ public class NivelRequest {
 	
 	private Long id;
 	
-    private String detalhes;
-    
-    @NotBlank
-    @Size(max = 140)
     private String nome;
     
-    private BigDecimal desconto;
+    private String descricao;
     
-    private String categoriaEmpresa;
+    private String missao;
     
-    @NotBlank
-    @Size(max = 140)
-    private String email;
+    private String resposta;
+    
+    private String premio;
+    
+    private int ordemNivel;
+    
+    private Long personagemId;
+
     
 	public Long getId() {
 		return id;
@@ -43,37 +44,52 @@ public class NivelRequest {
 		this.nome = nome;
 	}
 
-
-	public String getDetalhes() {
-		return detalhes;
+	public String getDescricao() {
+		return descricao;
 	}
 
-	public void setDetalhes(String detalhes) {
-		this.detalhes = detalhes;
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
-	public BigDecimal getDesconto() {
-		return desconto;
+	public String getMissao() {
+		return missao;
 	}
 
-	public void setDesconto(BigDecimal desconto) {
-		this.desconto = desconto;
+	public void setMissao(String missao) {
+		this.missao = missao;
 	}
 
-	public String getEmail() {
-		return email;
+	public String getResposta() {
+		return resposta;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setResposta(String resposta) {
+		this.resposta = resposta;
 	}
 
-	public String getCategoriaEmpresa() {
-		return categoriaEmpresa;
+	public String getPremio() {
+		return premio;
 	}
 
-	public void setCategoriaEmpresa(String categoriaEmpresa) {
-		this.categoriaEmpresa = categoriaEmpresa;
+	public void setPremio(String premio) {
+		this.premio = premio;
+	}
+
+	public int getOrdemNivel() {
+		return ordemNivel;
+	}
+
+	public void setOrdemNivel(int ordemNivel) {
+		this.ordemNivel = ordemNivel;
+	}
+
+	public Long getPersonagemId() {
+		return personagemId;
+	}
+
+	public void setPersonagemId(Long personagemId) {
+		this.personagemId = personagemId;
 	}
 
 }
