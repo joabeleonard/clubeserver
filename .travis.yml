@@ -1,2 +1,10 @@
 language: java
-mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+jdk:
+- oraclejdk8
+before_cache:
+- rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
+cache:
+  directories:
+  - "$HOME/.gradle/caches/"
+  - "$HOME/.gradle/wrapper/"
+Prontinho! Agora é só commitar o .travis
