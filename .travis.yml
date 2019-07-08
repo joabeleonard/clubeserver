@@ -7,4 +7,10 @@ cache:
   directories:
   - "$HOME/.gradle/caches/"
   - "$HOME/.gradle/wrapper/"
-Prontinho! Agora é só commitar o .travis
+deploy:
+  provider: heroku
+  api_key:
+    secure: h8nzRaKzMPZFwzuFqjIPIqQulE8aN1cqlYspvguA6h84INpPh8aS3Zd+P+0SMuGzPaoGr+Oos3WdY6RE4Wad/FCPEBJlrAZMUN0c7j4PggTU5nSMLnlOjlN44BHmlE4Agj6FR7iqYQB662XjVJYQYAHyGcTBmX5Q8mnzluRoz1ddn4BEFhlx8Ozrx8gG09zNbYotCZqXt0F3rFRtzpwWAwCsd0rrKNKEc/nNuN5XEZM6hN9TF0aPe4pDIcILo3uTrMcjFjGXUJfff7FcMyIb63y6LQKeFBV0+NQeDBDtNl8SXL7kmSFv6V3ia9vKq7Eo5NFvN+mAjETugISV3PbctP5OvwGeq70NnQygPnsU9TYFoz2L0r918aIyvqxvUtexT3/l7v5ol3ZNKK6YVUMU8Eu6Ass0eBbHWcfrVEpJYBk4o0/tlHKWjsj5NTh4bZt4gMhktonBmKr7+1hTHm++z/GDTnVnkcDwWk2PvAHmz2jtrHTLkXbn51Of50Q6u/XV9nOcSY9SUENdlwRt6U6WeiGlvkpx5uQPBbdKKciIh7Q66fD2BmRXIP5lGR5a/9UEPS5rPPcQKtns71kYXmTNeilbqCxiAzxvlUki3LxNbVcVSQcLEBg0LlHT+j6E8u/vi367khmQhWIdo1sUmrFJz4fsfwNrsD+R6wuRLt6xE8E=
+  app: boon-server
+  on:
+    repo: joabeleonard/clubeserver
