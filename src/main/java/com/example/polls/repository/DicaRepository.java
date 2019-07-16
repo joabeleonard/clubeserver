@@ -23,6 +23,8 @@ import java.util.Optional;
 @Repository
 public interface DicaRepository extends JpaRepository<DicasGames, Long> {
 
+	 @Query("SELECT c FROM Cupom c where c.cliente.id = :clientId")
     Optional<DicasGames> findById(Long pollId);
+
 
 }

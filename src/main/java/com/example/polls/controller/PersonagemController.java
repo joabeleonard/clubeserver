@@ -7,6 +7,7 @@ import com.example.polls.repository.PersonagemRepository;
 import com.example.polls.security.CurrentUser;
 import com.example.polls.security.UserPrincipal;
 import com.example.polls.service.EmpresaService;
+import com.example.polls.service.GameService;
 import com.example.polls.service.PersonagemService;
 import com.example.polls.service.PollService;
 import com.example.polls.util.AppConstants;
@@ -43,7 +44,7 @@ public class PersonagemController {
     private PersonagemRepository personagemRepository;
 
     @Autowired
-    private PollService pollService;
+    private GameService gameService;
     
     @Autowired
     private PersonagemService personagemService;
@@ -65,6 +66,12 @@ public class PersonagemController {
                                                 @RequestParam(value = "size", defaultValue = AppConstants.DEFAULT_PAGE_SIZE) int size) {
         return null;
     	//return personagemService.getEmpresasByFilters(currentUser,nome, categoria, page, size);
+    }
+    
+    @GetMapping("/selectPersonagem")
+    @PreAuthorize("hasRole('USER')")
+    public DicaResponse selectPersonagem(@CurrentUser UserPrincipal currentUser,@RequestParam(value = "idPersonagem") Long idPersonagem) {
+        return gameService.selectPersonagens(currentUser, idPersonagem);
     }
     
     @PostMapping
@@ -94,54 +101,5 @@ public class PersonagemController {
     }
 
 
-    @GetMapping("/{pollId}")
-    public PollResponse getPollById(@CurrentUser UserPrincipal currentUser,
-                                    @PathVariable Long pollId) {
-        return pollService.getPollById(pollId, currentUser);
-    }
-    
-    @GetMapping("/categorias")
-    public List<CategoriaEmpresa> getCategorias(@CurrentUser UserPrincipal currentUser) {
-//    	ArrayList<String> enumNames =  (ArrayList<String>) Stream.of(CategoriaEmpresa.values())
-//                .map(Enum::name)
-//                .collect(Collectors.toList());
-    	
-    	List<CategoriaEmpresa> categorias = Arrays.asList(CategoriaEmpresa.values());
-
-		return  categorias;
-    }
-
-    private static Map<String, String> initializeMapping() {
-        Map<String, String> mMap = new HashMap<String, String>();
-        for (CategoriaEmpresa s : CategoriaEmpresa.values()) {
-            mMap.put(s.getCode(), s.getDescricao());
-        }
-        return mMap;
-    }
-    
-    @PostMapping("/{pollId}/votes")
-    @PreAuthorize("hasRole('USER')")
-    public PollResponse castVote(@CurrentUser UserPrincipal currentUser,
-                         @PathVariable Long pollId,
-                         @Valid @RequestBody VoteRequest voteRequest) {
-        return pollService.castVoteAndGetUpdatedPoll(pollId, voteRequest, currentUser);
-    }
-
-//    @DeleteMapping("/{id}")
-//    @PreAuthorize("hasRole('ADMIN')")
-//    public ResponseEntity<?> delete(@PathVariable long id) {
-//    	Empresa empresa = per.getOne(id);
-//    	empresaRepository.delete(empresa);
-//    	
-//    	JSONObject obj = new JSONObject();
-//    	try {
-//			obj.put("ok", "ok");
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//
-//    	return new ResponseEntity<>(obj, HttpStatus.OK);
-//}
-    
+       
 }

@@ -8,6 +8,7 @@ import com.example.polls.security.CurrentUser;
 import com.example.polls.security.UserPrincipal;
 import com.example.polls.service.DicaService;
 import com.example.polls.service.EmpresaService;
+import com.example.polls.service.GameService;
 import com.example.polls.service.PollService;
 import com.example.polls.util.AppConstants;
 
@@ -44,6 +45,9 @@ public class DicaController {
 
     @Autowired
     private DicaService dicaService;
+    
+    @Autowired
+    private GameService gameService;
     
     private static final Logger logger = LoggerFactory.getLogger(DicaController.class);
 
@@ -134,4 +138,9 @@ public class DicaController {
 //    	return new ResponseEntity<>(obj, HttpStatus.OK);
 //}
     
+    @GetMapping("/game")
+    @PreAuthorize("hasRole('USER')")
+    public DicaResponse selectPersonagem(@CurrentUser UserPrincipal currentUser) {
+        return gameService.loadGame(currentUser);
+    }
 }
