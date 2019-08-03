@@ -25,8 +25,8 @@ import java.util.Optional;
 @Repository
 public interface DicaRepository extends JpaRepository<DicasGames, Long> {
 
-	 @Query("SELECT c FROM Cupom c where c.cliente.id = :clientId")
-    Optional<DicasGames> findById(Long pollId);
+//	 @Query("SELECT c FROM Cupom c where c.cliente.id = :clientId")
+//    Optional<DicasGames> findById(Long pollId);
 
 	@Query("SELECT d FROM DicasGames d where d.nivelGame.ordemNivel = :ordemNivel and d.nivelGame.personagem = :personagem  and d.ordemDica = 1")
 	DicasGames primeiraDicaProximoNivel(@Param("personagem") Personagem personagem, @Param("ordemNivel")int ordemNivel);
