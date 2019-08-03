@@ -17,11 +17,13 @@ import com.example.polls.payload.VoteRequest;
 import com.example.polls.repository.ClientRepository;
 import com.example.polls.repository.DicaRepository;
 import com.example.polls.repository.EmpresaRepository;
+import com.example.polls.repository.GameRepository;
 import com.example.polls.repository.NivelRepository;
 import com.example.polls.repository.PollRepository;
 import com.example.polls.repository.RoleRepository;
 import com.example.polls.repository.UserRepository;
 import com.example.polls.repository.VoteRepository;
+import com.example.polls.security.CurrentUser;
 import com.example.polls.security.UserPrincipal;
 import com.example.polls.util.AppConstants;
 import com.example.polls.util.ModelMapper;
@@ -60,6 +62,9 @@ public class DicaService {
     
     @Autowired
     private DicaRepository dicaRepository;
+    
+    @Autowired
+    private GameRepository gameRepository;
     
     @Autowired
     PasswordEncoder passwordEncoder;
@@ -167,6 +172,18 @@ public class DicaService {
 	public Cliente save(@Valid ClientRequest clientRequest) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+
+	public DicaResponse proximaDica(UserPrincipal currentUser, Long id) {
+		DicasGames dica = dicaRepository.getOne(id);
+		
+		DicasGames dicasGames  = dicaRepository.proximaDica(dica.getNivelGame(), dica.getOrdemDica()+1);
+		
+		Game game = gameRepository.findByUser(currentUser.getUsername());
+    	game.setDicasGames(dicasGames);
+    	gameRepository.save(game);
+		return ModelMapper.mapDicaToDicaResponse(dicasGames);
 	}
 
 //	public PagedResponse<EmpresaResponse> getEmpresasByFilters(UserPrincipal currentUser, String nome, String categoria,

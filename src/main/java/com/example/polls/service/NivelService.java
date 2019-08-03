@@ -6,6 +6,7 @@ import com.example.polls.exception.ResourceNotFoundException;
 import com.example.polls.model.*;
 import com.example.polls.payload.ClientRequest;
 import com.example.polls.payload.ClientResponse;
+import com.example.polls.payload.DicaResponse;
 import com.example.polls.payload.EmpresaRequest;
 import com.example.polls.payload.EmpresaResponse;
 import com.example.polls.payload.NivelRequest;
@@ -15,7 +16,9 @@ import com.example.polls.payload.PollRequest;
 import com.example.polls.payload.PollResponse;
 import com.example.polls.payload.VoteRequest;
 import com.example.polls.repository.ClientRepository;
+import com.example.polls.repository.DicaRepository;
 import com.example.polls.repository.EmpresaRepository;
+import com.example.polls.repository.GameRepository;
 import com.example.polls.repository.NivelRepository;
 import com.example.polls.repository.PersonagemRepository;
 import com.example.polls.repository.PollRepository;
@@ -53,7 +56,7 @@ public class NivelService {
     private PersonagemRepository personagemRepository;
 
     @Autowired
-    private VoteRepository voteRepository;
+    private DicaRepository dicaRepository;
 
     @Autowired
     private UserRepository userRepository;
@@ -66,6 +69,9 @@ public class NivelService {
     
     @Autowired
     RoleRepository roleRepository;
+    
+    @Autowired
+    private GameRepository gameRepository;
 
     private static final Logger logger = LoggerFactory.getLogger(NivelService.class);
 
@@ -129,5 +135,18 @@ public class NivelService {
             throw new BadRequestException("Page size must not be greater than " + AppConstants.MAX_PAGE_SIZE);
         }
     }
+
+
+	public DicaResponse proximoNivel(UserPrincipal currentUser,Long id) {
+		NivelGame nivelGame = nivelRepository.findById(id).get();
+		
+		DicasGames dicasGames  = dicaRepository.primeiraDicaProximoNivel(nivelGame.getPersonagem(), nivelGame.getOrdemNivel()+1);
+		
+		Game game = gameRepository.findByUser(currentUser.getUsername());
+    	game.setDicasGames(dicasGames);
+    	gameRepository.save(game);
+    	
+		return ModelMapper.mapDicaToDicaResponse(dicasGames);
+	}
 
 }

@@ -120,6 +120,11 @@ public class DicaController {
     }
     
   
+    @GetMapping("/proximaDica")
+    @PreAuthorize("hasRole('USER')")
+    public DicaResponse proximaDica(@CurrentUser UserPrincipal currentUser, @RequestParam(value = "id") Long id) {
+    	return dicaService.proximaDica(currentUser,id);
+    }
 
 //    @DeleteMapping("/{id}")
 //    @PreAuthorize("hasRole('ADMIN')")

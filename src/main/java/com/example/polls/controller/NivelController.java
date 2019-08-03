@@ -78,6 +78,12 @@ public class NivelController {
         return ResponseEntity.created(location)
                 .body(new ApiResponse(true, "Nivel do game cadastrado com Sucesso."));
     }
+  
+    @GetMapping("/proximoNivel")
+    @PreAuthorize("hasRole('USER')")
+    public DicaResponse proximoNivel(@CurrentUser UserPrincipal currentUser,@RequestParam(value = "id") Long id) {
+    	return nivelService.proximoNivel(currentUser, id);
+    }
     
     @PutMapping
     @PreAuthorize("hasRole('ADMIN')")
