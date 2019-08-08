@@ -144,7 +144,7 @@ public class ClientService {
        cliente.setPaymentId(pagamento.get("paymentId"));
 
        Indicacao indicacao = new Indicacao();
-       if (clientRequest.getCodigoIndicacao() != null) {
+       if (clientRequest.getCodigoIndicacao() != null && !clientRequest.getCodigoIndicacao().equals("") ) {
 		indicacao.setIndicou(clientRepository.findByCodigoIndicacao(clientRequest.getCodigoIndicacao()));
 		indicacao.setIndicado(cliente);
 		indicacao.setPagou(false);
