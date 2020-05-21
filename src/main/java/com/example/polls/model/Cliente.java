@@ -40,11 +40,6 @@ public class Cliente extends UserDateAudit implements Serializable{
 	@Column(name="codigo_indicacao")
 	private String codigoIndicacao;
 	
-	@Column(name="payment_id")
-	private String paymentId;
-	
-	@Column(name="recurrent_payment_id")
-	private String recurrentPaymentId;
 	
 	private String sexo;
 
@@ -59,17 +54,7 @@ public class Cliente extends UserDateAudit implements Serializable{
 	@JoinColumn(name = "endereco_id", nullable = false)
 	private Endereco endereco;
 	
-	@Column(name = "nome_titular")
-  	private String nomeTitular;
-	@Column(name = "numero_cartao")
-  	private String numeroCartao;
-	@Column(name = "codigo_seguranca")
-  	private String codigoSeguranca;
 	
-  	private String bandeira;
-	@Column(name = "data_validade")
-  	private String dataValidade;
-
 	public Long getId() {
 		return id;
 	}
@@ -166,61 +151,5 @@ public class Cliente extends UserDateAudit implements Serializable{
 		this.codigoIndicacao = codigoIndicacao;
 	}
 
-	public String getRecurrentPaymentId() {
-		return recurrentPaymentId;
-	}
-
-	public void setRecurrentPaymentId(String recurrentPaymentId) {
-		this.recurrentPaymentId = recurrentPaymentId;
-	}
-
-	public String getPaymentId() {
-		return paymentId;
-	}
-
-	public void setPaymentId(String paymentId) {
-		this.paymentId = paymentId;
-	}
-
-	public String getNomeTitular() {
-		return nomeTitular;
-	}
-
-	public void setNomeTitular(String nomeTitular) {
-		this.nomeTitular = nomeTitular;
-	}
-
-	public String getNumeroCartao() {
-		return numeroCartao;
-	}
-
-	public void setNumeroCartao(String numeroCartao) {
-		this.numeroCartao = numeroCartao;
-	}
-
-	public String getCodigoSeguranca() {
-		return codigoSeguranca;
-	}
-
-	public void setCodigoSeguranca(String codigoSeguranca) {
-		this.codigoSeguranca = codigoSeguranca;
-	}
-
-	public String getBandeira() {
-		return bandeira;
-	}
-
-	public void setBandeira(String bandeira) {
-		this.bandeira = bandeira;
-	}
-
-	public String getDataValidade() {
-		return dataValidade;
-	}
-
-	public void setDataValidade(String dataValidade) {
-		this.dataValidade = dataValidade;
-	}
-
-	
+		
 }
