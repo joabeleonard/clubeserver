@@ -17,6 +17,7 @@ public class UserPrincipal implements UserDetails {
     private String name;
 
     private String username;
+    
 
     @JsonIgnore
     private String email;
@@ -47,7 +48,7 @@ public class UserPrincipal implements UserDetails {
                 user.getEmail(),
                 user.getPassword(),
                 authorities
-        );
+                );
     }
 
     public Long getId() {
@@ -61,7 +62,7 @@ public class UserPrincipal implements UserDetails {
     public String getEmail() {
         return email;
     }
-
+    
     @Override
     public String getUsername() {
         return username;

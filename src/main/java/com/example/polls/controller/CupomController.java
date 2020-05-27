@@ -72,10 +72,10 @@ public class CupomController {
     @GetMapping("/generate")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> createCupom(@RequestParam(value = "empresa") String empresaId,
-    		@RequestParam(value = "cliente") String username) {
+    		@RequestParam(value = "cliente") long clienteId) {
     	Cupom cupom = cupomService.createCupom(empresaRepository.getOne(new Long(empresaId)),
-    			clientRepository.findByUsername(username));
-        
+    			clientRepository.findByUser(clienteId));
+    
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest().path("/{cupomId}")
                 .buildAndExpand(cupom.getId()).toUri();

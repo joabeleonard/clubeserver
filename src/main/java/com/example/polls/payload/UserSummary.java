@@ -5,11 +5,13 @@ public class UserSummary {
     private String username;
     private String name;
     private String perfil;
+    //private boolean representante;
 
     public UserSummary(Long id, String username, String name) {
         this.id = id;
         this.username = username;
         this.name = name;
+        //this.representante =representante;
     }
 
     public Long getId() {
@@ -43,5 +45,13 @@ public class UserSummary {
 	public void setPerfil(String perfil) {
 		this.perfil = perfil;
 	}
-    
+	
+	/*public boolean getRepresentante() {
+		return representante;
+	}
+
+	public void setRepresentante(boolean representante) {
+		this.representante = representante;
+	}*/
+	
 }

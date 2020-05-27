@@ -135,6 +135,15 @@ public class ClientController {
     	
     }
     
+    @GetMapping("/userid")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<Cliente> getClientByUserId(@RequestParam(value = "userid") String userId){
+    	Cliente cliente = clientRepository.findByUser(new Long(userId));
+    	cliente.setEndereco(null);
+    	return new ResponseEntity<Cliente>(cliente, HttpStatus.OK);
+    	
+    }
+    
     @GetMapping("/rankingDot")
     @PreAuthorize("hasRole('USER')")
     public ArrayList<ClientResponse> rankingDot(@CurrentUser UserPrincipal currentUser) {
