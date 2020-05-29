@@ -60,10 +60,12 @@ public class CupomController {
     @GetMapping
     @PreAuthorize("hasRole('ENTERPRISE')")
     public ResponseEntity<?>  validarCupon(@CurrentUser UserPrincipal currentUser,
-                                                @RequestParam(value = "cupom") String codigo) {
+                                                @RequestParam(value = "cupom") String codigo,
+                                                @RequestParam(value = "empresaid") String empresaId) {
        CupomResponse cupom = cupomService.findCupomByCodigo(codigo);
+       Empresa empresa  = empresaRepository.findByEmpresaId(new Long(empresaId));
        
-       if (cupom != null) {
+       if (cupom != null && cupom.getEmpresaId() == empresa.getId()) {
     	   return ResponseEntity.ok(cupom);
        }
     	return ResponseEntity.noContent().build();

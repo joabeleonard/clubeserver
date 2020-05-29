@@ -136,6 +136,8 @@ public class ModelMapper {
 
 	public static CupomResponse mapCupomToPollResponse(Cupom cupom) {
 		CupomResponse cupomResponse = new CupomResponse();
+		cupomResponse.setEmpresaId((cupom.getEmpresa().getId()));
+		cupomResponse.setClienteId((cupom.getCliente().getId()));
 		cupomResponse.setId(cupom.getId());
 		cupomResponse.setDataGeracao(cupom.getDataGeracao());
 		cupomResponse.setStatus(cupom.getStatusCupom().toString());

@@ -3,6 +3,11 @@ package com.example.polls.payload;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
 import com.example.polls.model.StatusCupom;
 import com.example.polls.model.User;
 
@@ -28,6 +33,10 @@ public class CupomResponse {
 	private String descricaoAvaliacao;
 	
 	private String nomeArquivoComprovante;
+	
+	private Long cliente_id;
+	
+	private Long empresa_id;
 	
     public Long getId() {
         return id;
@@ -109,6 +118,20 @@ public class CupomResponse {
 	public void setNomeArquivoComprovante(String nomeArquivoComprovante) {
 		this.nomeArquivoComprovante = nomeArquivoComprovante;
 	}
-
 	
+    public Long getEmpresaId() {
+        return empresa_id;
+    }
+
+    public void setEmpresaId(Long empresa_id) {
+        this.empresa_id = empresa_id;
+    }
+	
+    public Long getClienteId() {
+        return cliente_id;
+    }
+
+    public void setClienteId(Long cliente_id) {
+        this.cliente_id = cliente_id;
+    }
 }

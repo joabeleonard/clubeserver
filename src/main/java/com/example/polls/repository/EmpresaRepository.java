@@ -23,6 +23,12 @@ import java.util.Optional;
 public interface EmpresaRepository extends JpaRepository<Empresa, Long> {
 
     Optional<Empresa> findById(Long pollId);
+    
+	@Query("SELECT e FROM Empresa e where e.id = :userId")
+	Empresa findByEmpresaId(@Param("userId") Long userId);
+    
+	@Query("SELECT e FROM Empresa e where e.user.id = :userId")
+	Empresa findByUser(@Param("userId") Long userId);
 
     Page<Poll> findByCreatedBy(Long userId, Pageable pageable);
 

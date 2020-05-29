@@ -3,6 +3,7 @@ package com.example.polls.model;
 import java.math.BigDecimal;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -31,7 +32,7 @@ public class Empresa extends UserDateAudit {
 	private String cnpj;
 
 	private String logo;
-	
+		
 	private BigDecimal desconto;
 
 	private String endereco;

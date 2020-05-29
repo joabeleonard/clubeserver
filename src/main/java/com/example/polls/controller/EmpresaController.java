@@ -90,7 +90,14 @@ public class EmpresaController {
                 .body(new ApiResponse(true, "Empresa cadastrado com Sucesso."));
     }
 
-
+    @GetMapping("/userid")
+    @PreAuthorize("hasRole('ENTERPRISE')")
+    public ResponseEntity<Empresa> getEmpresaByUserId(@RequestParam(value = "userid") String userId){
+    	Empresa empresa = empresaRepository.findByUser(new Long(userId));
+    	return new ResponseEntity<Empresa>(empresa, HttpStatus.OK);
+    	
+    }
+    
     @GetMapping("/{pollId}")
     public PollResponse getPollById(@CurrentUser UserPrincipal currentUser,
                                     @PathVariable Long pollId) {
