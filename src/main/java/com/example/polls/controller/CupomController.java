@@ -10,7 +10,7 @@ import com.example.polls.repository.UserRepository;
 import com.example.polls.repository.VoteRepository;
 import com.example.polls.security.CurrentUser;
 import com.example.polls.security.UserPrincipal;
-import com.example.polls.service.ClientService;
+import com.example.polls.service.PreUserService;
 import com.example.polls.service.CupomService;
 import com.example.polls.service.PollService;
 import com.example.polls.util.AppConstants;
