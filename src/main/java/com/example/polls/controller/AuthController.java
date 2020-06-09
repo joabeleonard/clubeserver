@@ -94,6 +94,11 @@ public class AuthController {
                     HttpStatus.BAD_REQUEST);
         }
 
+        if(preUserRepository.existsByEmail(clientRequest.getEmail())) {
+            return new ResponseEntity(new ApiResponse(false, "E-mail já cadastrado!"),
+                    HttpStatus.BAD_REQUEST);
+        }
+
         Cliente cliente = clientService.createClient(clientRequest);
         
         URI location = ServletUriComponentsBuilder
@@ -110,6 +115,12 @@ public class AuthController {
 
 @PostMapping("/signuppreuser")
 public ResponseEntity<?> registerPreClient(@Valid @RequestBody PreUserRequest preUserRequest) {
+
+	
+    if(userRepository.existsByEmail(preUserRequest.getEmail())) {
+        return new ResponseEntity(new ApiResponse(false, "E-mail já cadastrado!"),
+                HttpStatus.BAD_REQUEST);
+    }
 
     if(preUserRepository.existsByEmail(preUserRequest.getEmail())) {
         return new ResponseEntity(new ApiResponse(false, "E-mail já cadastrado!"),
