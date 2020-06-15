@@ -127,11 +127,11 @@ public ResponseEntity<?> registerPreClient(@Valid @RequestBody PreUserRequest pr
                 HttpStatus.BAD_REQUEST);
     }
 
-    PreUser preUser = preUserService.createPreUser(preUserRequest);
+    Cliente cliente = preUserService.createPreUser(preUserRequest);
     
     URI location = ServletUriComponentsBuilder
             .fromCurrentRequest().path("/{preUserId}")
-            .buildAndExpand(preUser.getId()).toUri();
+            .buildAndExpand(cliente.getId()).toUri();
 
     return ResponseEntity.created(location)
             .body(new ApiResponse(true, "Cliente cadastrado com Sucesso."));

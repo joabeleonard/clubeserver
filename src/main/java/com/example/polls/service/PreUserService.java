@@ -32,6 +32,7 @@ import com.example.polls.exception.BadRequestException;
 import com.example.polls.exception.ResourceNotFoundException;
 import com.example.polls.model.Choice;
 import com.example.polls.model.ChoiceVoteCount;
+import com.example.polls.model.Cliente;
 import com.example.polls.model.Endereco;
 import com.example.polls.model.Indicacao;
 import com.example.polls.model.Poll;
@@ -41,10 +42,12 @@ import com.example.polls.model.User;
 import com.example.polls.model.PreUser;
 import com.example.polls.model.Vote;
 import com.example.polls.payload.PreUserRequest;
+import com.example.polls.payload.ClientRequest;
 import com.example.polls.payload.PagedResponse;
 import com.example.polls.payload.PollResponse;
 import com.example.polls.payload.VoteRequest;
 import com.example.polls.repository.PreUserRepository;
+import com.example.polls.repository.ClientRepository;
 import com.example.polls.repository.IndicacaoRepository;
 import com.example.polls.repository.PollRepository;
 import com.example.polls.repository.RoleRepository;
@@ -72,6 +75,9 @@ public class PreUserService {
     private PreUserRepository preUserRepository;
     
     @Autowired
+    private ClientRepository clientRepository;
+    
+    @Autowired
     private IndicacaoRepository indicacaoRepository;
     
     @Autowired
@@ -87,38 +93,32 @@ public class PreUserService {
     private PreUserRepositoryImpl preUserRepositoryImpl;
 
     private static final Logger logger = LoggerFactory.getLogger(PreUserService.class);
-
     
-
-
-
-    public PreUser createPreUser(PreUserRequest preUserRequest) {
+    public Cliente createPreUser(PreUserRequest preUserRequest) {
     	
+        Cliente cliente = new Cliente();
         
-        PreUser preUser = new PreUser( preUserRequest.getEmail(),
-        		preUserRequest.getPassword());
+        User user = new User(preUserRequest.getEmail(), preUserRequest.getEmail(),
+        		preUserRequest.getEmail(), preUserRequest.getSenha());
 
-        preUser.setPassword(passwordEncoder.encode(preUser.getPassword()));
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
 
-        Role userRole = roleRepository.findByName(RoleName.ROLE_PREUSER)
+        Role userRole = roleRepository.findByName(RoleName.ROLE_USER)
                 .orElseThrow(() -> new AppException("User Role not set."));
 
-        preUser.setRoles(Collections.singleton(userRole));
-        
-
-       /*Indicacao indicacao = new Indicacao();
-       if (preUserRequest.getCodigoIndicacao() != null && !preUserRequest.getCodigoIndicacao().equals("") ) {
-		indicacao.setIndicou(preUserRepository.findByCodigoIndicacao(preUserRequest.getCodigoIndicacao()));
-		indicacao.setIndicado(preUser);
-		indicacao.setPagou(false);
-       }*/
-        
+        user.setRoles(Collections.singleton(userRole));
+     
+        cliente.setUser(user);
+        cliente.setAtivo(true);
+       
        UUID uuid = UUID.randomUUID();
        String myRandom = uuid.toString();
+       cliente.setCodigoIndicacao(myRandom.substring(0,8));
         
-        PreUser preUserSalvo = preUserRepository.save(preUser);
-        //indicacaoRepository.save(indicacao);
-        return preUserSalvo;
+        Endereco endereco = new Endereco();
+        cliente.setEndereco(endereco);
+        Cliente clienteSalvo = clientRepository.save(cliente);
+        return clienteSalvo;
     }
     
     public PreUser editPreUser(PreUserRequest preUserRequest) {
