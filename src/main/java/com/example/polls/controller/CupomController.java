@@ -57,19 +57,19 @@ public class CupomController {
 
     private static final Logger logger = LoggerFactory.getLogger(CupomController.class);
 
-    @GetMapping
-    @PreAuthorize("hasRole('ENTERPRISE')")
-    public ResponseEntity<?>  validarCupon(@CurrentUser UserPrincipal currentUser,
-                                                @RequestParam(value = "cupom") String codigo,
-                                                @RequestParam(value = "empresaid") String empresaId) {
-       CupomResponse cupom = cupomService.findCupomByCodigo(codigo);
-       Empresa empresa  = empresaRepository.findByEmpresaId(new Long(empresaId));
-       
-       if (cupom != null && cupom.getEmpresaId() == empresa.getId()) {
-    	   return ResponseEntity.ok(cupom);
-       }
-    	return ResponseEntity.noContent().build();
-    }
+//    @GetMapping
+//    @PreAuthorize("hasRole('ENTERPRISE')")
+//    public ResponseEntity<?>  validarCupon(@CurrentUser UserPrincipal currentUser,
+//                                                @RequestParam(value = "cupom") String codigo,
+//                                                @RequestParam(value = "empresaid") String empresaId) {
+//       CupomResponse cupom = cupomService.findCupomByCodigo(codigo);
+//       Empresa empresa  = empresaRepository.findByEmpresaId(new Long(empresaId));
+//       
+//       if (cupom != null && cupom.getEmpresaId() == empresa.getId()) {
+//    	   return ResponseEntity.ok(cupom);
+//       }
+//    	return ResponseEntity.noContent().build();
+//    }
 
     @GetMapping("/generate")
     @PreAuthorize("hasRole('USER')")
@@ -104,7 +104,7 @@ public class CupomController {
     }
     
     @PutMapping("/avaliar")
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('USER') or hasRole('PREUSER')")
     public ResponseEntity<?> avaliarCupom(@Valid @RequestBody CupomResponse cupomRequest) {
     	
     	Cupom cupom = cupomRepository.getOne(cupomRequest.getId());
@@ -121,6 +121,22 @@ public class CupomController {
                 .body(new ApiResponse(true, "Cliente cadastrado com Sucesso."));
     }
 
+    @PutMapping("/pay")
+    @PreAuthorize("hasRole('USER') or hasRole('PREUSER')")
+    public ResponseEntity<?> payCupom(@Valid @RequestBody long ID) {
+    	
+    	Cupom cupom = cupomRepository.getOne(ID);
+    	cupom.setStatusCupom(StatusCupom.VALIDO);
+		cupom = cupomRepository.save(cupom);
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest().path("/{clientId}")
+                .buildAndExpand(cupom.getId()).toUri();
+
+        return ResponseEntity.created(location)
+                .body(new ApiResponse(true, "Pagamento realizado com Sucesso."));
+    }
+    
+   
 
     @GetMapping("/{pollId}")
     public PollResponse getPollById(@CurrentUser UserPrincipal currentUser,
@@ -163,7 +179,7 @@ public class CupomController {
     }
     
     @GetMapping("/cuponsParaAvaliar")
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('USER') or hasRole('PREUSER')")
     public ResponseEntity<?> cuponsParaAvaliar(@CurrentUser UserPrincipal currentUser) {
     	 CupomResponse cupom = cupomService.findCupomByUser(currentUser);
          
