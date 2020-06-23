@@ -180,7 +180,7 @@ public class CupomService {
         cupom.setEmpresa(empresa);
         cupom.setCliente(cliente);
         cupom.setDataGeracao(new Date());
-        cupom.setStatusCupom(StatusCupom.VALIDO);
+        cupom.setStatusCupom(StatusCupom.NAO_PAGO);
         UUID uuid = UUID.randomUUID();
         String myRandom = uuid.toString();
         cupom.setCodigo(myRandom.substring(0,8));

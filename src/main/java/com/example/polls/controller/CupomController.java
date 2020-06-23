@@ -57,19 +57,19 @@ public class CupomController {
 
     private static final Logger logger = LoggerFactory.getLogger(CupomController.class);
 
-//    @GetMapping
-//    @PreAuthorize("hasRole('ENTERPRISE')")
-//    public ResponseEntity<?>  validarCupon(@CurrentUser UserPrincipal currentUser,
-//                                                @RequestParam(value = "cupom") String codigo,
-//                                                @RequestParam(value = "empresaid") String empresaId) {
-//       CupomResponse cupom = cupomService.findCupomByCodigo(codigo);
-//       Empresa empresa  = empresaRepository.findByEmpresaId(new Long(empresaId));
-//       
-//       if (cupom != null && cupom.getEmpresaId() == empresa.getId()) {
-//    	   return ResponseEntity.ok(cupom);
-//       }
-//    	return ResponseEntity.noContent().build();
-//    }
+    @GetMapping
+    @PreAuthorize("hasRole('ENTERPRISE')")
+    public ResponseEntity<?>  validarCupom(@CurrentUser UserPrincipal currentUser,
+                                                @RequestParam(value = "cupom") String codigo,
+                                                @RequestParam(value = "empresaid") String empresaId) {
+       CupomResponse cupom = cupomService.findCupomByCodigo(codigo);
+       Empresa empresa  = empresaRepository.findByEmpresaId(new Long(empresaId));
+       
+       if (cupom != null && cupom.getEmpresaId() == empresa.getId() && cupom.getStatus() == "NAO_PAGO") {
+    	   return ResponseEntity.ok(cupom);
+       }
+    	return ResponseEntity.noContent().build();
+    }
 
     @GetMapping("/generate")
     @PreAuthorize("hasRole('USER')")
@@ -89,10 +89,10 @@ public class CupomController {
     
     @PutMapping
     @PreAuthorize("hasRole('ENTERPRISE')")
-    public ResponseEntity<?> validarCupom(@Valid @RequestBody CupomResponse cupomRequest) {
+    public ResponseEntity<?> usarCupom(@Valid @RequestBody CupomResponse cupomRequest) {
     	
     	Cupom cupom = cupomRepository.getOne(cupomRequest.getId());
-    	cupom.setStatusCupom(StatusCupom.ULTILIZADO);
+    	cupom.setStatusCupom(StatusCupom.AGUARDANDO_PAG);
     	cupom.setValorCupom(new BigDecimal(cupomRequest.getValorCupom().replace(",", ".")));
     	cupom = cupomRepository.save(cupom);
         URI location = ServletUriComponentsBuilder
@@ -126,14 +126,17 @@ public class CupomController {
     public ResponseEntity<?> payCupom(@Valid @RequestBody long ID) {
     	
     	Cupom cupom = cupomRepository.getOne(ID);
-    	cupom.setStatusCupom(StatusCupom.VALIDO);
+    	if(cupom.getStatusCupom().toString() == "AGUARDANDO_PAG") {
+    	cupom.setStatusCupom(StatusCupom.PAGO);
 		cupom = cupomRepository.save(cupom);
+    	}
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest().path("/{clientId}")
                 .buildAndExpand(cupom.getId()).toUri();
 
         return ResponseEntity.created(location)
                 .body(new ApiResponse(true, "Pagamento realizado com Sucesso."));
+        
     }
     
    

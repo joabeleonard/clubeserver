@@ -7,6 +7,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotBlank;
 
 import com.example.polls.model.StatusCupom;
 import com.example.polls.model.User;
@@ -79,6 +80,7 @@ public class CupomResponse {
 		this.dataGeracao = dataGeracao;
 	}
 
+	
 	public String getCodigo() {
 		return codigo;
 	}
