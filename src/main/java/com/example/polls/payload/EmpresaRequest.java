@@ -20,6 +20,8 @@ public class EmpresaRequest {
     
     private BigDecimal desconto;
     
+    private BigDecimal comissao;
+    
     private String categoriaEmpresa;
     
     @NotBlank
@@ -58,6 +60,15 @@ public class EmpresaRequest {
 
 	public void setDesconto(BigDecimal desconto) {
 		this.desconto = desconto;
+	}
+
+	
+	public BigDecimal getComissao() {
+		return comissao;
+	}
+
+	public void setComissao(BigDecimal comissao) {
+		this.comissao = comissao;
 	}
 
 	public String getEmail() {

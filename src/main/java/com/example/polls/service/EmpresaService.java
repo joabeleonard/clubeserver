@@ -170,6 +170,7 @@ public class EmpresaService {
      
         empresa.setUser(user);
         empresa.setDesconto(empresaRequest.getDesconto());
+        empresa.setComissao(empresaRequest.getComissao());
         empresa.setDetalhes(empresaRequest.getDetalhes());
 
         empresa.setCategoriaEmpresa(CategoriaEmpresa.valueOf(empresaRequest.getCategoriaEmpresa()));
@@ -183,6 +184,7 @@ public class EmpresaService {
 
         empresa.getUser().setEmail(empresaRequest.getEmail());
         empresa.setDesconto(empresaRequest.getDesconto());
+        empresa.setComissao(empresaRequest.getComissao());
         empresa.setDetalhes(empresaRequest.getDetalhes());
         empresa.setCategoriaEmpresa(CategoriaEmpresa.valueOf(empresaRequest.getCategoriaEmpresa()));
 

@@ -34,6 +34,8 @@ public class Empresa extends UserDateAudit {
 	private String logo;
 		
 	private BigDecimal desconto;
+	
+	private BigDecimal comissao;
 
 	private String endereco;
 
@@ -65,6 +67,15 @@ public class Empresa extends UserDateAudit {
 
 	public void setDesconto(BigDecimal desconto) {
 		this.desconto = desconto;
+	}
+	
+	
+	public BigDecimal getComissao() {
+		return comissao;
+	}
+
+	public void setComissao(BigDecimal comissao) {
+		this.comissao = comissao;
 	}
 
 	public String getDetalhes() {
