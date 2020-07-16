@@ -36,7 +36,7 @@ public class Empresa extends UserDateAudit {
 	private BigDecimal desconto;
 	
 	private BigDecimal comissao;
-
+//abc
 	@ManyToOne(fetch = FetchType.EAGER, optional = false, cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "endereco_id", nullable = false)
 	private Endereco endereco;
