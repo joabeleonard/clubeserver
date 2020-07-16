@@ -91,6 +91,7 @@ public class ModelMapper {
         empresaResponse.setId(empresa.getId());
         empresaResponse.setDesconto(empresa.getDesconto());
         empresaResponse.setLogo(empresa.getLogo());
+        empresaResponse.setEndereco(empresa.getEndereco());
         empresaResponse.setDetalhes(empresa.getDetalhes());
         empresaResponse.setUser(empresa.getUser());
         empresaResponse.setCategoriaEmpresa(empresa.getCategoriaEmpresa());
