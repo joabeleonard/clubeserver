@@ -26,7 +26,7 @@ import java.net.URI;
  */
 
 @RestController
-@RequestMapping("/api/extrato")
+@RequestMapping("/api/extrato/")
 public class ExtratoController {
 
     @Autowired

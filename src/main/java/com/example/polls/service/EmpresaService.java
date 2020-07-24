@@ -312,7 +312,7 @@ public class EmpresaService {
 	}
 
 	public PagedResponse<EmpresaResponse> getEmpresasByFilters(UserPrincipal currentUser, String nome, String categoria,
-			int page, int size) {
+			String bairro, String cidade, int page, int size) {
         Pageable pageable = PageRequest.of(page, size, Sort.Direction.DESC, "createdAt");
 
         CategoriaEmpresa categoriaEmpresa = null;
@@ -324,7 +324,7 @@ public class EmpresaService {
         if (nome != null && !nome.equals("")) {
         	nomeFilter = nome;
 		}
-        Page<Empresa> empresas = empresaRepository.getEmpresasByFilters(nomeFilter, categoriaEmpresa, pageable);
+        Page<Empresa> empresas = empresaRepository.getEmpresasByFilters(nomeFilter, categoriaEmpresa, bairro , cidade, pageable);
         if(empresas.getNumberOfElements() == 0) {
             return new PagedResponse<>(Collections.emptyList(), empresas.getNumber(),
             		empresas.getSize(), empresas.getTotalElements(), empresas.getTotalPages(), empresas.isLast());

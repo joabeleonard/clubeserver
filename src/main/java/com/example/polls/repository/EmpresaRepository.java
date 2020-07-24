@@ -32,7 +32,10 @@ public interface EmpresaRepository extends JpaRepository<Empresa, Long> {
 
     Page<Poll> findByCreatedBy(Long userId, Pageable pageable);
 
-    @Query("select e from Empresa e where ( :nome is null or lower(e.user.name) like lower(concat('%', :nome,'%')) ) and ( :categoriaEmpresa is null or e.categoriaEmpresa = :categoriaEmpresa)  ")
-	Page<Empresa> getEmpresasByFilters(@Param("nome")String nome, @Param("categoriaEmpresa")CategoriaEmpresa categoriaEmpresa, Pageable pageable);
+    @Query("select e from Empresa e where ( :nome is null or lower(e.user.name) like lower(concat('%', :nome,'%')) )"
+    		+ " and ( :categoriaEmpresa is null or e.categoriaEmpresa = :categoriaEmpresa)  "
+    		+ " and ( :bairro is null or lower(e.endereco.bairro) like lower(concat('%', :bairro,'%'))) "
+    		+ "  and ( :cidade is null or lower(e.endereco.cidade) like lower(concat('%', :cidade,'%')))  ")
+	Page<Empresa> getEmpresasByFilters(@Param("nome")String nome, @Param("categoriaEmpresa")CategoriaEmpresa categoriaEmpresa, String bairro, String cidade, Pageable pageable);
 
 }
