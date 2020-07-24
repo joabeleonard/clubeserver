@@ -28,6 +28,13 @@ public class Extrato extends UserDateAudit {
     @JoinColumn(name = "user_id", nullable = false)
 	private User user;
 	
+	@ManyToOne(fetch = FetchType.LAZY, optional = false, cascade=CascadeType.PERSIST)
+    @JoinColumn(name = "cupom_id", nullable = false)
+	private Cupom cupom;
+	
+	@Column(name="valor_comissao")
+	private BigDecimal valorComissao;
+	
 	private int pontos;
 	
 	@Column(name="pontos_experiencia")
@@ -37,6 +44,10 @@ public class Extrato extends UserDateAudit {
 
 	private String descricao;
 
+	@Column(name="tipo_extrato")
+	private TipoExtrato tipoExtrato;
+	
+	
 	public Long getId() {
 		return id;
 	}

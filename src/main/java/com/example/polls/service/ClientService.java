@@ -134,6 +134,15 @@ public class ClientService {
        cliente.setDataNascimento(clientRequest.getDataNascimento());
        
 
+       cliente.setNomeTitular(clientRequest.getNomeTitular());
+       cliente.setBandeira(clientRequest.getBandeira());
+       cliente.setCodigoSeguranca(clientRequest.getCodigoSeguranca());
+       cliente.setNumeroCartao(clientRequest.getNumeroCartao());
+       cliente.setDataValidade(clientRequest.getDataValidade());
+
+       Map<String, String> pagamento = pagamentoService.pagamento(cliente);
+       cliente.setRecurrentPaymentId(pagamento.get("recurrentPaymentId"));
+       cliente.setPaymentId(pagamento.get("paymentId"));
        Indicacao indicacao = new Indicacao();
        if (clientRequest.getCodigoIndicacao() != null && !clientRequest.getCodigoIndicacao().equals("") ) {
 		indicacao.setIndicou(clientRepository.findByCodigoIndicacao(clientRequest.getCodigoIndicacao()));

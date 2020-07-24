@@ -138,4 +138,15 @@ CREATE TABLE `votes` (
   CONSTRAINT `fk_votes_choice_id` FOREIGN KEY (`choice_id`) REFERENCES `choices` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE `comissao` (
+  `id` bigint(20) NOT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `created_by` bigint(20) DEFAULT NULL,
+  `updated_by` bigint(20) DEFAULT NULL,
+  `cupom_id` bigint(20) NOT NULL,
+  `user_id` bigint(20) NOT NULL,
+  `valor_comissao` decimal(19,2) ,
+  `descricao_avaliacao` varchar(255),
+)  ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
