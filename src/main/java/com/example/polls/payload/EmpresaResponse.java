@@ -5,14 +5,21 @@ import java.math.BigDecimal;
 
 import com.example.polls.model.CategoriaEmpresa;
 import com.example.polls.model.User;
+import com.example.polls.model.Endereco;
 
 
+/**
+ * @author marce
+ *
+ */
 public class EmpresaResponse {
 private Long id;
 	
 	private User user;
 	
 	private String detalhes;
+	
+	private Endereco endereco;
 	
 	private BigDecimal desconto;
 	
@@ -69,5 +76,13 @@ private Long id;
 		this.categoriaEmpresa = categoriaEmpresa;
 	}
 
+	public Endereco getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
+	}
 	
-}
+	
+ }

@@ -36,8 +36,10 @@ public class Empresa extends UserDateAudit {
 	private BigDecimal desconto;
 	
 	private BigDecimal comissao;
-
-	private String endereco;
+//abc
+	@ManyToOne(fetch = FetchType.EAGER, optional = false, cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "endereco_id", nullable = false)
+	private Endereco endereco;
 
 	private String detalhes;
 
@@ -110,11 +112,11 @@ public class Empresa extends UserDateAudit {
 		this.cnpj = cnpj;
 	}
 
-	public String getEndereco() {
+	public Endereco getEndereco() {
 		return endereco;
 	}
 
-	public void setEndereco(String endereco) {
+	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
 	}
 
