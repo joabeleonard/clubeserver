@@ -111,10 +111,6 @@ public class PreUserService {
         cliente.setUser(user);
         cliente.setAtivo(true);
        
-       UUID uuid = UUID.randomUUID();
-       String myRandom = uuid.toString();
-       cliente.setCodigoIndicacao(myRandom.substring(0,8));
-        
         Endereco endereco = new Endereco();
         cliente.setEndereco(endereco);
         Cliente clienteSalvo = clientRepository.save(cliente);

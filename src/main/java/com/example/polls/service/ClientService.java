@@ -117,7 +117,11 @@ public class ClientService {
         
         User user = new User(clientRequest.getNome(), clientRequest.getEmail(),
         		clientRequest.getEmail(), clientRequest.getSenha());
-
+        
+        UUID uuid = UUID.randomUUID();
+        String myRandom = uuid.toString();
+        
+        user.setCodigoIndicacao(myRandom.substring(0,8));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         Role userRole = roleRepository.findByName(RoleName.ROLE_USER)
@@ -145,13 +149,10 @@ public class ClientService {
        cliente.setPaymentId(pagamento.get("paymentId"));
        Indicacao indicacao = new Indicacao();
        if (clientRequest.getCodigoIndicacao() != null && !clientRequest.getCodigoIndicacao().equals("") ) {
-		indicacao.setIndicou(clientRepository.findByCodigoIndicacao(clientRequest.getCodigoIndicacao()));
+		indicacao.setUserIndicou(userRepository.findByCodigoIndicacao(clientRequest.getCodigoIndicacao()));
 		indicacao.setIndicado(cliente);
 		indicacao.setPagou(false);
        }
-       UUID uuid = UUID.randomUUID();
-       String myRandom = uuid.toString();
-       cliente.setCodigoIndicacao(myRandom.substring(0,8));
         
         Endereco endereco = new Endereco();
         endereco.setBairro(clientRequest.getBairro());
@@ -222,4 +223,6 @@ public class ClientService {
 		
 		return clientsResponse;
 	}
+
+
 }

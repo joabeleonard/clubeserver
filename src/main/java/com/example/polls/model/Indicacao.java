@@ -25,7 +25,7 @@ public class Indicacao {
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_cliente_indicou", nullable = false)
-	public Cliente indicou;
+	public User userIndicou;
 	
 	public boolean pagou;
 
@@ -46,12 +46,12 @@ public class Indicacao {
 		this.indicado = indicado;
 	}
 
-	public Cliente getIndicou() {
-		return indicou;
+	public User getUserIndicou() {
+		return userIndicou;
 	}
 
-	public void setIndicou(Cliente indicou) {
-		this.indicou = indicou;
+	public void setUserIndicou(User userIndicou) {
+		this.userIndicou = userIndicou;
 	}
 
 	public boolean isPagou() {

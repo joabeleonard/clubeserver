@@ -53,6 +53,9 @@ public class User extends DateAudit implements Serializable{
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
+    @Column(name="codigo_indicacao")
+	private String codigoIndicacao;
+    
     public User() {
 
     }
@@ -111,4 +114,13 @@ public class User extends DateAudit implements Serializable{
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
+
+	public String getCodigoIndicacao() {
+		return codigoIndicacao;
+	}
+
+	public void setCodigoIndicacao(String codigoIndicacao) {
+		this.codigoIndicacao = codigoIndicacao;
+	}
+    
 }

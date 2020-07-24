@@ -40,9 +40,6 @@ public class Cliente extends UserDateAudit implements Serializable{
 	@Column(name="representante")
 	private boolean representante;
 
-	@Column(name="codigo_indicacao")
-	private String codigoIndicacao;
-	
 	@Column(name="payment_id")
 	private String paymentId;
 	
@@ -161,14 +158,6 @@ public class Cliente extends UserDateAudit implements Serializable{
 		this.pontosExperiencia = pontosExperiencia;
 	}
 
-	public String getCodigoIndicacao() {
-		return codigoIndicacao;
-	}
-
-	public void setCodigoIndicacao(String codigoIndicacao) {
-		this.codigoIndicacao = codigoIndicacao;
-	}
-	
 	public boolean getRepresentante() {
 		return representante;
 	}
