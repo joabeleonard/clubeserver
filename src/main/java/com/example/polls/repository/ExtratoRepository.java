@@ -18,5 +18,8 @@ public interface ExtratoRepository extends JpaRepository<Extrato, Long> {
 
 	 @Query("SELECT e FROM Extrato e where e.user.id = :userId")
 	 Page<Extrato> getAllExtrato(@Param("userId") Long userId,Pageable pageable);
+	 
+	 @Query("SELECT e FROM Extrato e where e.user.id = :userId and valorComissao is not null")
+	 Page<Extrato> getAllExtratoFinanceiro(@Param("userId") Long userId,Pageable pageable);
 
 }

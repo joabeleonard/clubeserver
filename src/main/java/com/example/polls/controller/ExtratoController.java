@@ -40,9 +40,16 @@ public class ExtratoController {
 
 
     @GetMapping
-    public PagedResponse<Extrato> getPolls(@CurrentUser UserPrincipal currentUser,
+    public PagedResponse<Extrato> getExtratos(@CurrentUser UserPrincipal currentUser,
                                                 @RequestParam(value = "page", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) int page,
                                                 @RequestParam(value = "size", defaultValue = AppConstants.DEFAULT_PAGE_SIZE) int size) {
         return extratoService.getAllExtrato(currentUser, page, size);
+    }
+    
+    @GetMapping("extratosFinanceiro")
+    public PagedResponse<Extrato> getExtratosFinanceiro(@CurrentUser UserPrincipal currentUser,
+                                                @RequestParam(value = "page", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) int page,
+                                                @RequestParam(value = "size", defaultValue = AppConstants.DEFAULT_PAGE_SIZE) int size) {
+        return extratoService.getAllExtratoFinanceiro(currentUser, page, size);
     }
 }
