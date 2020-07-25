@@ -36,6 +36,6 @@ public interface EmpresaRepository extends JpaRepository<Empresa, Long> {
     		+ " and ( :categoriaEmpresa is null or e.categoriaEmpresa = :categoriaEmpresa)  "
     		+ " and ( :bairro is null or lower(e.endereco.bairro) like lower(concat('%', :bairro,'%'))) "
     		+ "  and ( :cidade is null or lower(e.endereco.cidade) like lower(concat('%', :cidade,'%')))  ")
-	Page<Empresa> getEmpresasByFilters(@Param("nome")String nome, @Param("categoriaEmpresa")CategoriaEmpresa categoriaEmpresa, String bairro, String cidade, Pageable pageable);
+	Page<Empresa> getEmpresasByFilters(@Param("nome")String nome, @Param("categoriaEmpresa")CategoriaEmpresa categoriaEmpresa,  @Param("bairro")String bairro,  @Param("cidade") String cidade, Pageable pageable);
 
 }

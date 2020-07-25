@@ -31,7 +31,7 @@ public interface ClientRepository extends JpaRepository<Cliente, Long> {
 	@Query("SELECT c FROM Cliente c where c.user.username = :username")
 	Cliente findByUsername(@Param("username") String username);
 
-	Cliente findByCodigoIndicacao(String codigoIndicacao);
+//	Cliente findByCodigoIndicacao(String codigoIndicacao);
 
 
 //	@Query("SELECT c FROM Cliente c where c.pontosExperiencia > :pontos pontosExperiencia order by pontos limit 5")
