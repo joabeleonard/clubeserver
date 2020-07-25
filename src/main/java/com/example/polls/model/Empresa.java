@@ -46,6 +46,10 @@ public class Empresa extends UserDateAudit {
 	private String telefone;
 
 	private CategoriaEmpresa categoriaEmpresa;
+	
+	private String url;
+
+	
 
 	public Long getId() {
 		return id;
@@ -134,6 +138,14 @@ public class Empresa extends UserDateAudit {
 
 	public void setCategoriaEmpresa(CategoriaEmpresa categoriaEmpresa) {
 		this.categoriaEmpresa = categoriaEmpresa;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
 	

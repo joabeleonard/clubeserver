@@ -28,6 +28,8 @@ public class EmpresaRequest {
     @Size(max = 140)
     private String email;
     
+	private String url;
+
 	public Long getId() {
 		return id;
 	}
@@ -87,4 +89,13 @@ public class EmpresaRequest {
 		this.categoriaEmpresa = categoriaEmpresa;
 	}
 
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	
 }

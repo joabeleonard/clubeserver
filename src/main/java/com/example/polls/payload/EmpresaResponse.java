@@ -27,7 +27,8 @@ private Long id;
 	
 	private CategoriaEmpresa categoriaEmpresa;
 	
-
+	private String url;
+	
     public Long getId() {
         return id;
     }
@@ -83,6 +84,14 @@ private Long id;
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
 	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
 	
-	
+	 
  }

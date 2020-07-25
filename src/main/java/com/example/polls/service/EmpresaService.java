@@ -172,6 +172,7 @@ public class EmpresaService {
         empresa.setDesconto(empresaRequest.getDesconto());
         empresa.setComissao(empresaRequest.getComissao());
         empresa.setDetalhes(empresaRequest.getDetalhes());
+        empresa.setUrl(empresaRequest.getUrl());
 
         empresa.setCategoriaEmpresa(CategoriaEmpresa.valueOf(empresaRequest.getCategoriaEmpresa()));
         return empresaRepository.save(empresa);

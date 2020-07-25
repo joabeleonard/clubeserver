@@ -95,6 +95,7 @@ public class ModelMapper {
         empresaResponse.setDetalhes(empresa.getDetalhes());
         empresaResponse.setUser(empresa.getUser());
         empresaResponse.setCategoriaEmpresa(empresa.getCategoriaEmpresa());
+        empresaResponse.setUrl(empresa.getUrl());
         return empresaResponse;
     }
     public static PersonagemResponse mapPersonagemToPollResponse(Personagem personagem) {
