@@ -49,7 +49,7 @@ public class Empresa extends UserDateAudit {
 	
 	private String url;
 
-	
+	private boolean representavel;
 
 	public Long getId() {
 		return id;
@@ -148,5 +148,12 @@ public class Empresa extends UserDateAudit {
 		this.url = url;
 	}
 
-	
+	public boolean isRepresentavel() {
+		return representavel;
+	}
+
+	public void setRepresentavel(boolean representavel) {
+		this.representavel = representavel;
+	}
+
 }

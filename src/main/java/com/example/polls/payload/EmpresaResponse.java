@@ -29,6 +29,8 @@ private Long id;
 	
 	private String url;
 	
+	private boolean representavel;
+	
     public Long getId() {
         return id;
     }
@@ -92,6 +94,13 @@ private Long id;
 	public void setUrl(String url) {
 		this.url = url;
 	}
+
+	public boolean isRepresentavel() {
+		return representavel;
+	}
+
+	public void setRepresentavel(boolean representavel) {
+		this.representavel = representavel;
+	}
 	
-	 
  }

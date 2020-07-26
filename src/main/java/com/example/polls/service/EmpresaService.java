@@ -188,7 +188,7 @@ public class EmpresaService {
         empresa.setComissao(empresaRequest.getComissao());
         empresa.setDetalhes(empresaRequest.getDetalhes());
         empresa.setCategoriaEmpresa(CategoriaEmpresa.valueOf(empresaRequest.getCategoriaEmpresa()));
-
+        empresa.setRepresentavel(empresaRequest.isRepresentavel());
        // empresa.setCpf(clientRequest.getCpf());
 
         return empresaRepository.save(empresa);
