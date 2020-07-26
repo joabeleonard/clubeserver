@@ -97,6 +97,15 @@ public class ModelMapper {
         empresaResponse.setCategoriaEmpresa(empresa.getCategoriaEmpresa());
         empresaResponse.setUrl(empresa.getUrl());
         empresaResponse.setRepresentavel(empresa.isRepresentavel());
+        
+        empresaResponse.setBairro(empresa.getEndereco().getBairro());
+        empresaResponse.setLogradouro(empresa.getEndereco().getLogradouro());   
+        empresaResponse.setComplemento(empresa.getEndereco().getComplemento());
+        empresaResponse.setCep(empresa.getEndereco().getCep());          
+        empresaResponse.setNumero(empresa.getEndereco().getNumero());       
+        empresaResponse.setCidade(empresa.getEndereco().getCidade());       
+        empresaResponse.setEstado(empresa.getEndereco().getEstado());    
+        
         return empresaResponse;
     }
     public static PersonagemResponse mapPersonagemToPollResponse(Personagem personagem) {

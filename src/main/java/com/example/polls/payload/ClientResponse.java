@@ -22,13 +22,14 @@ private Long id;
 	
 	private UserProfile profile;
 	
-	  	private String logradouro;
-	  	private String complemento;
-
+	  	
 	  	private String rg;
-	    private String cep;
 	    private String sexo;
 	    private String telefone;
+	    
+	    private String cep;
+	    private String logradouro;
+	  	private String complemento;
 	    private String bairro;
 	    private String numero;
 	    private String cidade;

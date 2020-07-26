@@ -175,6 +175,17 @@ public class EmpresaService {
         empresa.setUrl(empresaRequest.getUrl());
 
         empresa.setCategoriaEmpresa(CategoriaEmpresa.valueOf(empresaRequest.getCategoriaEmpresa()));
+        
+        Endereco endereco = new Endereco();
+        endereco.setBairro(empresaRequest.getBairro());
+        endereco.setCep(empresaRequest.getCep());
+        endereco.setCidade(empresaRequest.getCidade());
+        endereco.setEstado(empresaRequest.getEstado());
+        endereco.setNumero(empresaRequest.getNumero());
+        endereco.setComplemento(empresaRequest.getComplemento());
+        endereco.setLogradouro(empresaRequest.getLogradouro());
+        
+        empresa.setEndereco(endereco);
         return empresaRepository.save(empresa);
     }
     
@@ -189,7 +200,17 @@ public class EmpresaService {
         empresa.setDetalhes(empresaRequest.getDetalhes());
         empresa.setCategoriaEmpresa(CategoriaEmpresa.valueOf(empresaRequest.getCategoriaEmpresa()));
         empresa.setRepresentavel(empresaRequest.isRepresentavel());
-       // empresa.setCpf(clientRequest.getCpf());
+        empresa.setUrl(empresaRequest.getUrl());
+       
+        
+        empresa.getEndereco().setBairro(empresaRequest.getBairro());
+        empresa.getEndereco().setCep(empresaRequest.getCep());
+        empresa.getEndereco().setCidade(empresaRequest.getCidade());
+        empresa.getEndereco().setEstado(empresaRequest.getEstado());
+        empresa.getEndereco().setNumero(empresaRequest.getNumero());
+        empresa.getEndereco().setLogradouro(empresaRequest.getLogradouro());
+
+        empresa.getEndereco().setComplemento(empresaRequest.getComplemento());
 
         return empresaRepository.save(empresa);
     }

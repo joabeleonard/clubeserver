@@ -21,26 +21,30 @@ public class ClientRequest {
     @Size(max = 140)
     private String senha;
     
-    @NotBlank
-    @Size(max = 140)
-    private String logradouro;
+   
     
     @NotBlank
     @Size(max = 14)
     private String cpf;
     
     private String rg;
-    private String cep;
+   
     private String sexo;
     private String telefone;
+    
+    @NotBlank
+    @Size(max = 140)
+    private String logradouro;
+    private String cep;
     private String bairro;
     private String numero;
     private String cidade;
     private String estado;
+    private String complemento;
+
     private Date dataNascimento;
     
-  	private String complemento;
-  	
+    
   	private String nomeTitular;
   	private String numeroCartao;
   	private String codigoSeguranca;
