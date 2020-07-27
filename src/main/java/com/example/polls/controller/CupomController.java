@@ -70,6 +70,16 @@ public class CupomController {
        }
     	return ResponseEntity.noContent().build();
     }
+    
+    @GetMapping("/vendas")
+    @PreAuthorize("hasRole('ENTERPRISE')")
+    public PagedResponse<CupomResponse>  vendas(@CurrentUser UserPrincipal currentUser,
+            @RequestParam(value = "page", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) int page,
+            @RequestParam(value = "size", defaultValue = AppConstants.DEFAULT_PAGE_SIZE) int size) 
+    {
+        return cupomService.getVendas(currentUser, page, size);
+
+    }
 
     @GetMapping("/generate")
     @PreAuthorize("hasRole('USER')")
@@ -93,7 +103,7 @@ public class CupomController {
     	
     	Cupom cupom = cupomRepository.getOne(cupomRequest.getId());
     	cupom.setStatusCupom(StatusCupom.AGUARDANDO_PAG);
-    	cupom.setValorCupom(new BigDecimal(cupomRequest.getValorCupom().replace(",", ".")));
+    	cupom.setValorCupom(cupomRequest.getValorCupom());
     	cupom = cupomRepository.save(cupom);
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest().path("/{clientId}")

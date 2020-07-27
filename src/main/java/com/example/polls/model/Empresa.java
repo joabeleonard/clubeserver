@@ -1,5 +1,6 @@
 package com.example.polls.model;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 import javax.persistence.CascadeType;
@@ -17,7 +18,7 @@ import com.example.polls.model.audit.UserDateAudit;
 
 @Entity
 @Table(name = "empresa")
-public class Empresa extends UserDateAudit {
+public class Empresa extends UserDateAudit implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

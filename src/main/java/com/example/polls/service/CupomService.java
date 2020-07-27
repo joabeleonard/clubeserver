@@ -29,6 +29,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -344,6 +345,27 @@ public class CupomService {
 	}
 	public CupomResponse findCupomByUser(UserPrincipal currentUser) {
 		return ModelMapper.mapCupomToPollResponse(cupomRepositoryImpl.findCupomByUser(currentUser.getId()));
+	}
+
+	public PagedResponse<CupomResponse> getVendas(UserPrincipal currentUser, int page, int size) {
+		validatePageNumberAndSize(page, size);
+
+        // Retrieve Polls
+        Pageable pageable = PageRequest.of(page, size, Sort.Direction.DESC, "createdAt");
+        Page<Cupom> cupons = cupomRepository.findVendas(currentUser.getId(), pageable);
+
+        if(cupons.getNumberOfElements() == 0) {
+            return new PagedResponse<>(Collections.emptyList(), cupons.getNumber(),
+            		cupons.getSize(), cupons.getTotalElements(), cupons.getTotalPages(), cupons.isLast());
+        }
+
+        List<CupomResponse> cuponsResponses = cupons.map(cupom -> {
+            return ModelMapper.mapCupomToPollResponse(cupom);
+        }).getContent();
+        
+        return new PagedResponse<>(cuponsResponses, cupons.getNumber(),
+        		cupons.getSize(), cupons.getTotalElements(), cupons.getTotalPages(), cupons.isLast());
+   
 	}
 
 }

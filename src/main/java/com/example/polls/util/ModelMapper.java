@@ -156,6 +156,9 @@ public class ModelMapper {
 		cupomResponse.setUserName(cupom.getCliente().getUser().getUsername());
 		cupomResponse.setEmpresa(cupom.getEmpresa().getUser().getName());
 		cupomResponse.setCodigo(cupom.getCodigo());
+		cupomResponse.setNomeCliente(cupom.getCliente().getUser().getName());
+		cupomResponse.setDataConsumo(cupom.getDataConsumo());
+		cupomResponse.setValorCupom(cupom.getValorCupom());
 		return cupomResponse;
 	}
     

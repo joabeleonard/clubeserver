@@ -13,8 +13,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.example.polls.model.audit.UserDateAudit;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "cliente")
@@ -57,18 +59,21 @@ public class Cliente extends UserDateAudit implements Serializable{
 
 	@ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "endereco_id", nullable = false)
+	@JsonIgnore
 	private Endereco endereco;
 	
-	@Column(name = "nome_titular")
-  	private String nomeTitular;
-	@Column(name = "numero_cartao")
-  	private String numeroCartao;
-	@Column(name = "codigo_seguranca")
-  	private String codigoSeguranca;
+	@Transient
+	private String nomeTitular;
+	@Transient  	
+	private String numeroCartao;
+	@Transient
+	private String codigoSeguranca;
 	
+	@Transient
   	private String bandeira;
-	@Column(name = "data_validade")
-  	private String dataValidade;
+
+	@Transient
+	private String dataValidade;
 	
 	public Long getId() {
 		return id;

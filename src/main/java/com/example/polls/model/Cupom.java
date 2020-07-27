@@ -1,5 +1,6 @@
 package com.example.polls.model;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -23,7 +24,7 @@ import com.example.polls.model.audit.UserDateAudit;
                 "codigo"
             })}
 )
-public class Cupom extends UserDateAudit {
+public class Cupom extends UserDateAudit implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

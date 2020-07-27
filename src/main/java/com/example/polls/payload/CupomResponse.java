@@ -1,6 +1,7 @@
 package com.example.polls.payload;
 
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -25,9 +26,11 @@ public class CupomResponse {
 	
 	private Date dataGeracao;
 	
+	private Date dataConsumo;
+	
 	private String codigo;
 	
-	private String valorCupom;
+	private BigDecimal valorCupom;
 	
 	private int notaAvaliacao;
 	
@@ -39,6 +42,7 @@ public class CupomResponse {
 	
 	private Long empresa_id;
 	
+	private String nomeCliente;
     public Long getId() {
         return id;
     }
@@ -89,11 +93,11 @@ public class CupomResponse {
 		this.codigo = codigo;
 	}
 
-	public String getValorCupom() {
+	public BigDecimal getValorCupom() {
 		return valorCupom;
 	}
 
-	public void setValorCupom(String valorCupom) {
+	public void setValorCupom(BigDecimal valorCupom) {
 		this.valorCupom = valorCupom;
 	}
 
@@ -136,4 +140,38 @@ public class CupomResponse {
     public void setClienteId(Long cliente_id) {
         this.cliente_id = cliente_id;
     }
+
+	public Date getDataConsumo() {
+		return dataConsumo;
+	}
+
+	public void setDataConsumo(Date dataConsumo) {
+		this.dataConsumo = dataConsumo;
+	}
+
+	public Long getCliente_id() {
+		return cliente_id;
+	}
+
+	public void setCliente_id(Long cliente_id) {
+		this.cliente_id = cliente_id;
+	}
+
+	public Long getEmpresa_id() {
+		return empresa_id;
+	}
+
+	public void setEmpresa_id(Long empresa_id) {
+		this.empresa_id = empresa_id;
+	}
+
+	public String getNomeCliente() {
+		return nomeCliente;
+	}
+
+	public void setNomeCliente(String nomeCliente) {
+		this.nomeCliente = nomeCliente;
+	}
+    
+     
 }
