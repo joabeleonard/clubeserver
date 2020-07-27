@@ -26,7 +26,7 @@ import java.net.URI;
  */
 
 @RestController
-@RequestMapping("/api/extrato/")
+@RequestMapping("/api/extrato")
 public class ExtratoController {
 
     @Autowired
@@ -40,13 +40,15 @@ public class ExtratoController {
 
 
     @GetMapping
+    @PreAuthorize("hasRole('USER')")
     public PagedResponse<Extrato> getExtratos(@CurrentUser UserPrincipal currentUser,
                                                 @RequestParam(value = "page", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) int page,
                                                 @RequestParam(value = "size", defaultValue = AppConstants.DEFAULT_PAGE_SIZE) int size) {
         return extratoService.getAllExtrato(currentUser, page, size);
     }
     
-    @GetMapping("extratosFinanceiro")
+    @GetMapping("/extratosFinanceiro")
+    @PreAuthorize("hasRole('USER')")
     public PagedResponse<Extrato> getExtratosFinanceiro(@CurrentUser UserPrincipal currentUser,
                                                 @RequestParam(value = "page", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) int page,
                                                 @RequestParam(value = "size", defaultValue = AppConstants.DEFAULT_PAGE_SIZE) int size) {

@@ -167,10 +167,19 @@ public class CupomService {
     }
 
 
-    public Cupom createCupom(Empresa empresa, Cliente cliente) {
+    public Cupom createCupom(UserPrincipal currentUser, Empresa empresa, Cliente cliente) {
     	
     	Extrato extrato = new Extrato();
-    	extrato.setUser(cliente.getUser());
+    	
+    	if (currentUser.getId() != cliente.getId()) {
+        	extrato.setUser(userRepository.getOne(currentUser.getId()));
+        	extrato.setTipoExtrato(TipoExtrato.COMISSAO_CUPOM);
+
+		}else{
+	    	extrato.setUser(cliente.getUser());
+        	extrato.setTipoExtrato(TipoExtrato.PONTUACAO);
+
+		}
     	extrato.setData(new Date());
     	extrato.setPontosExperiencia(cliente.getPontosExperiencia()+10);
     	extrato.setDescricao("Gerou Cupom.");

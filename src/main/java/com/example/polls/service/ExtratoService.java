@@ -43,7 +43,6 @@ public class ExtratoService {
 
     public PagedResponse<Extrato> getAllExtrato(UserPrincipal currentUser, int page, int size) {
 
-        // Retrieve Polls
         Pageable pageable = PageRequest.of(page, size, Sort.Direction.DESC, "createdAt");
         Page<Extrato> extratoList = extratoRepository.getAllExtrato(currentUser.getId(),pageable);
 
@@ -52,7 +51,6 @@ public class ExtratoService {
             		extratoList.getSize(), extratoList.getTotalElements(), extratoList.getTotalPages(), extratoList.isLast());
         }
 
-        // Map Polls to PollResponses containing vote counts and poll creator details
 
         List<Extrato> extratoResponses = extratoList.map(extrato -> {
             return extrato;
@@ -67,7 +65,7 @@ public class ExtratoService {
 
         // Retrieve Polls
         Pageable pageable = PageRequest.of(page, size, Sort.Direction.DESC, "createdAt");
-        Page<Extrato> extratoList = extratoRepository.getAllExtrato(currentUser.getId(),pageable);
+        Page<Extrato> extratoList = extratoRepository.getAllExtratoFinanceiro(currentUser.getId(),pageable);
 
         if(extratoList.getNumberOfElements() == 0) {
             return new PagedResponse<>(Collections.emptyList(), extratoList.getNumber(),

@@ -95,6 +95,30 @@ public class Extrato extends UserDateAudit {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
+
+	public Cupom getCupom() {
+		return cupom;
+	}
+
+	public void setCupom(Cupom cupom) {
+		this.cupom = cupom;
+	}
+
+	public BigDecimal getValorComissao() {
+		return valorComissao;
+	}
+
+	public void setValorComissao(BigDecimal valorComissao) {
+		this.valorComissao = valorComissao;
+	}
+
+	public TipoExtrato getTipoExtrato() {
+		return tipoExtrato;
+	}
+
+	public void setTipoExtrato(TipoExtrato tipoExtrato) {
+		this.tipoExtrato = tipoExtrato;
+	}
 	
 	
 
