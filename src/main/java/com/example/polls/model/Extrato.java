@@ -28,7 +28,7 @@ public class Extrato extends UserDateAudit {
     @JoinColumn(name = "user_id", nullable = false)
 	private User user;
 	
-	@ManyToOne(fetch = FetchType.LAZY, optional = false, cascade=CascadeType.PERSIST)
+	@ManyToOne(fetch = FetchType.EAGER, optional = false, cascade=CascadeType.PERSIST)
     @JoinColumn(name = "cupom_id", nullable = false)
 	private Cupom cupom;
 	
