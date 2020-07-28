@@ -3,6 +3,8 @@ package com.example.polls.service;
 import com.example.polls.exception.BadRequestException;
 import com.example.polls.exception.ResourceNotFoundException;
 import com.example.polls.model.*;
+import com.example.polls.payload.ClientResponse;
+import com.example.polls.payload.ExtratoResponse;
 import com.example.polls.payload.PagedResponse;
 import com.example.polls.payload.PollRequest;
 import com.example.polls.payload.PollResponse;
@@ -61,7 +63,7 @@ public class ExtratoService {
 
     }
 
-    public PagedResponse<Extrato> getAllExtratoFinanceiro(UserPrincipal currentUser, int page, int size) {
+    public PagedResponse<ExtratoResponse> getAllExtratoFinanceiro(UserPrincipal currentUser, int page, int size) {
 
         // Retrieve Polls
         Pageable pageable = PageRequest.of(page, size, Sort.Direction.DESC, "createdAt");
@@ -74,11 +76,11 @@ public class ExtratoService {
 
         // Map Polls to PollResponses containing vote counts and poll creator details
 
-        List<Extrato> extratoResponses = extratoList.map(extrato -> {
-            return extrato;
+        List<ExtratoResponse> extratosResponses = extratoList.map(extrato -> {
+            return ModelMapper.mapExtratoToExtratoResponse(extrato);
         }).getContent();
 
-        return new PagedResponse<>(extratoResponses, extratoList.getNumber(),
+        return new PagedResponse<>(extratosResponses, extratoList.getNumber(),
         		extratoList.getSize(), extratoList.getTotalElements(), extratoList.getTotalPages(), extratoList.isLast());
 
     }

@@ -49,7 +49,7 @@ public class ExtratoController {
     
     @GetMapping("/extratosFinanceiro")
     @PreAuthorize("hasRole('USER')")
-    public PagedResponse<Extrato> getExtratosFinanceiro(@CurrentUser UserPrincipal currentUser,
+    public PagedResponse<ExtratoResponse> getExtratosFinanceiro(@CurrentUser UserPrincipal currentUser,
                                                 @RequestParam(value = "page", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) int page,
                                                 @RequestParam(value = "size", defaultValue = AppConstants.DEFAULT_PAGE_SIZE) int size) {
         return extratoService.getAllExtratoFinanceiro(currentUser, page, size);

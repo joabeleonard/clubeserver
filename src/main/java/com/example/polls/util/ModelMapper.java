@@ -4,6 +4,7 @@ import com.example.polls.model.Cliente;
 import com.example.polls.model.Cupom;
 import com.example.polls.model.DicasGames;
 import com.example.polls.model.Empresa;
+import com.example.polls.model.Extrato;
 import com.example.polls.model.NivelGame;
 import com.example.polls.model.Personagem;
 import com.example.polls.model.Poll;
@@ -13,6 +14,7 @@ import com.example.polls.payload.ClientResponse;
 import com.example.polls.payload.CupomResponse;
 import com.example.polls.payload.DicaResponse;
 import com.example.polls.payload.EmpresaResponse;
+import com.example.polls.payload.ExtratoResponse;
 import com.example.polls.payload.NivelResponse;
 import com.example.polls.payload.PersonagemResponse;
 import com.example.polls.payload.PollResponse;
@@ -160,6 +162,18 @@ public class ModelMapper {
 		cupomResponse.setDataConsumo(cupom.getDataConsumo());
 		cupomResponse.setValorCupom(cupom.getValorCupom());
 		return cupomResponse;
+	}
+
+
+	public static ExtratoResponse mapExtratoToExtratoResponse(Extrato extrato) {
+		ExtratoResponse extratoResponse = new ExtratoResponse();
+		extratoResponse.setId(extrato.getId());
+		extratoResponse.setNomeCliente(extrato.getCupom().getCliente().getUser().getName());
+		extratoResponse.setNomeRepresentante(extrato.getUser().getName());
+		extratoResponse.setTipoExtrato(extrato.getTipoExtrato());
+		extratoResponse.setData(extrato.getData());
+		extratoResponse.setValor(extrato.getValorComissao());
+		return extratoResponse;
 	}
     
 }
