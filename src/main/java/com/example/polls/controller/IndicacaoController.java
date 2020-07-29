@@ -10,6 +10,7 @@ import com.example.polls.repository.VoteRepository;
 import com.example.polls.security.CurrentUser;
 import com.example.polls.security.UserPrincipal;
 import com.example.polls.service.ExtratoService;
+import com.example.polls.service.IndicacaoService;
 import com.example.polls.service.PollService;
 import com.example.polls.util.AppConstants;
 import org.slf4j.Logger;
@@ -28,11 +29,11 @@ import java.util.List;
  */
 
 @RestController
-@RequestMapping("/api/indicacao/")
+@RequestMapping("/api/indicacao")
 public class IndicacaoController {
 
     @Autowired
-    private IndicacaoRepository indicacaoRepository;
+    private IndicacaoService indicacaoService;
 
 
 
@@ -40,7 +41,10 @@ public class IndicacaoController {
 
 
     @GetMapping
-    public List<Indicacao>  getIndicados(@CurrentUser UserPrincipal currentUser) {
-        return indicacaoRepository.findByUserIndicou(currentUser);
+    @PreAuthorize("hasRole('USER') or hasRole('ENTERPRISE')")
+    public PagedResponse<IndicacaoResponse>  getIndicados(@CurrentUser UserPrincipal currentUser,
+            @RequestParam(value = "page", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) int page,
+            @RequestParam(value = "size", defaultValue = AppConstants.DEFAULT_PAGE_SIZE) int size) {
+        return indicacaoService.findByUserIndicou(currentUser, page, size);
     }
 }

@@ -1,6 +1,7 @@
 package com.example.polls.repository;
 
 import com.example.polls.model.Cupom;
+import com.example.polls.model.Extrato;
 import com.example.polls.model.Indicacao;
 import com.example.polls.payload.ClientResponse;
 import com.example.polls.payload.PagedResponse;
@@ -22,6 +23,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface IndicacaoRepository extends JpaRepository<Indicacao, Long> {
 
-	List<Indicacao> findByUserIndicou(UserPrincipal currentUser);
+	@Query("SELECT i FROM Indicacao i where i.userIndicou.id = :userId")
+	Page<Indicacao> findByUserIndicou(@Param("userId") Long userId , Pageable pageable);
 
 }

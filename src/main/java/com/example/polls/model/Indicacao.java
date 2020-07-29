@@ -24,7 +24,7 @@ public class Indicacao {
 	public Cliente indicado;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "id_cliente_indicou", nullable = false)
+	@JoinColumn(name = "id_user_indicou", nullable = false)
 	public User userIndicou;
 	
 	public boolean pagou;

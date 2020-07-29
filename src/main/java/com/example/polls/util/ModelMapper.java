@@ -5,6 +5,7 @@ import com.example.polls.model.Cupom;
 import com.example.polls.model.DicasGames;
 import com.example.polls.model.Empresa;
 import com.example.polls.model.Extrato;
+import com.example.polls.model.Indicacao;
 import com.example.polls.model.NivelGame;
 import com.example.polls.model.Personagem;
 import com.example.polls.model.Poll;
@@ -15,6 +16,7 @@ import com.example.polls.payload.CupomResponse;
 import com.example.polls.payload.DicaResponse;
 import com.example.polls.payload.EmpresaResponse;
 import com.example.polls.payload.ExtratoResponse;
+import com.example.polls.payload.IndicacaoResponse;
 import com.example.polls.payload.NivelResponse;
 import com.example.polls.payload.PersonagemResponse;
 import com.example.polls.payload.PollResponse;
@@ -174,6 +176,16 @@ public class ModelMapper {
 		extratoResponse.setData(extrato.getData());
 		extratoResponse.setValor(extrato.getValorComissao());
 		return extratoResponse;
+	}
+
+
+	public static IndicacaoResponse mapIndicacaoToIndicacaooResponse(Indicacao indicacao) {
+		IndicacaoResponse indicacaoResponse = new IndicacaoResponse();
+		indicacaoResponse.setDate(indicacao.getIndicado().getCreatedAt());
+		indicacaoResponse.setId(indicacao.getId());
+		indicacaoResponse.setNomeIndicado(indicacao.getIndicado().getUser().getName());
+		indicacaoResponse.setSituacao(indicacao.getIndicado().isAtivo());
+		return indicacaoResponse;
 	}
     
 }
