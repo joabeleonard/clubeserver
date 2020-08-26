@@ -144,9 +144,9 @@ public class ClientService {
        cliente.setNumeroCartao(clientRequest.getNumeroCartao());
        cliente.setDataValidade(clientRequest.getDataValidade());
 
-       Map<String, String> pagamento = pagamentoService.pagamento(cliente);
-       cliente.setRecurrentPaymentId(pagamento.get("recurrentPaymentId"));
-       cliente.setPaymentId(pagamento.get("paymentId"));
+       //Map<String, String> pagamento = pagamentoService.pagamento(cliente);
+       //cliente.setRecurrentPaymentId(pagamento.get("recurrentPaymentId"));
+       //cliente.setPaymentId(pagamento.get("paymentId"));
        Indicacao indicacao = new Indicacao();
        if (clientRequest.getCodigoIndicacao() != null && !clientRequest.getCodigoIndicacao().equals("") ) {
 		indicacao.setUserIndicou(userRepository.findByCodigoIndicacao(clientRequest.getCodigoIndicacao()));
@@ -222,6 +222,20 @@ public class ClientService {
 		}
 		
 		return clientsResponse;
+	}
+
+
+	public Cliente createPagamento( ClientRequest clientRequest) {
+		Cliente cliente = clientRepository.getOne(clientRequest.getId());
+		cliente.setCodigoSeguranca(clientRequest.getCodigoSeguranca());
+		cliente.setBandeira(clientRequest.getBandeira());
+		cliente.setDataValidade(clientRequest.getDataValidade());
+		cliente.setNomeTitular(clientRequest.getNomeTitular());
+		cliente.setNumeroCartao(clientRequest.getNumeroCartao());
+		Map<String, String> pagamento = pagamentoService.pagamento(cliente);;
+        cliente.setRecurrentPaymentId(pagamento.get("recurrentPaymentId"));
+        cliente.setPaymentId(pagamento.get("paymentId"));
+		return clientRepository.save(cliente);
 	}
 
 
