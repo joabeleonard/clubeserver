@@ -65,7 +65,7 @@ public class CupomController {
        CupomResponse cupom = cupomService.findCupomByCodigo(codigo);
        Empresa empresa  = empresaRepository.findByEmpresaId(new Long(empresaId));
        
-       if (cupom != null && cupom.getEmpresaId() == empresa.getId() && cupom.getStatus() == "AGUARDANDO_PAG") {
+       if (cupom != null && cupom.getEmpresaId() == empresa.getId() && cupom.getStatus() == "PAGO") {
     	   return ResponseEntity.ok(cupom);
        }
     	return ResponseEntity.noContent().build();
