@@ -124,9 +124,9 @@ public class PagamentoService {
 //		                                 .setCardNumber("0000000000000001")
 //		                                 .setHolder("Fulano de Tal");
 		
-		//payment.creditCard(cliente.getCodigoSeguranca(), cliente.getBandeira()).setExpirationDate(cliente.getDataValidade())
-       // .setCardNumber(cliente.getNumeroCartao())
-       // .setHolder(cliente.getNomeTitular());
+		payment.creditCard(cliente.getCodigoSeguranca(), cliente.getBandeira()).setExpirationDate(cliente.getDataValidade())
+        .setCardNumber(cliente.getNumeroCartao())
+        .setHolder(cliente.getNomeTitular());
 
 
 		// Crie o pagamento na Cielo

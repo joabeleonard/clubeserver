@@ -42,6 +42,7 @@ import com.example.polls.model.User;
 import com.example.polls.model.Vote;
 import com.example.polls.payload.ClientRequest;
 import com.example.polls.payload.ClientResponse;
+import com.example.polls.payload.PagamentoRequest;
 import com.example.polls.payload.PagedResponse;
 import com.example.polls.payload.PollResponse;
 import com.example.polls.payload.VoteRequest;
@@ -225,8 +226,7 @@ public class ClientService {
 	}
 
 
-	public Cliente createPagamento( ClientRequest clientRequest) {
-		Cliente cliente = clientRepository.getOne(clientRequest.getId());
+	public Cliente createPagamento( PagamentoRequest clientRequest, Cliente cliente) {
 		cliente.setCodigoSeguranca(clientRequest.getCodigoSeguranca());
 		cliente.setBandeira(clientRequest.getBandeira());
 		cliente.setDataValidade(clientRequest.getDataValidade());

@@ -176,4 +176,20 @@ public class ClientController {
     }
     
 
+    @PostMapping("/pagamento")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<?> createPagamento(@CurrentUser UserPrincipal currentUser, @Valid @RequestBody PagamentoRequest clientRequest) {
+
+    	Cliente cliente = clientRepository.findByUser(currentUser.getId());
+
+    	cliente = clientService.createPagamento(clientRequest, cliente);
+        
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest().path("/{clientId}")
+                .buildAndExpand(cliente.getId()).toUri();
+
+        return ResponseEntity.created(location)
+                .body(new ApiResponse(true, "Cliente cadastrado com Sucesso."));
+    }
+    
 }
