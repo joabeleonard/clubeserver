@@ -110,7 +110,23 @@ public class CupomController {
                 .buildAndExpand(cupom.getId()).toUri();
 
         return ResponseEntity.created(location)
-                .body(new ApiResponse(true, "Cliente cadastrado com Sucesso."));
+                .body(new ApiResponse(true, "Cupom alterado com sucesso."));
+    }
+    
+    @PutMapping("/updateUtilizado")
+    @PreAuthorize("hasRole('ENTERPRISE')")
+    public ResponseEntity<?> updateCupom(@Valid @RequestBody CupomResponse cupomRequest) {
+    	
+    	Cupom cupom = cupomRepository.getOne(cupomRequest.getId());
+    	cupom.setStatusCupom(StatusCupom.ULTILIZADO);
+    	cupom.setValorCupom(cupomRequest.getValorCupom());
+    	cupom = cupomRepository.save(cupom);
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest().path("/{clientId}")
+                .buildAndExpand(cupom.getId()).toUri();
+
+        return ResponseEntity.created(location)
+                .body(new ApiResponse(true, "Cupom alterado com sucesso."));
     }
     
     @PutMapping("/avaliar")
