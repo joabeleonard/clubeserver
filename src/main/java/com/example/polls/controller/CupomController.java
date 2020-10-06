@@ -65,7 +65,7 @@ public class CupomController {
        CupomResponse cupom = cupomService.findCupomByCodigo(codigo);
        Empresa empresa  = empresaRepository.findByEmpresaId(new Long(empresaId));
        
-       if (cupom != null && cupom.getEmpresaId() == empresa.getId() && cupom.getStatus() == "NAO_PAGO") {
+       if (cupom != null && cupom.getEmpresaId() == empresa.getId() && cupom.getStatus() == "PAGO") {
     	   return ResponseEntity.ok(cupom);
        }
     	return ResponseEntity.noContent().build();
@@ -84,9 +84,9 @@ public class CupomController {
     @GetMapping("/generate")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> createCupom(@CurrentUser UserPrincipal currentUser, @RequestParam(value = "empresa") String empresaId,
-    		@RequestParam(value = "cliente") long clienteId) {
+    		@RequestParam(value = "cliente") long clienteId, @RequestParam(value = "valor") BigDecimal valorCupom) {
     	Cupom cupom = cupomService.createCupom(currentUser, empresaRepository.getOne(new Long(empresaId)),
-    			clientRepository.findByUser(clienteId));
+    			clientRepository.findByUser(clienteId), valorCupom);
     
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest().path("/{cupomId}")

@@ -33,6 +33,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.Collections;
 import java.util.Date;
@@ -167,7 +168,7 @@ public class CupomService {
     }
 
 
-    public Cupom createCupom(UserPrincipal currentUser, Empresa empresa, Cliente cliente) {
+    public Cupom createCupom(UserPrincipal currentUser, Empresa empresa, Cliente cliente, BigDecimal valorCupom) {
     	
     	Extrato extrato = new Extrato();
     	
@@ -186,11 +187,12 @@ public class CupomService {
     	extratoRepository.save(extrato);
     	
     	Cupom cupom = new Cupom();
-     
+    	
+    	cupom.setValorCupom(valorCupom);
         cupom.setEmpresa(empresa);
         cupom.setCliente(cliente);
         cupom.setDataGeracao(new Date());
-        cupom.setStatusCupom(StatusCupom.NAO_PAGO);
+        cupom.setStatusCupom(StatusCupom.AGUARDANDO_PAG);
         UUID uuid = UUID.randomUUID();
         String myRandom = uuid.toString();
         cupom.setCodigo(myRandom.substring(0,8));
