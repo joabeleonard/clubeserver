@@ -184,19 +184,18 @@ public class CupomController {
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> delete(@PathVariable long id) {
-//    	Cliente cliente = clientRepository.getOne(id);
-//    	clientRepository.delete(cliente);
-//    	
-//    	JSONObject obj = new JSONObject();
-//    	try {
-//			obj.put("ok", "ok");
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//
-//    	return new ResponseEntity<>(obj, HttpStatus.OK);
-    	return null;
+    	Cupom cupom = cupomRepository.getOne(id);
+    	cupomRepository.delete(cupom);
+    	
+    	JSONObject obj = new JSONObject();
+    	try {
+			obj.put("ok", "ok");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+    	return new ResponseEntity<>(obj, HttpStatus.OK);
 }
  
     @GetMapping("/cliente/{username}")
