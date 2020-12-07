@@ -55,6 +55,10 @@ public class EmpresaController {
         return empresaService.getAllEmpresas(currentUser, page, size);
     }
     
+    @GetMapping("empresaDTO")
+    public List<Empresa>  getEmpresas() {
+        return empresaService.getAllEmpresas();
+    }
     @GetMapping("empresaSearch")
     public PagedResponse<EmpresaResponse>  getEmpresasByFilters(@CurrentUser UserPrincipal currentUser,
 									    		@RequestParam(value = "nome") String nome,

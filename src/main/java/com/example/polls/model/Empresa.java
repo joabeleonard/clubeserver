@@ -52,6 +52,18 @@ public class Empresa extends UserDateAudit implements Serializable{
 
 	private boolean representavel;
 
+	
+	
+	public Empresa() {
+		super();
+	}
+
+	public Empresa(Long id, User user) {
+		super();
+		this.id = id;;
+		this.razaoSocial = user.getName();
+	}
+
 	public Long getId() {
 		return id;
 	}

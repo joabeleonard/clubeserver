@@ -34,6 +34,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.Duration;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -358,5 +359,14 @@ public class EmpresaService {
         
         return new PagedResponse<>(empresasResponses, empresas.getNumber(),
         		empresas.getSize(), empresas.getTotalElements(), empresas.getTotalPages(), empresas.isLast());
+	}
+
+	public List<Empresa> getAllEmpresas() {
+		// TODO Auto-generated method stub
+		
+		List<Empresa> empresaDTO = empresaRepository.findEmpresaDTO();
+		
+		
+		return empresaDTO;
 	}
 }

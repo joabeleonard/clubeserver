@@ -1,5 +1,7 @@
 package com.example.polls.controller;
 
+import com.example.polls.City;
+import com.example.polls.GenerateCertificado;
 import com.example.polls.model.*;
 import com.example.polls.payload.*;
 import com.example.polls.repository.ClientRepository;
@@ -13,6 +15,9 @@ import com.example.polls.service.ClientService;
 import com.example.polls.service.PagamentoService;
 import com.example.polls.service.PollService;
 import com.example.polls.util.AppConstants;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,6 +31,10 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.validation.Valid;
+
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URI;
 import java.util.ArrayList;
 
@@ -190,6 +199,27 @@ public class ClientController {
 
         return ResponseEntity.created(location)
                 .body(new ApiResponse(true, "Cliente cadastrado com Sucesso."));
+    }
+    
+    @RequestMapping(value = "/pdfreport", method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_PDF_VALUE)
+    @PreAuthorize("permitAll()")
+    public ResponseEntity<InputStreamResource> citiesReport(@RequestParam(value = "clientId") String clientId) throws MalformedURLException, IOException {
+
+    	Cliente cliente = clientRepository.findById(new Long(clientId)).get();
+
+    	ArrayList<City> cities = new ArrayList<>();
+
+        ByteArrayInputStream bis = GenerateCertificado.citiesReport(cliente);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Disposition", "inline; filename=citiesreport.pdf");
+
+        return ResponseEntity
+                .ok()
+                .headers(headers)
+                .contentType(MediaType.APPLICATION_PDF)
+                .body(new InputStreamResource(bis));
     }
     
 }

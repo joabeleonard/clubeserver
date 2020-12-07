@@ -45,6 +45,7 @@ CREATE TABLE `cupom` (
 CREATE TABLE `cliente` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
    `user_id` bigint(20) NOT NULL,
+   `empresa_id` bigint(20) NOT NULL,
     `endereco_id` bigint(20) NOT NULL,
   `cpf` varchar(15) NOT NULL,
   `codigo_indicacao` varchar(15) ,

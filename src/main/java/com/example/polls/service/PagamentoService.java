@@ -96,7 +96,7 @@ public class PagamentoService {
 		return null;
 	}
 	
-	public Map<String, String> pagamento(Cliente cliente){
+	public Map<String, String> pagamento(Cliente cliente, boolean recorrente){
 		//Teste Merchant merchant = new Merchant("971ab897-0989-4770-91a8-3c9fbc2833ae", "PDUADUKEWPQEQCBETQUCOYKUUTDJCJHAXPJLUOOW");
 		Merchant merchant = new Merchant("b4098410-bcbe-41c8-8c49-cc280fe2f260", "A7kvX3FcfCg2Jct70cMJOPdQDslbovcmQbrDajTv");
 
@@ -116,7 +116,10 @@ public class PagamentoService {
 
 		// Crie uma instância de Payment informando o valor do pagamento
 		Payment payment = sale.payment(10);
-		payment.setRecurrentPayment(recurrentPayment);
+		
+		if(recorrente){
+			payment.setRecurrentPayment(recurrentPayment);
+		}
 
 		// Crie  uma instância de Credit Card utilizando os dados de teste
 		// esses dados estão disponíveis no manual de integração
@@ -146,7 +149,7 @@ public class PagamentoService {
 		    pagamento.put("recurrentPaymentId", recurrentPaymentId);
 		    
 		    // E também podemos fazer seu cancelamento, se for o caso
-		   // sale = new CieloEcommerce(merchant, Environment.SANDBOX).cancelSale(paymentId, 15700);
+		   // sale = new CieloEcommerce(merchant, Environment.SANDBOX).cancelSale(paymentId, 15x700);
 		    return pagamento;
 		} catch (CieloRequestException e) {
 		    // Em caso de erros de integração, podemos tratar o erro aqui.

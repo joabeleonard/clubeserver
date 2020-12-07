@@ -232,7 +232,7 @@ public class ClientService {
 		cliente.setDataValidade(clientRequest.getDataValidade());
 		cliente.setNomeTitular(clientRequest.getNomeTitular());
 		cliente.setNumeroCartao(clientRequest.getNumeroCartao());
-		Map<String, String> pagamento = pagamentoService.pagamento(cliente);;
+		Map<String, String> pagamento = pagamentoService.pagamento(cliente, true);
         cliente.setRecurrentPaymentId(pagamento.get("recurrentPaymentId"));
         cliente.setPaymentId(pagamento.get("paymentId"));
 		return clientRepository.save(cliente);

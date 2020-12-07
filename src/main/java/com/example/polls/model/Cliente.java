@@ -29,6 +29,10 @@ public class Cliente extends UserDateAudit implements Serializable{
 	@ManyToOne(fetch = FetchType.EAGER, optional = false, cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "user_id", nullable = false)
 	private User user;
+	
+	@ManyToOne(fetch = FetchType.EAGER, optional = false, cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "empresa_id", nullable = false)
+	private Empresa empresa;
 
 	private String cpf;
 

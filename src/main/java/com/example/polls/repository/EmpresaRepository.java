@@ -13,6 +13,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,6 +27,9 @@ public interface EmpresaRepository extends JpaRepository<Empresa, Long> {
     
 	@Query("SELECT e FROM Empresa e where e.id = :userId")
 	Empresa findByEmpresaId(@Param("userId") Long userId);
+	
+	@Query("SELECT new Empresa(e.id, e.user) FROM Empresa e ")
+	List<Empresa> findEmpresaDTO();
     
 	@Query("SELECT e FROM Empresa e where e.user.id = :userId")
 	Empresa findByUser(@Param("userId") Long userId);
