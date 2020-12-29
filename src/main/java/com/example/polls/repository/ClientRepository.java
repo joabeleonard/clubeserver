@@ -1,21 +1,14 @@
 package com.example.polls.repository;
 
-import com.example.polls.model.Cliente;
-import com.example.polls.model.Poll;
-import com.example.polls.security.UserPrincipal;
+import java.util.Optional;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
+import com.example.polls.model.Cliente;
+import com.example.polls.security.UserPrincipal;
 
 /**
  * Created by rajeevkumarsingh on 20/11/17.
@@ -30,6 +23,9 @@ public interface ClientRepository extends JpaRepository<Cliente, Long> {
 
 	@Query("SELECT c FROM Cliente c where c.user.username = :username")
 	Cliente findByUsername(@Param("username") String username);
+	
+	@Query("SELECT c FROM Cliente c where c.ativo = 1")
+	Cliente findByUserIdAndAtivo(Long long1, boolean ativo);
 
 //	Cliente findByCodigoIndicacao(String codigoIndicacao);
 
