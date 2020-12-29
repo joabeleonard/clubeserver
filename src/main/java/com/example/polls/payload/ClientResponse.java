@@ -45,6 +45,7 @@ private Long id;
 
 		private int pontosExperiencia;
 
+		private Long idEmpresa;
     public Long getId() {
         return id;
     }
@@ -236,7 +237,15 @@ private Long id;
 	public void setPontosExperiencia(int pontosExperiencia) {
 		this.pontosExperiencia = pontosExperiencia;
 	}
-	
 
+	public Long getIdEmpresa() {
+		return idEmpresa;
+	}
+
+	public void setIdEmpresa(Long idEmpresa) {
+		this.idEmpresa = idEmpresa;
+	}
+	
+	
 	
 }

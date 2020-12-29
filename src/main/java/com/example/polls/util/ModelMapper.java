@@ -86,7 +86,7 @@ public class ModelMapper {
         clientResponse.setDataNascimento(DateUtil.converteData(cliente.getDataNascimento()) );
         clientResponse.setUser(cliente.getUser());
         clientResponse.setPontosExperiencia(cliente.getPontosExperiencia());
-
+        clientResponse.setIdEmpresa(cliente.getEmpresa() != null ? cliente.getEmpresa().getId():null);
         return clientResponse;
     }
     

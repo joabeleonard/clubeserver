@@ -29,8 +29,9 @@ public class Cliente extends UserDateAudit implements Serializable{
 	@ManyToOne(fetch = FetchType.EAGER, optional = false, cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "user_id", nullable = false)
 	private User user;
-
-	@Transient
+	
+	@ManyToOne(fetch = FetchType.EAGER, optional = false, cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "empresa_id", nullable = false)
 	private Empresa empresa;
 
 	private String cpf;
@@ -228,5 +229,14 @@ public class Cliente extends UserDateAudit implements Serializable{
 
 	public void setDataValidade(String dataValidade) {
 		this.dataValidade = dataValidade;
+	}
+
+	public Empresa getEmpresa() {
+		return empresa;
+	}
+
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
 	}	
+	
 }

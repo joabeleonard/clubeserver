@@ -92,7 +92,6 @@ public class ClientController {
     @PutMapping
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<?> editClient(@Valid @RequestBody ClientRequest clientRequest) {
-	    System.out.println("teste"+clientRequest.getEmail());
     	Cliente cliente = clientService.editClient(clientRequest);
         
         URI location = ServletUriComponentsBuilder

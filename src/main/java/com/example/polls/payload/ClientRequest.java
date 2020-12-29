@@ -21,8 +21,6 @@ public class ClientRequest {
     @Size(max = 140)
     private String senha;
     
-   
-    
     @NotBlank
     @Size(max = 14)
     private String cpf;
@@ -44,7 +42,6 @@ public class ClientRequest {
 
     private Date dataNascimento;
     
-    
   	private String nomeTitular;
   	private String numeroCartao;
   	private String codigoSeguranca;
@@ -53,7 +50,9 @@ public class ClientRequest {
 
 	private String codigoIndicacao;
 
-    
+	private Long idEmpresa;
+
+	
 	public Long getId() {
 		return id;
 	}
@@ -229,6 +228,14 @@ public class ClientRequest {
 
 	public void setCodigoIndicacao(String codigoIndicacao) {
 		this.codigoIndicacao = codigoIndicacao;
+	}
+
+	public Long getIdEmpresa() {
+		return idEmpresa;
+	}
+
+	public void setIdEmpresa(Long idEmpresa) {
+		this.idEmpresa = idEmpresa;
 	}
 	
 	

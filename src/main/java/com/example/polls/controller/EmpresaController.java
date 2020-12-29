@@ -56,8 +56,17 @@ public class EmpresaController {
     }
     
     @GetMapping("empresaDTO")
-    public List<Empresa>  getEmpresas() {
-        return empresaService.getAllEmpresas();
+    public List<EmpresaResponse>  getEmpresas() {
+    	
+    	List<EmpresaResponse> empresasResponse = new ArrayList<>();
+    	ArrayList<Empresa> empresas = (ArrayList<Empresa>) empresaService.getAllEmpresas();
+    	for (Empresa empresa : empresas) {
+    		EmpresaResponse empresaResponse = new EmpresaResponse();
+    		empresaResponse.setId(empresa.getId());
+    		empresaResponse.setNome(empresa.getRazaoSocial());
+    		empresasResponse.add(empresaResponse);
+		}
+        return empresasResponse;
     }
     @GetMapping("empresaSearch")
     public PagedResponse<EmpresaResponse>  getEmpresasByFilters(@CurrentUser UserPrincipal currentUser,

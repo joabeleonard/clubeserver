@@ -23,7 +23,8 @@ import java.util.Optional;
 @Repository
 public interface ClientRepository extends JpaRepository<Cliente, Long> {
 
-    Optional<Cliente> findById(Long pollId);
+	@Query("SELECT c FROM Cliente c where id = :id")
+    Optional<Cliente>  findById(@Param("id")Long pollId);
 
 	@Query("SELECT c FROM Cliente c where c.user.id = :userId")
 	Cliente findByUser(@Param("userId") Long userId);

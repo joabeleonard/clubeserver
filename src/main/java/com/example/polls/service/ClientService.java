@@ -47,6 +47,7 @@ import com.example.polls.payload.PagedResponse;
 import com.example.polls.payload.PollResponse;
 import com.example.polls.payload.VoteRequest;
 import com.example.polls.repository.ClientRepository;
+import com.example.polls.repository.EmpresaRepository;
 import com.example.polls.repository.IndicacaoRepository;
 import com.example.polls.repository.PollRepository;
 import com.example.polls.repository.RoleRepository;
@@ -87,6 +88,9 @@ public class ClientService {
     @Autowired
     private ClientRepositoryImpl clientRepositoryImpl;
 
+    @Autowired
+    private EmpresaRepository empresaRepository;
+    
     private static final Logger logger = LoggerFactory.getLogger(ClientService.class);
 
     
@@ -129,7 +133,7 @@ public class ClientService {
                 .orElseThrow(() -> new AppException("User Role not set."));
 
         user.setRoles(Collections.singleton(userRole));
-     
+        cliente.setEmpresa(empresaRepository.getOne(clientRequest.getIdEmpresa()));
         cliente.setUser(user);
         cliente.setAtivo(true);
         cliente.setCpf(clientRequest.getCpf());
@@ -170,9 +174,10 @@ public class ClientService {
     }
     
     public Cliente editClient(ClientRequest clientRequest) {
-        Cliente cliente = clientRepository.getOne(clientRequest.getId());
+        Cliente cliente = clientRepository.findById(clientRequest.getId()).get();
         
-     
+        cliente.setEmpresa(empresaRepository.findById(clientRequest.getIdEmpresa()).get());
+
         cliente.setCpf(clientRequest.getCpf());
         cliente.setSexo(clientRequest.getSexo());
         cliente.setRg(clientRequest.getRg());

@@ -16,6 +16,8 @@ public class EmpresaResponse {
 	private User user;
 
 	private String detalhes;
+	
+	private String nome;
 
 	private Endereco endereco;
 
@@ -164,6 +166,14 @@ public class EmpresaResponse {
 
 	public void setEstado(String estado) {
 		this.estado = estado;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 	
