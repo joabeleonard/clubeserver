@@ -12,6 +12,17 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -38,24 +49,25 @@ public class CSVController {
 	public void exportarCSV(HttpServletResponse response) throws IOException {
 
 		response.setContentType("text/csv");
-		String nomeArquivo = "clientes.csv";
+
+		DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+		String currentDateTime = dateFormatter.format(new Date());
+		String nomeArquivo = "clientes" + currentDateTime  + ".csv";
+
 
 		String headerKey = "Content-Disposition";
 		String headerValue = "attachment; nomeArquivo=" + nomeArquivo;
 
 		response.setHeader(headerKey, headerValue);
 
-		List<Cliente> listaClientes = clientRepository.findAll();
+		List<Cliente> listaClientes = clientRepository.findAll(Sort.by("id").ascending());
 
 		ICsvBeanWriter csvWriter = new CsvBeanWriter(response.getWriter(), CsvPreference.STANDARD_PREFERENCE);
 
-		String[] cabecalhos = { "ID_usuario", "data_criacao", "data_atualizacao", "criado_por", "atualizado_por",
-				"ativo", "codigo_indicacao", "cpf", "data_nascimento", "pontos", "pontos_experiencia", "rg", "sexo",
-				"telefone", "endereco_id", "user_id", "representante", "id_pagamento", "id_recorrente", "id_empresa" };
+		String[] cabecalhos = {"ID_usuario", "cpf", "data_nascimento"};
 
-		String[] atributos = { "id", "created_at", "updated_at", "created_by", "updated_by", "ativo",
-				"codigo_indicacao", "cpf", "data_nascimento", "pontos", "pontos_experiencia", "rg", "sexo", "telefone",
-				"endereco_id", "user_id", "representante", "payment_id", "recurrent_id", "empresa_id" };
+		String[] atributos = {"id", "cpf", "dataNascimento"};
+
 
 		csvWriter.writeHeader(cabecalhos);
 

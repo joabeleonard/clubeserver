@@ -47,18 +47,36 @@ public class GenerateCertificado {
             Font headFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD);
 
             PdfPCell hcell;
-            hcell = new PdfPCell(new Phrase("Id", headFont));
+            hcell = new PdfPCell(new Phrase("Sexo", headFont));
             hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
             table.addCell(hcell);
 
-            hcell = new PdfPCell(new Phrase("Name", headFont));
+            hcell = new PdfPCell(new Phrase("Nome", headFont));
             hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
             table.addCell(hcell);
 
-            hcell = new PdfPCell(new Phrase("Population", headFont));
+            hcell = new PdfPCell(new Phrase("Email", headFont));
             hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
             table.addCell(hcell);
 
+            PdfPCell cell;
+
+            cell = new PdfPCell(new Phrase(cliente.getSexo().toString()));
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            table.addCell(cell);
+
+            cell = new PdfPCell(new Phrase(cliente.getUser().getName()));
+            cell.setPaddingLeft(5);
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+            table.addCell(cell);
+
+            cell = new PdfPCell(new Phrase(String.valueOf(cliente.getUser().getEmail())));
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+            cell.setPaddingRight(5);
+            table.addCell(cell);
            
             PdfWriter.getInstance(document, out);
             document.open();
@@ -67,6 +85,9 @@ public class GenerateCertificado {
             preface.setAlignment(Element.ALIGN_CENTER);
             document.add(new Paragraph(preface));
 
+            document.add(table);
+
+            
 
             document.close();
 

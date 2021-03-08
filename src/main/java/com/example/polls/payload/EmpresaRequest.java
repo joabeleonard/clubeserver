@@ -18,6 +18,11 @@ public class EmpresaRequest {
     @Size(max = 140)
     private String nome;
     
+    private String razaoSocial;
+    
+	private BigDecimal dotBack;
+	private boolean revendedor;
+	
     private BigDecimal desconto;
     
     private BigDecimal comissao;
@@ -30,6 +35,7 @@ public class EmpresaRequest {
     
 	private String url;
 	
+	private String cnpj;
 	@NotBlank
     @Size(max = 140)
     private String logradouro;
@@ -41,6 +47,8 @@ public class EmpresaRequest {
     private String complemento;
 
 	private boolean representavel;
+	private boolean instituicaoSocial;
+
 	public Long getId() {
 		return id;
 	}
@@ -170,6 +178,46 @@ public class EmpresaRequest {
 
 	public void setComplemento(String complemento) {
 		this.complemento = complemento;
+	}
+
+	public boolean isInstituicaoSocial() {
+		return instituicaoSocial;
+	}
+
+	public void setInstituicaoSocial(boolean instituicaoSocial) {
+		this.instituicaoSocial = instituicaoSocial;
+	}
+
+	public String getRazaoSocial() {
+		return razaoSocial;
+	}
+
+	public void setRazaoSocial(String razaoSocial) {
+		this.razaoSocial = razaoSocial;
+	}
+
+	public BigDecimal getDotBack() {
+		return dotBack;
+	}
+
+	public void setDotBack(BigDecimal dotBack) {
+		this.dotBack = dotBack;
+	}
+
+	public boolean isRevendedor() {
+		return revendedor;
+	}
+
+	public void setRevendedor(boolean revendedor) {
+		this.revendedor = revendedor;
+	}
+
+	public String getCnpj() {
+		return cnpj;
+	}
+
+	public void setCnpj(String cnpj) {
+		this.cnpj = cnpj;
 	}
 
 	

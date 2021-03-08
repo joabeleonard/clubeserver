@@ -101,7 +101,13 @@ public class ModelMapper {
         empresaResponse.setCategoriaEmpresa(empresa.getCategoriaEmpresa());
         empresaResponse.setUrl(empresa.getUrl());
         empresaResponse.setRepresentavel(empresa.isRepresentavel());
-        
+        empresaResponse.setInstituicaoSocial(empresa.isInstituicaoSocial());
+        empresaResponse.setRazaoSocial(empresa.getRazaoSocial());
+        empresaResponse.setDotBack(empresa.getDotBack());
+        empresaResponse.setComissao(empresa.getComissao());
+
+        empresaResponse.setRevendedor(empresa.isRevendedor());
+        empresaResponse.setCnpj(empresa.getCnpj());
         empresaResponse.setBairro(empresa.getEndereco().getBairro());
         empresaResponse.setLogradouro(empresa.getEndereco().getLogradouro());   
         empresaResponse.setComplemento(empresa.getEndereco().getComplemento());

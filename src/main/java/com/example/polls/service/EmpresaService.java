@@ -174,9 +174,12 @@ public class EmpresaService {
         empresa.setComissao(empresaRequest.getComissao());
         empresa.setDetalhes(empresaRequest.getDetalhes());
         empresa.setUrl(empresaRequest.getUrl());
-
+        empresa.setInstituicaoSocial(empresaRequest.isInstituicaoSocial());
         empresa.setCategoriaEmpresa(CategoriaEmpresa.valueOf(empresaRequest.getCategoriaEmpresa()));
-        
+        empresa.setRazaoSocial(empresaRequest.getRazaoSocial());
+        empresa.setDotBack(empresaRequest.getDotBack());
+        empresa.setRevendedor(empresaRequest.isRevendedor());
+        empresa.setCnpj(empresaRequest.getCnpj());
         Endereco endereco = new Endereco();
         endereco.setBairro(empresaRequest.getBairro());
         endereco.setCep(empresaRequest.getCep());
@@ -201,6 +204,11 @@ public class EmpresaService {
         empresa.setDetalhes(empresaRequest.getDetalhes());
         empresa.setCategoriaEmpresa(CategoriaEmpresa.valueOf(empresaRequest.getCategoriaEmpresa()));
         empresa.setRepresentavel(empresaRequest.isRepresentavel());
+        empresa.setInstituicaoSocial(empresaRequest.isInstituicaoSocial());
+        empresa.setRazaoSocial(empresaRequest.getRazaoSocial());
+        empresa.setDotBack(empresaRequest.getDotBack());
+        empresa.setRevendedor(empresaRequest.isRevendedor());
+        empresa.setCnpj(empresaRequest.getCnpj());
         empresa.setUrl(empresaRequest.getUrl());
        
         

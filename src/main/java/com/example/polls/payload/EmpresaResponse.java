@@ -18,6 +18,10 @@ public class EmpresaResponse {
 	private String detalhes;
 	
 	private String nome;
+	
+    private String razaoSocial;
+
+    private String cnpj;
 
 	private Endereco endereco;
 
@@ -25,11 +29,16 @@ public class EmpresaResponse {
 
 	private String logo;
 
+	private BigDecimal dotBack;
+	private boolean revendedor;
+	
 	private CategoriaEmpresa categoriaEmpresa;
 
 	private String url;
 
 	private boolean representavel;
+	
+	private boolean instituicaoSocial;
 
 	private String cep;
 	private String logradouro;
@@ -39,7 +48,8 @@ public class EmpresaResponse {
 	private String cidade;
 	private String estado;
 	
-
+    private BigDecimal comissao;
+    
 	public Long getId() {
 		return id;
 	}
@@ -174,6 +184,54 @@ public class EmpresaResponse {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public boolean isInstituicaoSocial() {
+		return instituicaoSocial;
+	}
+
+	public void setInstituicaoSocial(boolean instituicaoSocial) {
+		this.instituicaoSocial = instituicaoSocial;
+	}
+
+	public String getRazaoSocial() {
+		return razaoSocial;
+	}
+
+	public void setRazaoSocial(String razaoSocial) {
+		this.razaoSocial = razaoSocial;
+	}
+
+	public BigDecimal getDotBack() {
+		return dotBack;
+	}
+
+	public void setDotBack(BigDecimal dotBack) {
+		this.dotBack = dotBack;
+	}
+
+	public boolean isRevendedor() {
+		return revendedor;
+	}
+
+	public void setRevendedor(boolean revendedor) {
+		this.revendedor = revendedor;
+	}
+
+	public BigDecimal getComissao() {
+		return comissao;
+	}
+
+	public void setComissao(BigDecimal comissao) {
+		this.comissao = comissao;
+	}
+
+	public String getCnpj() {
+		return cnpj;
+	}
+
+	public void setCnpj(String cnpj) {
+		this.cnpj = cnpj;
 	}
 
 	

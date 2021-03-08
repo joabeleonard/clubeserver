@@ -28,6 +28,7 @@ public class Empresa extends UserDateAudit implements Serializable{
     @JoinColumn(name = "user_id", nullable = false)
 	private User user;
 	
+	@Column(name="razao_social")
 	private String razaoSocial;
 	
 	private String cnpj;
@@ -37,6 +38,9 @@ public class Empresa extends UserDateAudit implements Serializable{
 	private BigDecimal desconto;
 	
 	private BigDecimal comissao;
+
+	@Column(name="dot_back")
+	private BigDecimal dotBack;
 //abc
 	@ManyToOne(fetch = FetchType.EAGER, optional = false, cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "endereco_id", nullable = false)
@@ -46,13 +50,17 @@ public class Empresa extends UserDateAudit implements Serializable{
 
 	private String telefone;
 
+	@Column(name="categoria_empresa")
 	private CategoriaEmpresa categoriaEmpresa;
 	
 	private String url;
 
+	private boolean revendedor;
+	
 	private boolean representavel;
 
-	
+	@Column(name="instituicao_social",  nullable = true)
+	private boolean instituicaoSocial;
 	
 	public Empresa() {
 		super();
@@ -169,4 +177,29 @@ public class Empresa extends UserDateAudit implements Serializable{
 		this.representavel = representavel;
 	}
 
+	public boolean isInstituicaoSocial() {
+		return instituicaoSocial;
+	}
+
+	public void setInstituicaoSocial(boolean instituicaoSocial) {
+		this.instituicaoSocial = instituicaoSocial;
+	}
+
+	public BigDecimal getDotBack() {
+		return dotBack;
+	}
+
+	public void setDotBack(BigDecimal dotBack) {
+		this.dotBack = dotBack;
+	}
+
+	public boolean isRevendedor() {
+		return revendedor;
+	}
+
+	public void setRevendedor(boolean revendedor) {
+		this.revendedor = revendedor;
+	}
+
+	
 }
